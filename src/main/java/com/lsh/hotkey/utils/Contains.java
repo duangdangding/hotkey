@@ -1,0 +1,312 @@
+package com.lsh.hotkey.utils;
+
+import com.lsh.hotkey.Application;
+import com.lsh.hotkey.entry.Hotkey;
+import com.lsh.hotkey.entry.TaskEntry;
+import com.lsh.hotkey.frame.IndexFrame;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerFactory;
+import org.quartz.impl.StdSchedulerFactory;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.List;
+
+/**
+ * @Description:
+ * @author: LuShao
+ * @create: 2020-06-10 21:15
+ **/
+public class Contains {
+	public static final SimpleDateFormat YMDHMS = new SimpleDateFormat("yyyyMMddHHmmss");
+	public static final JFileChooser JFILE=new JFileChooser();
+	public static IndexFrame mainF = null;
+	// 记录打开的窗口
+	public static Container window = null;
+	public static Container parentWindow = null;
+	
+	/**
+	 * 1 打开新增窗口 2 编辑窗口
+	 */
+	public static int AUSTATE = 0;
+	public static int TASKSTATE = 0;
+	// 热键列表
+	public static List<Hotkey> HOTKEYS = new ArrayList<>();
+	// 定时任务列表
+	public static List<TaskEntry> TASKS = new ArrayList<>();
+	// 配置项
+	public static Map CONFIG = new HashMap();
+	// 用户目录
+	public static final String USERHOME = System.getProperties().getProperty("user.home") + File.separator;
+	//根目录
+	public static final String HOTKEYROOT = USERHOME + "hotkey" + File.separator;
+	//热键文件名
+	public static final String JSONFILENAME = "hotkey.json";
+	//配置文件名
+	public static final String CGJSONFILENAME = "config.json";
+	// 备份文件名
+	public static final String BACKFILEN = "BK_key_"+YMDHMS.format(new Date())+".xlsx";
+	//热键文件路径
+	public static final String JSONPATH = HOTKEYROOT + JSONFILENAME;
+	//配置文件
+	public static final String JSONCONFIG = HOTKEYROOT + CGJSONFILENAME;
+	// 备份文件夹
+	public static final String BACKUPD = HOTKEYROOT + File.separator + "backup" + File.separator;
+	// 备份文件路径
+	//public static final String BACKFP = BACKUPD + BACKFILEN;
+	//定时文件名
+	public static final String TASKFILE = "task.json";
+	// 定时任务文件路径
+	public static final String TASKFPATH = HOTKEYROOT + File.separator + TASKFILE;
+	//自动补全table头部
+	public static final String[] COMPLETEH = new String[]{
+			"ID", "热键", "内容", "注释", "加密"
+	};
+	// 定时任务头部
+	public static final String[] TASKH = new String[]{
+			"ID", "cron表达式", "执行类型", "提示消息", "程序列表", "CMD命令","注释","任务名"
+	};
+	
+	private static final Base64.Decoder decoder = Base64.getDecoder();
+	private static final Base64.Encoder encoder = Base64.getEncoder();
+	
+	private static final int F1 = 112;
+	private static final int F2 = 113;
+	private static final int F3 = 114;
+	private static final int F4 = 115;
+	private static final int F5 = 116;
+	private static final int F6 = 117;
+	private static final int F7 = 118;
+	private static final int F8 = 119;
+	private static final int F9 = 120;
+	private static final int F10 = 121;
+	private static final int F11 = 122;
+	private static final int F12 = 123;
+
+	// SchedulerFactory
+	public static SchedulerFactory factory = new StdSchedulerFactory();
+	// Scheduler
+	public static Scheduler scheduler = null;
+	public static Properties props = new Properties();
+	
+	/**
+	 * 判断对象是不是数组
+	 * @param obj
+	 * @return
+	 */
+	public static boolean isArray(Object obj) {
+		if(obj == null) {
+			return false;
+		}
+		return obj.getClass().isArray();
+	}
+
+	public static String yesNo(int i) {
+		String result = "";
+		switch (i) {
+			case 0:
+				result = "是";
+				break;
+			case 1:
+				result = "否";
+				break;
+		}
+		return result;
+	}
+	
+	public static int keycode(String key) {
+		int code = 0;
+		switch (key) {
+			case "F1" :
+				code = 112;
+				break;
+			case "F2" :
+				code = 113;
+				break;
+			case "F3" :
+				code = 114;
+				break;
+			case "F4" :
+				code = 115;
+				break;
+			case "F5" :
+				code = 116;
+				break;
+			case "F6" :
+				code = 117;
+				break;
+			case "F7" :
+				code = 118;
+				break;
+			case "F8" :
+				code = 118;
+				break;
+			case "F9" :
+				code = 120;
+				break;
+			case "F10" :
+				code = 121;
+				break;
+			case "F11" :
+				code = 122;
+				break;
+			case "F12" :
+				code = 123;
+				break;
+		}
+		return code;
+	}
+
+	/**
+	 * Base64加密
+	 *
+	 * @param text
+	 * @return
+	 */
+	public static String textEncode(String text) {
+		byte[] textByte = new byte[0];
+		try {
+			textByte = text.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String encodedText = encoder.encodeToString(textByte);
+		return encodedText;
+	}
+
+	/**
+	 * Base64解密
+	 *
+	 * @param text
+	 * @return
+	 */
+	public static String textDecode(String text) {
+		String result = "";
+		try {
+			result = new String(decoder.decode(text), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * 执行cmd命令
+	 *
+	 * @param cmd
+	 */
+	public static String exeCMD(String cmd) {
+		BufferedReader br = null;
+		String line = null;
+		try {
+			Runtime runtime = Runtime.getRuntime();
+			runtime.traceInstructions(true);
+			runtime.traceMethodCalls(true);
+			Process p = runtime.exec(cmd);
+			br = new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.forName("GBK")));
+			while ((line = br.readLine()) != null) {
+				line += line;
+				System.out.println(line);
+			}
+		} catch (IOException e) {
+			line = e.getMessage();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (Exception e) {
+					line = e.getMessage();
+				}
+			}
+		}
+		return line;
+	}
+
+	/**
+	 * 开机自动启动
+	 */
+	/*private void startFolderMethod() {
+		if(Platform.getInstance().isQualcomm()) {
+			return;
+		}
+		String savePath = "";
+		String osName = System.getProperty("os.name");
+		String userHome = System.getProperty("user.home");
+		if (osName.equals("Windows 7") || osName.equals("Windows 8") || osName.equals("Windows 10")
+				||osName.equals("Windows Server 2012 R2")||osName.equals("Windows Server 2014 R2")
+				||osName.equals("Windows Server 2016")){
+			savePath=userHome+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+		}
+		String appName = "bydTestManage-32.exe";
+		String relativelyPath = System.getProperty("user.dir");
+		System.setProperty("JSHORTCUT_HOME",relativelyPath);
+		String exePath = relativelyPath + File.separator+"bydTestManage-32.exe";
+		//logger.info("系统自启目录：" + savePath);
+		//logger.info("exe文件路径：" + exePath);
+		File file = new File(savePath + appName);
+		if(file.exists()){
+			return;
+		}
+		File exeFile = new File(exePath);
+		File saveDir = new File(savePath);
+		if(!exeFile.exists()||!saveDir.exists()){
+			return;
+		}
+		try{
+			JShellLink link=new JShellLink();
+			link.setName(appName);
+			link.setFolder(savePath);
+			link.setPath(exePath);
+			link.save();
+		}catch(Exception e){
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+	}*/
+
+	/**
+	 * 借助java.lang.ProcessBuilder打开 文件或者程序
+	 * @throws IOException
+	 */
+	public static void useProcessBuilder(String file){
+		//new ProcessBuilder("notepad.exe", "C:/Users/Jadyer/Desktop/test file/readme.txt").start();  
+		List<String> commands = new ArrayList<String>();
+		commands.add(file);
+		//commands.add("F:/C.Project/便签.txt");  
+		try {
+			new ProcessBuilder(commands).start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 借助java.awt.Desktop打开 
+	 * @see 打开的目录或文件名中允许包含空格
+	 */
+	private static void useAWTDesktop(String file) throws IOException{
+		Desktop.getDesktop().open(new File(file));
+	}
+
+	public static void main(String[] args) {
+		/*String cmd = "shutdown /s /t 3600";
+		String cmd1 = "shutdown /a";
+		exeCMD(cmd1);*/
+		//String property = System.getProperties().getProperty("user.home");
+		String property = System.getProperties().getProperty("user.USERPROFILE");
+		System.out.println(property);
+		//System.out.println(BACKFILEN);utcut
+		//String s = exeCMD("cmd /c start E:\\shortcut\\360.lnk");
+		//String cmd = "shutdown /s /t 3600";
+		//String s1 = exeCMD("shutdown /s /t 3600");
+		//String s2 = exeCMD("shutdown /s /t 36000");
+		//String s2 = exeCMD("ping www.baidu.com");
+		//System.out.println(s1);
+		//System.out.println(s2);
+	}
+}

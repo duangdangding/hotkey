@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.lsh</groupId>
+  <artifactId>hotkey5</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>hotkey5</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+	  <!--
+	  mvn install:install-file -Dfile=SwingSets3(BeautyEyeLNFDemo).jar -DgroupId=com.sun.SwingSets3 -DartifactId=SwingSets3-BeautyEyeLNFDemo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+	  mvn install:install-file -Dfile=jintellitype-1.3.9.jar -DgroupId=com.melloware.jintellitype -DartifactId=jintellitype -Dversion=1.3.9 -Dpackaging=jar -DgeneratePom=true
+	  mvn install:install-file -Dfile=datepicker.jar -DgroupId=com.eltima.components -DartifactId=datepicker -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+	  mvn install:install-file -Dfile=jl1.0.1.jar -DgroupId=com.jplayer.jplayer -DartifactId=jplayer -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+-->
+
+	  <dependency>
+		  <groupId>com.jplayer.jplayer</groupId>
+		  <artifactId>jplayer</artifactId>
+		  <version>1.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.quartz-scheduler</groupId>
+		  <artifactId>quartz</artifactId>
+		  <version>2.3.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context-support</artifactId>
+		  <version>4.3.7.RELEASE</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-tx</artifactId>
+		  <version>4.1.5.RELEASE</version>
+	  </dependency>
+
+
+	  <dependency>
+		  <groupId>org.apache.xmlbeans</groupId>
+		  <artifactId>xmlbeans</artifactId>
+		  <version>2.6.0</version>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>com.eltima.components</groupId>
+		  <artifactId>datepicker</artifactId>
+		  <version>1.0</version>
+	  </dependency>
+
+	  <!--热键-->
+	  <dependency>
+		  <groupId>com.melloware</groupId>
+		  <artifactId>jintellitype</artifactId>
+		  <version>1.3.9</version>
+	  </dependency>
+	  <!--<dependency>
+		  <groupId>com.github.tulskiy</groupId>
+		  <artifactId>jkeymaster</artifactId>
+		  <version>1.2</version>
+	  </dependency>-->
+
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-core</artifactId>
+		  <version>4.1.5.RELEASE</version>
+	  </dependency>
+	  
+	  <dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi</artifactId>
+		  <version>3.17</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi-ooxml</artifactId>
+		  <version>3.17</version>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-io</artifactId>
+		  <version>1.3.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.commons</groupId>
+		  <artifactId>commons-lang3</artifactId>
+		  <version>3.9</version>
+	  </dependency>
+	  
+	  <dependency>
+		  <groupId>com.alibaba</groupId>
+		  <artifactId>fastjson</artifactId>
+		  <version>1.2.15</version>
+	  </dependency>
+	  
+	  <!--主题-->
+	  <dependency>
+		  <groupId>com.sun.SwingSets3</groupId>
+		  <artifactId>SwingSets3-BeautyEyeLNFDemo</artifactId>
+		  <version>1.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.weblookandfeel</groupId>
+		  <artifactId>weblaf-ui</artifactId>
+		  <version>1.2.13</version>
+	  </dependency>
+	  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.lsh.hotkey.Application</mainClass>
+								</transformer>
+							</transformers>
+							<artifactSet>
+							</artifactSet>
+							<!--<outputFile>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</outputFile>-->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/**/*.dll</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resource</directory>
+				<includes>
+					<include>**/**</include>
+				</includes>
+<!--				<filtering>false</filtering>-->
+			</resource>
+		</resources>
+	</build>
+</project>

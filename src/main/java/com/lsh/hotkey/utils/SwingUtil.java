@@ -1,0 +1,497 @@
+package com.lsh.hotkey.utils;
+
+import com.lsh.hotkey.entry.Hotkey;
+import com.lsh.hotkey.entry.TaskEntry;
+import com.lsh.hotkey.frame.ExcelFileFilter;
+import com.melloware.jintellitype.HotkeyListener;
+import com.melloware.jintellitype.JIntellitype;
+import org.quartz.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+/**
+ * 创建CronTrigger
+ * CronTrigger实例可以通过TriggerBuilder（配置主要属性）和CronScheduleBuilder（配置CronTrigger专有的属性）配置。为了以DSL风格使用这些builder，需要静态导入：下面这3个
+ */
+
+/**
+ * @Description:
+ * @author: LuShao
+ * @create: 2020-07-15 14:16
+ **/
+public class SwingUtil {
+
+	/**
+	 * 选择jCheckBox
+	 * @param str
+	 */
+	public static void selectBox(Container ct,String str) {
+		int cron = Integer.valueOf(str);
+		List<JCheckBox> allJCheckBox = SwingUtil.getAllJCheckBox(ct, null);
+		for (JCheckBox jCheckBox : allJCheckBox) {
+			int num = Integer.valueOf(jCheckBox.getText());
+			if (num == cron) {
+				jCheckBox.setSelected(true);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * 获取所有选中的checkbox的值
+	 * @param ct
+	 * @return
+	 */
+	public static String getSelectBox(Container ct) {
+		List<JCheckBox> allJCheckBox = getAllJCheckBox(ct, null);
+		StringBuffer sb = new StringBuffer();
+		for (JCheckBox jCheckBox : allJCheckBox) {
+			if (jCheckBox.isSelected()) {
+				String text = jCheckBox.getText();
+				sb.append(text).append(",");
+			}
+		}
+		int length = sb.length();
+		return sb.substring(0,length-1).toString();
+	}
+
+	/**
+	 * 获取组件中所有的JCheckBox
+	 * @param ct
+	 * @param list
+	 * @return
+	 */
+	public static List<JCheckBox> getAllJCheckBox(Container ct, List<JCheckBox> list){
+		if(list==null){
+			list=new ArrayList<JCheckBox>();
+		}
+		int count=ct.getComponentCount();
+		for(int i=0;i<count;i++){
+			Component c=ct.getComponent(i);
+			if(c instanceof JCheckBox){
+				list.add((JCheckBox)c);
+			}
+			else if(c instanceof Container){
+				getAllJCheckBox((Container)c,list);
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 初始化自定义table
+	 */
+	public static void initTable(JTable jTable,String[] headers,Object[][] os) {
+		jTable.setModel(new DefaultTableModel(os,headers));
+		jTable.getColumnModel().getColumn(0);
+	}
+
+	// 初始化表格数据
+	public static void tableCenter(JTable table, String[] headers, Object[][] os) {
+		// 设置table内容居中
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(Object.class, tcr);
+		// 设置table Header居中
+		((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
+		JTableHeader head = table.getTableHeader(); // 创建表格标题对象
+		head.setFont(new Font("微软雅黑", Font.PLAIN, 16));// 设置表头字体
+		table.setFont(new Font("微软雅黑", Font.PLAIN, 14));// 设置表格字体
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		SwingUtil.initTable(table,headers,os);
+
+		table.setAutoscrolls(false);
+		table.setRowHeight(25);
+	}
+
+	/**
+	 * 反射初始化table数据
+	 * @param data
+	 * @return
+	 */
+	public static Object[][] getTableData(List<?> data) {
+		if (data != null && data.size() > 0) {
+			try {
+				Class<?> clazz = data.get(0).getClass();
+				Field[] fields = clazz.getDeclaredFields();
+				Method method = null;
+				Object o;
+				int column = fields.length;
+				int size = data.size();
+				Object[][] os = new Object[size][column];
+				for (int i = 0; i < size; i++) {
+					Object[] hks = new Object[column];
+					for (int j = 0; j < column; j++) {
+						Field field = fields[j];
+						//如果字段是私有的,那么必须要对这个字段设置
+						field.setAccessible(true);
+						method = clazz.getDeclaredMethod(ClazzUtil.getMethodName(field.getName()));
+						method.setAccessible(true);
+						o = method.invoke(data.get(i));
+						boolean b = Contains.isArray(o);
+						// 是数组对象
+						if (b) {
+							//对象转数组
+							int length = Array.getLength(o);
+							StringBuffer sb = new StringBuffer();
+							for (int k = 0; k < length; k++) {
+								Object o1 = Array.get(o, k);
+								sb.append(o1.toString());
+							}
+							//o = new String(sb.toString().getBytes(),"utf-8");
+							o = sb.toString();
+						}
+						//System.out.println(o);
+						hks[j] = o;
+					}
+					for (int j = 0; j < hks.length; j++) {
+						os[i][j] = hks[j];
+					}
+				}
+				return os;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * file过滤器   
+	 * @param model excel *
+	 * @return
+	 */
+	public static int openFile(String model) {
+		// 1设定只能选择到文件夹 0只能选择文件
+		Contains.JFILE.setFileSelectionMode(0);
+		if ("excel".equals(model)) {
+			ExcelFileFilter excelFilter = new ExcelFileFilter();
+			Contains.JFILE.addChoosableFileFilter(excelFilter);
+			Contains.JFILE.setFileFilter(excelFilter);
+		}
+		// 此句是打开文件选择器的触发语句
+		return Contains.JFILE.showOpenDialog(null);
+	}
+
+	/**
+	 * 选择文件夹
+	 * @return
+	 */
+	public static int openDir() {
+		// 1设定只能选择到文件夹 0只能选择文件
+		Contains.JFILE.setFileSelectionMode(1);
+		// 此句是打开文件选择器的触发语句
+		return Contains.JFILE.showOpenDialog(null);
+	}
+
+	/**
+	 * 读取并执行定时任务
+	 */
+	public static void readTask() throws SchedulerException {
+		Contains.TASKS = JsonUtil.jsonToObject(Contains.TASKFPATH, TaskEntry.class);
+	//	执行任务
+		Scheduler scheduler= Contains.scheduler;
+		for (int i = 0; i < Contains.TASKS.size(); i++) {
+			TaskEntry taskEntry = Contains.TASKS.get(i);
+		//	意义绑定并执行
+			JobUtil.bingTask(taskEntry);
+		}
+	}
+
+	/**
+	 * 设置窗口图标
+	 * @param frame
+	 */
+	public static void setFrameTitle(JDialog frame) {
+		ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/add.png"),"");
+		frame.setIconImage(icon.getImage());
+		//居中
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 读取配置
+	 */
+	public static void readConfig() {
+		List<Map> maps = JsonUtil.jsonToObject(Contains.JSONCONFIG, Map.class);
+		if (maps.size() > 0) {
+			Contains.CONFIG = maps.get(0);
+		}
+		
+		if (Contains.CONFIG.size() == 0) {
+			Contains.CONFIG.put("runtime",1);
+			JsonUtil.objectToJson(Contains.CONFIG,Contains.HOTKEYROOT,Contains.CGJSONFILENAME);
+		} else {
+			Integer runtime = (Integer) Contains.CONFIG.get("runtime");
+			if (runtime <= 1) {
+				Contains.CONFIG.put("runtime",2);
+				JsonUtil.objectToJson(Contains.CONFIG,Contains.HOTKEYROOT,Contains.CGJSONFILENAME);
+			}
+		}
+	}
+
+	/**
+	 * 注册热键
+	 */
+	public static void registerHotKey() {
+		
+		List<Hotkey> hotkeys = JsonUtil.jsonToObject(Contains.JSONPATH,Hotkey.class);
+		Contains.HOTKEYS = hotkeys;
+		if (hotkeys != null) {
+			//启动之后要查询数据库  注册热键
+			int size = hotkeys.size();
+			if (size > 0) {
+				for (int i = 0; i < size; i++) {
+					// 第一步：注册热键，热键标识，组合键（shift+Ctrl+其他）
+					Hotkey o = (Hotkey) hotkeys.get(i);
+					if (o.getHotkey() != null) {
+						JIntellitype.getInstance().registerHotKey(o.getKId()+1, JIntellitype.MOD_CONTROL + JIntellitype.MOD_SHIFT,Contains.keycode(o.getHotkey()));
+					}
+				}
+				HotkeyListener hotkeyListener = new HotkeyListener() {
+					@Override
+					public void onHotKey(int i) {
+						if (i !=0 ) {
+							try {
+								Robot robot = new Robot();
+								robot.keyRelease(KeyEvent.VK_CONTROL);
+								robot.keyRelease(KeyEvent.VK_SHIFT);
+								Thread.sleep(100);
+							/*Map map = new HashMap();
+							map.put("k_id = ", i);
+							Hotkey o = (Hotkey) SqlUtil.setlectAll(map).get(0);*/
+								Hotkey o = Contains.HOTKEYS.get(i);
+								String kaction = o.getKaction();
+								Integer encrypt = o.getEncrypt();
+								if (encrypt == 0) {
+									kaction = Contains.textDecode(kaction);
+								}
+								char[] uchars = kaction.toCharArray();
+								inputKey(robot,uchars);
+							} catch (AWTException | InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				};
+				
+				//添加监听
+				JIntellitype.getInstance().addHotKeyListener(hotkeyListener);
+			}
+		}
+	}
+
+	/**
+	 * 关闭当前窗口，如果当前窗口已经关闭，则关闭父窗口
+	 * @param window
+	 */
+	public static void closeWindow(Container window) {
+		if (window != null) {
+			if (window instanceof JOptionPane) {
+				window.setVisible(false);
+				Contains.window = Contains.parentWindow;
+			} else {
+				if (window.isVisible()) {
+					window.setVisible(false);
+				} else {
+					closeWindow(window.getParent());
+				}
+			}
+		}
+	}
+
+	/**
+	 * 键盘输入
+	 * @param robot
+	 * @param uchars
+	 */
+	public static void inputKey(Robot robot, char[] uchars) {
+		try {
+			for (char uchar : uchars) {
+				switch (uchar) {
+					case '!' :
+						int c1 = Character.valueOf('1');
+						// 按下
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c1);
+						//弹起
+						robot.keyRelease(c1);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '@' :
+						int c2 = Character.valueOf('2');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c2);
+						robot.keyRelease(c2);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '#' :
+						int c3 = Character.valueOf('3');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c3);
+						robot.keyRelease(c3);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '$' :
+						int c4 = Character.valueOf('4');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c4);
+						robot.keyRelease(c4);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '%' :
+						int c5 = Character.valueOf('5');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c5);
+						robot.keyRelease(c5);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '^' :
+						int c6 = Character.valueOf('6');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c6);
+						robot.keyRelease(c6);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '&' :
+						int c7 = Character.valueOf('7');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c7);
+						robot.keyRelease(c7);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '*' :
+						int c8 = Character.valueOf('8');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c8);
+						robot.keyRelease(c8);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '(' :
+						int c9 = Character.valueOf('9');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c9);
+						robot.keyRelease(c9);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case ')' :
+						int c0 = Character.valueOf('0');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c0);
+						robot.keyRelease(c0);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '_' :
+						int c_1 = Character.valueOf('-');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_1);
+						robot.keyRelease(c_1);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '+' :
+						int c_2 = Character.valueOf('=');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_2);
+						robot.keyRelease(c_2);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '{' :
+						int c_3 = Character.valueOf('[');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_3);
+						robot.keyRelease(c_3);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '}' :
+						int c_4 = Character.valueOf(']');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_4);
+						robot.keyRelease(c_4);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '|' :
+						int c_5 = Character.valueOf('\\');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_5);
+						robot.keyRelease(c_5);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case ':' :
+						int c_6 = Character.valueOf(';');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_6);
+						robot.keyRelease(c_6);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '"' :
+						int c_7 = Character.valueOf('\'');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_7);
+						robot.keyRelease(c_7);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '<' :
+						int c_8 = Character.valueOf(',');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_8);
+						robot.keyRelease(c_8);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '>' :
+						int c_9 = Character.valueOf('.');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_9);
+						robot.keyRelease(c_9);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '?' :
+						int c_10 = Character.valueOf('/');
+						robot.keyPress(KeyEvent.VK_SHIFT);
+						robot.keyPress(c_10);
+						robot.keyRelease(c_10);
+						robot.keyRelease(KeyEvent.VK_SHIFT);
+						break;
+					case '~' :// 判断是不是- （tab）
+						Thread.sleep(100);
+						robot.keyPress(KeyEvent.VK_ENTER);
+						robot.keyRelease(KeyEvent.VK_ENTER);
+						break;
+					case '=' :// 判断是不是- （enter）
+						robot.keyPress(KeyEvent.VK_ENTER);
+						robot.keyRelease(KeyEvent.VK_ENTER);
+						break;
+					default:
+						int character = Character.valueOf(uchar);
+						if (Character.isUpperCase(uchar)) {
+							robot.keyPress(KeyEvent.VK_CAPS_LOCK);
+							robot.keyRelease(KeyEvent.VK_CAPS_LOCK);
+							robot.keyPress(character);
+							robot.keyRelease(character);
+							robot.keyPress(KeyEvent.VK_CAPS_LOCK);
+							robot.keyRelease(KeyEvent.VK_CAPS_LOCK);
+						} else {
+							String as = String.valueOf(uchar).toUpperCase();
+							int character2 = Character.valueOf(as.toCharArray()[0]);
+							robot.keyPress(character2);
+							robot.keyRelease(character2);
+						}
+						break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
