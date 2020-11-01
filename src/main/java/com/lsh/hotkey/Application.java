@@ -29,13 +29,10 @@ public class Application {
 			//InputStream in = Application.class.getResourceAsStream("application.properties");
 			//String path1 = ClassUtils.getDefaultClassLoader().getResource("").getPath();
 			//String path2 = ClassUtils.getDefaultClassLoader().getResource("/").getPath();
-			//System.out.println(path1+"~~~"+path2);
 			//org.springframework.util.ClassUtils
 			//URL resource = Application.class.getResource("/");
-			//System.out.println("~~"+resource);
 			//String path = resource.getFile()+"application.properties";
 			byte[] bytes = JsonUtil.toData("application.properties");
-			System.out.println("bytes!!!!"+bytes);
 			//将字节数组转换成流
 			InputStream in = new BufferedInputStream(new ByteArrayInputStream(bytes));
 			Contains.props.load(in);;

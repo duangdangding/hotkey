@@ -211,7 +211,7 @@ public class Contains {
 			br = new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.forName("GBK")));
 			while ((line = br.readLine()) != null) {
 				line += line;
-				System.out.println(line);
+				//System.out.println(line);
 			}
 		} catch (IOException e) {
 			line = e.getMessage();
@@ -299,7 +299,7 @@ public class Contains {
 		exeCMD(cmd1);*/
 		//String property = System.getProperties().getProperty("user.home");
 		String property = System.getProperties().getProperty("user.USERPROFILE");
-		System.out.println(property);
+		//System.out.println(property);
 		//System.out.println(BACKFILEN);utcut
 		//String s = exeCMD("cmd /c start E:\\shortcut\\360.lnk");
 		//String cmd = "shutdown /s /t 3600";

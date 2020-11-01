@@ -568,7 +568,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 			return ;
 		} else {
 			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
-			//System.out.println(absolutePath);
 			String[] headers = new String[]{
 					"ID", "热键", "内容", "注释", "加密"
 			};
@@ -604,7 +603,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 				Contains.HOTKEYS = new ArrayList<>();
 			}
 			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
-			//System.out.println(absolutePath);
 			String msg = "";
 			try {
 				List<Hotkey> hotkeys = PoiUtil.parseExcel(absolutePath, Hotkey.class,Contains.HOTKEYS.size());
@@ -707,7 +705,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 			return ;
 		} else {
 			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
-			//System.out.println(absolutePath);
 			ExcelData data =new ExcelData();
 			data.setList(Contains.TASKS);
 			data.setHeaders(Contains.TASKH);
@@ -744,7 +741,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 				Contains.TASKS = new ArrayList<>();
 			}
 			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
-			//System.out.println(absolutePath);
 			String msg = "";
 			try {
 				List<TaskEntry> taskEntries = PoiUtil.parseExcel(absolutePath, TaskEntry.class,Contains.TASKS.size());
@@ -854,7 +850,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 					win.setVisible(true);
 				}
 				//String property = System.getProperties().getProperty("user.dir");
-				//System.out.println(property);
 				//JOptionPane.showMessageDialog(win,property);
 
 				/*win.addKeyListener(new KeyListener() {
@@ -993,11 +988,11 @@ public class IndexFrame extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("anxai");
+		//System.out.println("anxai");
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("taiqi");
+		//System.out.println("taiqi");
 	}
 }

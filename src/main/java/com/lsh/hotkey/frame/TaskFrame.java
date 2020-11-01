@@ -576,10 +576,6 @@ public class TaskFrame extends JDialog {
 				return ;
 			}
 			save.setExecs(files.toArray(new String[files.size()]));
-			/*String[] execs = save.getExecs();
-			for (String exec : execs) {
-				System.out.println("111111:"+exec);
-			}*/
 			comment = "打开程序";
 		} else {
 			type = 3;
