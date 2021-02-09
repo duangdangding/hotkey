@@ -40,8 +40,8 @@ public class AddFrame extends JDialog {
 	private void initComponents() {
 
 		buttonGroup1 = new ButtonGroup();
-		jButton1 = new JButton();
-		jButton2 = new JButton();
+		submit = new JButton("确定");
+		cancel = new JButton("取消");
 		jTextField3 = new JTextField();
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
@@ -52,46 +52,44 @@ public class AddFrame extends JDialog {
 		jScrollPane1 = new JScrollPane();
 		jTextArea1 = new JTextArea();
 		jLabel5 = new JLabel();
-		jRadioButton1 = new JRadioButton();
-		jRadioButton2 = new JRadioButton();
+		ryes = new JRadioButton("是");
+		rno = new JRadioButton("否");
 		jButton3 = new JButton();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		jButton1.setText("确定");
-		jButton1.addActionListener(new ActionListener() {
+		submit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
-				jButton1ActionPerformed(evt);
+				submitActionPerformed(evt);
 			}
 		});
 
-		jButton2.setText("取消");
-		jButton2.addActionListener(new ActionListener() {
+		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				dispose();
 			}
 		});
 
-		jTextField3.setFont(new Font("宋体", 0, 16)); // NOI18N
+		jTextField3.setFont(Contains.F_S_0_16);
 
-		jLabel1.setFont(new Font("宋体", 1, 16)); // NOI18N
+		jLabel1.setFont(Contains.F_S_1_16);
 		jLabel1.setText("热键");
 
-		jLabel2.setFont(new Font("宋体", 1, 16)); // NOI18N
+		jLabel2.setFont(Contains.F_S_1_16);
 		jLabel2.setText("内容");
 
-		jLabel3.setFont(new Font("宋体", 1, 16)); // NOI18N
+		jLabel3.setFont(Contains.F_S_1_16);
 		jLabel3.setText("注释");
 
 		jLabel4.setText("CTRL + SHIFT +");
 
-		jComboBox1.setFont(new Font("宋体", 0, 14)); // NOI18N
+		jComboBox1.setFont(Contains.F_S_0_14);
 		String[] keys = new String[]{"F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12"};
 		jComboBox1.setModel(new DefaultComboBoxModel<>(keys));
 
-		jLabel6.setFont(new Font("宋体", 1, 14)); // NOI18N
+		jLabel6.setFont(Contains.F_S_1_14);
 		jLabel6.setForeground(Color.red);
 		jLabel6.setText("*");
 
@@ -100,15 +98,12 @@ public class AddFrame extends JDialog {
 		jTextArea1.setRows(5);
 		jScrollPane1.setViewportView(jTextArea1);
 
-		jLabel5.setFont(new Font("宋体", 1, 14)); // NOI18N
+		jLabel5.setFont(Contains.F_S_1_14);
 		jLabel5.setText("加密");
 
-		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setSelected(true);
-		jRadioButton1.setText("是");
-
-		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setText("否");
+		buttonGroup1.add(ryes);
+		ryes.setSelected(true);
+		buttonGroup1.add(rno);
 
 		jButton3.setText("说明");
 		jButton3.addActionListener(new ActionListener() {
@@ -144,18 +139,18 @@ public class AddFrame extends JDialog {
 														.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
 														.addGroup(layout.createSequentialGroup()
 																.addGap(22, 22, 22)
-																.addComponent(jRadioButton1)
+																.addComponent(ryes)
 																.addGap(18, 18, 18)
-																.addComponent(jRadioButton2)))
+																.addComponent(rno)))
 												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))
 										.addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 												.addComponent(jLabel3)
 												.addGap(18, 18, 18)
 												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 														.addGroup(layout.createSequentialGroup()
-																.addComponent(jButton1)
+																.addComponent(submit)
 																.addGap(62, 62, 62)
-																.addComponent(jButton2))
+																.addComponent(cancel))
 														.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE))
 												.addGap(6, 6, 6)))
 								.addComponent(jLabel6)
@@ -174,8 +169,8 @@ public class AddFrame extends JDialog {
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jLabel5)
-										.addComponent(jRadioButton1)
-										.addComponent(jRadioButton2))
+										.addComponent(ryes)
+										.addComponent(rno))
 								.addGap(9, 9, 9)
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -193,8 +188,8 @@ public class AddFrame extends JDialog {
 										.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGap(27, 27, 27)
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-										.addComponent(jButton1)
-										.addComponent(jButton2))
+										.addComponent(submit)
+										.addComponent(cancel))
 								.addContainerGap(41, Short.MAX_VALUE))
 		);
 
@@ -204,12 +199,12 @@ public class AddFrame extends JDialog {
 
 	private void clearJfield() {
 		jComboBox1.setSelectedIndex(0);
-		jRadioButton1.setSelected(true);
+		ryes.setSelected(true);
 		jTextArea1.setText("");
 		jTextField3.setText("");
 	}
 	// 新增或修改
-	private void jButton1ActionPerformed(ActionEvent evt) {
+	private void submitActionPerformed(ActionEvent evt) {
 		String key = jComboBox1.getSelectedItem().toString();
 		String action = jTextArea1.getText().trim();
 		String updateM = "";
@@ -217,18 +212,17 @@ public class AddFrame extends JDialog {
 		Contains.window = dialog;
 		Contains.parentWindow = this;
 		if (!StringUtils.isBlank(action)) {
-			int encrypt = 1;
-			if (jRadioButton1.isSelected()) {
-				encrypt = 0;
+			String encrypt = "否";
+			if (ryes.isSelected()) {
+				encrypt = "是";
 				action = Contains.textEncode(action);
 			}
 			Hotkey hotkey = new Hotkey();
-			hotkey.setHotkey(key);
+			hotkey.setHotkey("CTRL+SHIFT+" + key);
 			hotkey.setKaction(action);
 			hotkey.setExplain(jTextField3.getText());
 			hotkey.setEncrypt(encrypt);
 			if ( Contains.AUSTATE == 1) {
-				//result = SqlUtil.saveHotkey(hotkey);
 				int size = 0;
 				if (Contains.HOTKEYS != null) {
 					size = Contains.HOTKEYS.size();
@@ -239,7 +233,7 @@ public class AddFrame extends JDialog {
 				if (b) {
 					registerRe(size,key);
 					updateM = "新增成功~";
-					parentF.initTable();
+					parentF.initHotT();
 				}
 			} else {
 				hotkey.setKId(id);
@@ -250,7 +244,7 @@ public class AddFrame extends JDialog {
 					JIntellitype.getInstance().unregisterHotKey(id);
 					registerRe(id,key);
 					updateM = "修改成功~";
-					parentF.initTable();
+					parentF.initHotT();
 				}
 			}
 		} else {
@@ -270,10 +264,6 @@ public class AddFrame extends JDialog {
 	 * @param key
 	 */
 	private void registerRe(int id,String key) {
-		/*Map map = new HashMap();
-		map.put("hotkey = ","'"+key+"'");
-		Hotkey o = (Hotkey) SqlUtil.setlectAll(map).get(0);
-		JIntellitype.getInstance().registerHotKey(o.getKId(), JIntellitype.MOD_CONTROL+JIntellitype.MOD_SHIFT, o.getKeycode());*/
 		JIntellitype.getInstance().registerHotKey(id, JIntellitype.MOD_CONTROL+JIntellitype.MOD_SHIFT, Contains.keycode(key));
 	}
 
@@ -284,33 +274,27 @@ public class AddFrame extends JDialog {
 		dialog.showMessageDialog(this,message);
 	}
 
-	/*private void flushTable() {
-		// 刷新表格内容
-		SwingUtil.initTable(parentF.getjTable1(),Contains.COMPLETEH,SwingUtil.getTableData(Contains.HOTKEYS));
-		dispose();
-	}*/
-	
 	// 设置内容
+	String title = "";
 	private void initFrame() {
 		if (Contains.AUSTATE == 1) {
-			//clearJfield();
 			hk = null;
-			this.setTitle("新增");
+			title = "新增";
 		} else {
-			this.setTitle("编辑");
+			title = "编辑";
 		}
 		
 		hk = parentF.getHk();
 		if (hk != null) {
 			id = hk.getKId();
-			jComboBox1.setSelectedItem(hk.getHotkey());
-			Integer encrypt = hk.getEncrypt();
+			jComboBox1.setSelectedItem(hk.getHotkey().split("CTRL+SHIFT+")[0]);
+			String encrypt = hk.getEncrypt();
 			String kaction = hk.getKaction();
-			if (encrypt == 0) {
-				jRadioButton1.setSelected(true);
+			if ("是".equals(encrypt)) {
+				ryes.setSelected(true);
 				kaction = Contains.textDecode(kaction);
 			} else {
-				jRadioButton2.setSelected(true);
+				rno.setSelected(true);
 			}
 			jTextArea1.setText(kaction);
 			jTextField3.setText(hk.getExplain());
@@ -321,12 +305,12 @@ public class AddFrame extends JDialog {
 	public void open2() {
 		initFrame();
 
-		SwingUtil.setFrameTitle(this);
+		SwingUtil.setFrameTitle(this,title);
 	}
 
 	private ButtonGroup buttonGroup1;
-	private JButton jButton1;
-	private JButton jButton2;
+	private JButton submit;
+	private JButton cancel;
 	private JButton jButton3;
 	private JComboBox<String> jComboBox1;
 	private JLabel jLabel1;
@@ -335,8 +319,8 @@ public class AddFrame extends JDialog {
 	private JLabel jLabel4;
 	private JLabel jLabel5;
 	private JLabel jLabel6;
-	private JRadioButton jRadioButton1;
-	private JRadioButton jRadioButton2;
+	private JRadioButton ryes;
+	private JRadioButton rno;
 	private JScrollPane jScrollPane1;
 	private JTextArea jTextArea1;
 	private JTextField jTextField3;

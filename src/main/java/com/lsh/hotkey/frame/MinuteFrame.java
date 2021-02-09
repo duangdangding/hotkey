@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
  * @author Administrator
  */
 public class MinuteFrame extends JDialog {
-	private Font font = new Font("宋体", 1, 14);
 	private String minuCron = "";
 	private JTextField textField;
 
@@ -108,218 +107,218 @@ public class MinuteFrame extends JDialog {
 		jButton2 = new JButton();
 
 		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setFont(font); // NOI18N
+		jRadioButton1.setFont(Contains.F_S_1_14);
 		jRadioButton1.setSelected(true);
 		jRadioButton1.setText("每分钟");
 
 		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setFont(font); // NOI18N
+		jRadioButton2.setFont(Contains.F_S_1_14);
 		jRadioButton2.setText("周期");
 
 		buttonGroup1.add(jRadioButton3);
-		jRadioButton3.setFont(font); // NOI18N
+		jRadioButton3.setFont(Contains.F_S_1_14);
 		jRadioButton3.setText("从");
 
 		buttonGroup1.add(jRadioButton4);
-		jRadioButton4.setFont(font); // NOI18N
+		jRadioButton4.setFont(Contains.F_S_1_14);
 		jRadioButton4.setText("指定");
 
-		jCheckBox1.setFont(font); // NOI18N
+		jCheckBox1.setFont(Contains.F_S_1_14);
 		jCheckBox1.setText("00");
 
-		jCheckBox2.setFont(font); // NOI18N
+		jCheckBox2.setFont(Contains.F_S_1_14);
 		jCheckBox2.setText("01");
 
-		jCheckBox3.setFont(font); // NOI18N
+		jCheckBox3.setFont(Contains.F_S_1_14);
 		jCheckBox3.setText("02");
 
-		jCheckBox4.setFont(font); // NOI18N
+		jCheckBox4.setFont(Contains.F_S_1_14);
 		jCheckBox4.setText("03");
 
-		jCheckBox5.setFont(font); // NOI18N
+		jCheckBox5.setFont(Contains.F_S_1_14);
 		jCheckBox5.setText("04");
 
-		jCheckBox6.setFont(font); // NOI18N
+		jCheckBox6.setFont(Contains.F_S_1_14);
 		jCheckBox6.setText("05");
 
-		jCheckBox7.setFont(font); // NOI18N
+		jCheckBox7.setFont(Contains.F_S_1_14);
 		jCheckBox7.setText("06");
 
-		jCheckBox8.setFont(font); // NOI18N
+		jCheckBox8.setFont(Contains.F_S_1_14);
 		jCheckBox8.setText("07");
 
-		jCheckBox9.setFont(font); // NOI18N
+		jCheckBox9.setFont(Contains.F_S_1_14);
 		jCheckBox9.setText("08");
 
-		jCheckBox10.setFont(font); // NOI18N
+		jCheckBox10.setFont(Contains.F_S_1_14);
 		jCheckBox10.setText("09");
 
-		jCheckBox11.setFont(font); // NOI18N
+		jCheckBox11.setFont(Contains.F_S_1_14);
 		jCheckBox11.setText("10");
 
-		jCheckBox12.setFont(font); // NOI18N
+		jCheckBox12.setFont(Contains.F_S_1_14);
 		jCheckBox12.setText("11");
 
-		jCheckBox13.setFont(font); // NOI18N
+		jCheckBox13.setFont(Contains.F_S_1_14);
 		jCheckBox13.setText("12");
 
-		jCheckBox14.setFont(font); // NOI18N
+		jCheckBox14.setFont(Contains.F_S_1_14);
 		jCheckBox14.setText("13");
 
-		jCheckBox15.setFont(font); // NOI18N
+		jCheckBox15.setFont(Contains.F_S_1_14);
 		jCheckBox15.setText("14");
 
-		jCheckBox16.setFont(font); // NOI18N
+		jCheckBox16.setFont(Contains.F_S_1_14);
 		jCheckBox16.setText("15");
 
-		jCheckBox17.setFont(font); // NOI18N
+		jCheckBox17.setFont(Contains.F_S_1_14);
 		jCheckBox17.setText("16");
 
-		jCheckBox18.setFont(font); // NOI18N
+		jCheckBox18.setFont(Contains.F_S_1_14);
 		jCheckBox18.setText("17");
 
-		jCheckBox19.setFont(font); // NOI18N
+		jCheckBox19.setFont(Contains.F_S_1_14);
 		jCheckBox19.setText("18");
 
-		jCheckBox20.setFont(font); // NOI18N
+		jCheckBox20.setFont(Contains.F_S_1_14);
 		jCheckBox20.setText("19");
 
-		jCheckBox21.setFont(font); // NOI18N
+		jCheckBox21.setFont(Contains.F_S_1_14);
 		jCheckBox21.setText("20");
 
-		jCheckBox22.setFont(font); // NOI18N
+		jCheckBox22.setFont(Contains.F_S_1_14);
 		jCheckBox22.setText("21");
 
-		jCheckBox23.setFont(font); // NOI18N
+		jCheckBox23.setFont(Contains.F_S_1_14);
 		jCheckBox23.setText("22");
 
-		jCheckBox24.setFont(font); // NOI18N
+		jCheckBox24.setFont(Contains.F_S_1_14);
 		jCheckBox24.setText("23");
 
-		jCheckBox25.setFont(font); // NOI18N
+		jCheckBox25.setFont(Contains.F_S_1_14);
 		jCheckBox25.setText("24");
 
-		jCheckBox26.setFont(font); // NOI18N
+		jCheckBox26.setFont(Contains.F_S_1_14);
 		jCheckBox26.setText("25");
 
-		jCheckBox27.setFont(font); // NOI18N
+		jCheckBox27.setFont(Contains.F_S_1_14);
 		jCheckBox27.setText("26");
 
-		jCheckBox28.setFont(font); // NOI18N
+		jCheckBox28.setFont(Contains.F_S_1_14);
 		jCheckBox28.setText("27");
 
-		jCheckBox29.setFont(font); // NOI18N
+		jCheckBox29.setFont(Contains.F_S_1_14);
 		jCheckBox29.setText("28");
 
-		jCheckBox30.setFont(font); // NOI18N
+		jCheckBox30.setFont(Contains.F_S_1_14);
 		jCheckBox30.setText("29");
 
-		jCheckBox31.setFont(font); // NOI18N
+		jCheckBox31.setFont(Contains.F_S_1_14);
 		jCheckBox31.setText("30");
 
-		jCheckBox32.setFont(font); // NOI18N
+		jCheckBox32.setFont(Contains.F_S_1_14);
 		jCheckBox32.setText("31");
 
-		jCheckBox33.setFont(font); // NOI18N
+		jCheckBox33.setFont(Contains.F_S_1_14);
 		jCheckBox33.setText("32");
 
-		jCheckBox34.setFont(font); // NOI18N
+		jCheckBox34.setFont(Contains.F_S_1_14);
 		jCheckBox34.setText("33");
 
-		jCheckBox35.setFont(font); // NOI18N
+		jCheckBox35.setFont(Contains.F_S_1_14);
 		jCheckBox35.setText("34");
 
-		jCheckBox36.setFont(font); // NOI18N
+		jCheckBox36.setFont(Contains.F_S_1_14);
 		jCheckBox36.setText("35");
 
-		jCheckBox37.setFont(font); // NOI18N
+		jCheckBox37.setFont(Contains.F_S_1_14);
 		jCheckBox37.setText("36");
 
-		jCheckBox38.setFont(font); // NOI18N
+		jCheckBox38.setFont(Contains.F_S_1_14);
 		jCheckBox38.setText("37");
 
-		jCheckBox39.setFont(font); // NOI18N
+		jCheckBox39.setFont(Contains.F_S_1_14);
 		jCheckBox39.setText("38");
 
-		jCheckBox40.setFont(font); // NOI18N
+		jCheckBox40.setFont(Contains.F_S_1_14);
 		jCheckBox40.setText("39");
 
-		jCheckBox41.setFont(font); // NOI18N
+		jCheckBox41.setFont(Contains.F_S_1_14);
 		jCheckBox41.setText("40");
 
-		jCheckBox42.setFont(font); // NOI18N
+		jCheckBox42.setFont(Contains.F_S_1_14);
 		jCheckBox42.setText("41");
 
-		jCheckBox43.setFont(font); // NOI18N
+		jCheckBox43.setFont(Contains.F_S_1_14);
 		jCheckBox43.setText("42");
 
-		jCheckBox44.setFont(font); // NOI18N
+		jCheckBox44.setFont(Contains.F_S_1_14);
 		jCheckBox44.setText("43");
 
-		jCheckBox45.setFont(font); // NOI18N
+		jCheckBox45.setFont(Contains.F_S_1_14);
 		jCheckBox45.setText("44");
 
-		jCheckBox46.setFont(font); // NOI18N
+		jCheckBox46.setFont(Contains.F_S_1_14);
 		jCheckBox46.setText("45");
 
-		jCheckBox47.setFont(font); // NOI18N
+		jCheckBox47.setFont(Contains.F_S_1_14);
 		jCheckBox47.setText("46");
 
-		jCheckBox48.setFont(font); // NOI18N
+		jCheckBox48.setFont(Contains.F_S_1_14);
 		jCheckBox48.setText("47");
 
-		jCheckBox49.setFont(font); // NOI18N
+		jCheckBox49.setFont(Contains.F_S_1_14);
 		jCheckBox49.setText("48");
 
-		jCheckBox50.setFont(font); // NOI18N
+		jCheckBox50.setFont(Contains.F_S_1_14);
 		jCheckBox50.setText("49");
 
-		jCheckBox51.setFont(font); // NOI18N
+		jCheckBox51.setFont(Contains.F_S_1_14);
 		jCheckBox51.setText("50");
 
-		jCheckBox52.setFont(font); // NOI18N
+		jCheckBox52.setFont(Contains.F_S_1_14);
 		jCheckBox52.setText("51");
 
-		jCheckBox53.setFont(font); // NOI18N
+		jCheckBox53.setFont(Contains.F_S_1_14);
 		jCheckBox53.setText("52");
 
-		jCheckBox54.setFont(font); // NOI18N
+		jCheckBox54.setFont(Contains.F_S_1_14);
 		jCheckBox54.setText("53");
 
-		jCheckBox55.setFont(font); // NOI18N
+		jCheckBox55.setFont(Contains.F_S_1_14);
 		jCheckBox55.setText("54");
 
-		jCheckBox56.setFont(font); // NOI18N
+		jCheckBox56.setFont(Contains.F_S_1_14);
 		jCheckBox56.setText("55");
 
-		jCheckBox57.setFont(font); // NOI18N
+		jCheckBox57.setFont(Contains.F_S_1_14);
 		jCheckBox57.setText("56");
 
-		jCheckBox58.setFont(font); // NOI18N
+		jCheckBox58.setFont(Contains.F_S_1_14);
 		jCheckBox58.setText("57");
 
-		jCheckBox59.setFont(font); // NOI18N
+		jCheckBox59.setFont(Contains.F_S_1_14);
 		jCheckBox59.setText("58");
 
-		jLabel1.setFont(font); // NOI18N
+		jLabel1.setFont(Contains.F_S_1_14);
 		jLabel1.setText("从");
 
-		//jLabel2.setFont(font); // NOI18N
+		//jLabel2.setFont(Contains.F_S_1_14);
 		//jLabel2.setText("从");
 
-		jLabel3.setFont(font); // NOI18N
+		jLabel3.setFont(Contains.F_S_1_14);
 		jLabel3.setText("-");
 
-		jLabel4.setFont(font); // NOI18N
+		jLabel4.setFont(Contains.F_S_1_14);
 		jLabel4.setText("分内");
 
-		jLabel5.setFont(font); // NOI18N
+		jLabel5.setFont(Contains.F_S_1_14);
 		jLabel5.setText("分开始，每");
 
-		jLabel6.setFont(font); // NOI18N
+		jLabel6.setFont(Contains.F_S_1_14);
 		jLabel6.setText("分钟执行一次");
 
-		jCheckBox60.setFont(font); // NOI18N
+		jCheckBox60.setFont(Contains.F_S_1_14);
 		jCheckBox60.setText("59");
 
 		jButton1.setText("确定");
@@ -615,7 +614,7 @@ public class MinuteFrame extends JDialog {
 
 		pack();
 		init();
-		SwingUtil.setFrameTitle(this);
+		SwingUtil.setFrameTitle(this,"设置分");
 	}// </editor-fold>         
 
 	private void init() {

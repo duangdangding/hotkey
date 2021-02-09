@@ -73,7 +73,7 @@ public class JsonUtil {
 	}
 
 	/**
-	 * 讲对象转换成json格式字符串，并写入指定文件
+	 * 将对象转换成json格式字符串，并写入指定文件
 	 * @param o
 	 * @param root
 	 * @param fileName
@@ -102,15 +102,10 @@ public class JsonUtil {
 				rootf.mkdirs();
 			}
 			OutputStream out=new FileOutputStream(root + fileName);
-			//BufferedWriter rd = new BufferedWriter(new OutputStreamWriter(out,"utf-8"));
 			BufferedWriter rd = new BufferedWriter(new OutputStreamWriter(out));
-			//FileWriter fw = new FileWriter(root + fileName);
-			//PrintWriter pw = new PrintWriter(fw);
 			// 格式化json
-			//String json = new String(formatJson(jsonStr).getBytes(),"utf-8");
-			String json = formatJson(jsonStr);
-			rd.write(json);
-			//rd.write(new String(json));
+			//String json = formatJson(jsonStr);
+			rd.write(jsonStr);
 			rd.flush();
 			out.close();
 			rd.close();
@@ -231,19 +226,13 @@ public class JsonUtil {
 		return bdata;
 	}
 
-	public static void main(String[] args) throws MalformedURLException {
-	    /*List list = new ArrayList();
-	    list.add(123);
-	    list.add(12333);
-	    list.add(12113);
-	    //list.add(1);
-		for (Object o : list) {
-			System.out.println(o);
-		}
-		System.out.println("=================");
-		list.remove(0);
-		for (Object o : list) {
-			System.out.println(o);
-		}*/
+	/**
+	 * json 转 List<T>
+	 */
+	public static <T> List<T> jsonToList(String jsonString, Class<T> clazz) {
+		@SuppressWarnings("unchecked")
+		List<T> ts = (List<T>) JSONArray.parseArray(jsonString, clazz);
+		return ts;
 	}
+
 }

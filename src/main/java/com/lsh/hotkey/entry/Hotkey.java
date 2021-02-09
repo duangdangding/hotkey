@@ -11,7 +11,7 @@ public class Hotkey implements Serializable {
     private String kaction;//内容
     private String explain;//注释
     //private Integer keycode;
-    private Integer encrypt;//是否加密 0是1否
+    private String encrypt;//是否加密 0是1否
     
     public void setKId(Integer kId) {
         this.kId = kId;
@@ -43,10 +43,10 @@ public class Hotkey implements Serializable {
 	//public void setKeycode(Integer keycode) {
 	//	this.keycode = keycode;
 	//}
-	public Integer getEncrypt() {
+	public String getEncrypt() {
 		return encrypt;
 	}
-	public void setEncrypt(Integer encrypt) {
+	public void setEncrypt(String encrypt) {
 		this.encrypt = encrypt;
 	}
 

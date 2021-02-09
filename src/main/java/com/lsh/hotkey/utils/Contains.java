@@ -1,6 +1,8 @@
 package com.lsh.hotkey.utils;
 
 import com.lsh.hotkey.Application;
+import com.lsh.hotkey.entry.FilePojo;
+import com.lsh.hotkey.entry.FileTypeEm;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.frame.IndexFrame;
@@ -13,9 +15,14 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Description:
@@ -24,20 +31,43 @@ import java.util.List;
  **/
 public class Contains {
 	public static final SimpleDateFormat YMDHMS = new SimpleDateFormat("yyyyMMddHHmmss");
+	public static final SimpleDateFormat NORMOLYMD = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final JFileChooser JFILE=new JFileChooser();
+	public static final ExecutorService POOL = Executors.newFixedThreadPool(100);
 	public static IndexFrame mainF = null;
-	// 记录打开的窗口
+	/**
+	 * 记录打开的窗口
+	 */
 	public static Container window = null;
+	
 	public static Container parentWindow = null;
+	
+	/**
+	* 字体
+	*/
+	public static final Font F_S_0_14 = new Font("宋体", 0, 14);
+	public static final Font F_YH_0_14 = new Font("Microsoft YaHei UI", 0, 14);
+	public static final Font F_Y_0_14 = new Font("微软雅黑", 0, 14);
+	public static final Font F_S_1_14 = new Font("宋体", 1, 14);
+	public static final Font F_S_0_16 = new Font("宋体", 0, 16);
+	public static final Font F_Y_0_16 = new Font("微软雅黑", 0, 16);
+	public static final Font F_S_1_16 = new Font("宋体", 1, 16);
+	public static final Font F_S_1_18 = new Font("宋体", 1, 18);
+	public static final String SLABLE = "<html><body>";
+	public static final String ELABLE = "</body></html>";
 	
 	/**
 	 * 1 打开新增窗口 2 编辑窗口
 	 */
 	public static int AUSTATE = 0;
 	public static int TASKSTATE = 0;
-	// 热键列表
+	/**
+	 * 热键列表
+	 */
 	public static List<Hotkey> HOTKEYS = new ArrayList<>();
-	// 定时任务列表
+	/**
+	 * 定时任务列表
+	 */
 	public static List<TaskEntry> TASKS = new ArrayList<>();
 	// 配置项
 	public static Map CONFIG = new HashMap();
@@ -47,14 +77,22 @@ public class Contains {
 	public static final String HOTKEYROOT = USERHOME + "hotkey" + File.separator;
 	//热键文件名
 	public static final String JSONFILENAME = "hotkey.json";
+	//索引文件名
+	public static final String MAKEFILENAME = "makefile.json";
 	//配置文件名
 	public static final String CGJSONFILENAME = "config.json";
+	//配置文件名
+	public static final String PROPILENAME = "set.properties";
 	// 备份文件名
 	public static final String BACKFILEN = "BK_key_"+YMDHMS.format(new Date())+".xlsx";
 	//热键文件路径
 	public static final String JSONPATH = HOTKEYROOT + JSONFILENAME;
+	//索引文件路径
+	public static final String MAKEPATH = HOTKEYROOT + MAKEFILENAME;
 	//配置文件
 	public static final String JSONCONFIG = HOTKEYROOT + CGJSONFILENAME;
+	//配置文件
+	public static final String SETPROP = HOTKEYROOT + PROPILENAME;
 	// 备份文件夹
 	public static final String BACKUPD = HOTKEYROOT + File.separator + "backup" + File.separator;
 	// 备份文件路径
@@ -70,6 +108,10 @@ public class Contains {
 	// 定时任务头部
 	public static final String[] TASKH = new String[]{
 			"ID", "cron表达式", "执行类型", "提示消息", "程序列表", "CMD命令","注释","任务名"
+	};
+	// 定时任务头部
+	public static final String[] SERCHFILEHEADER = new String[]{
+			"文件路径", "文件名","文件类型", "文件大小(字节)", "创建时间"
 	};
 	
 	private static final Base64.Decoder decoder = Base64.getDecoder();
@@ -93,6 +135,12 @@ public class Contains {
 	// Scheduler
 	public static Scheduler scheduler = null;
 	public static Properties props = new Properties();
+
+	/**
+	 * 符合条件的 file集合
+	 */
+	public static List<FilePojo> FILES; 
+	//public static List<String> FILES; 
 	
 	/**
 	 * 判断对象是不是数组
@@ -163,6 +211,19 @@ public class Contains {
 	}
 
 	/**
+	 * 把yyyy-MM-dd HH:mm:ss类型的日期转成ms
+	 * @param time
+	 * @return
+	 */
+	public static long getCtime(String time) {
+		try {
+			return Contains.NORMOLYMD.parse(time).getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**
 	 * Base64加密
 	 *
 	 * @param text
@@ -227,6 +288,37 @@ public class Contains {
 		return line;
 	}
 
+	/**
+	 * 分组
+	 * @param listmodel
+	 * @param size
+	 * @param maps
+	 */
+	public static void groupFile(FilePojo pojo,String name,Map<String,List<FilePojo>> maps) {
+		if (maps.containsKey(name)) {
+			maps.get(name).add(pojo);
+		} else {
+			List<FilePojo> files = new ArrayList<>();
+			files.add(pojo);
+			maps.put(name,files);
+		}
+	}
+
+	/**
+	 * 去除map的value的List长度为1的map
+	 * @param maps
+	 */
+	public static void disLenOne(Map<String,List<FilePojo>> maps) {
+		Iterator<Map.Entry<String, List<FilePojo>>> it = maps.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String, List<FilePojo>> next = it.next();
+			List<FilePojo> value = next.getValue();
+			if (value.size() < 2) {
+				it.remove();
+			}
+		}
+	}
+	
 	/**
 	 * 开机自动启动
 	 */
@@ -294,19 +386,5 @@ public class Contains {
 	}
 
 	public static void main(String[] args) {
-		/*String cmd = "shutdown /s /t 3600";
-		String cmd1 = "shutdown /a";
-		exeCMD(cmd1);*/
-		//String property = System.getProperties().getProperty("user.home");
-		String property = System.getProperties().getProperty("user.USERPROFILE");
-		//System.out.println(property);
-		//System.out.println(BACKFILEN);utcut
-		//String s = exeCMD("cmd /c start E:\\shortcut\\360.lnk");
-		//String cmd = "shutdown /s /t 3600";
-		//String s1 = exeCMD("shutdown /s /t 3600");
-		//String s2 = exeCMD("shutdown /s /t 36000");
-		//String s2 = exeCMD("ping www.baidu.com");
-		//System.out.println(s1);
-		//System.out.println(s2);
 	}
 }

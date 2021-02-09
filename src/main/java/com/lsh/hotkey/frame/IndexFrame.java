@@ -6,11 +6,9 @@ import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.utils.*;
 import com.melloware.jintellitype.JIntellitype;
 
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
@@ -22,8 +20,9 @@ import java.util.List;
  *
  * @author Administrator
  */
-public class IndexFrame extends JFrame implements KeyListener{
+public class IndexFrame extends JFrame implements KeyListener {
 	JOptionPane dialog = new JOptionPane();
+	public static WaitFrame wait;
 
 	private boolean isMW = true;
 	private Hotkey hk = new Hotkey();
@@ -64,7 +63,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 	public IndexFrame() {
 		initComponents();
 		this.setTimer(jLabel2);
-		//setVisible(true);
+		initHotT();
 		Contains.window = this;
 	}
 
@@ -82,9 +81,11 @@ public class IndexFrame extends JFrame implements KeyListener{
 		});
 		timeAction.start();
 	}
+	private static final int MIN_PROGRESS = 0;
+	private static final int MAX_PROGRESS = 100;
 
+	private static int currentProgress = MIN_PROGRESS;
 	private void initComponents() {
-
 		jTabbedPane1 = new JTabbedPane();
 		//jButton7 = new JButton();
 		/*jButton7.setText("定时任务");
@@ -125,6 +126,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 
 		// 初始化表格数据
 		SwingUtil.tableCenter(jTable2,Contains.TASKH,SwingUtil.getTableData(Contains.TASKS));
+		//SwingUtil.tableCenter(jTable2);
 		jScrollPane2.setViewportView(jTable2);
 		
 		jButton10.setText("新增");
@@ -247,17 +249,17 @@ public class IndexFrame extends JFrame implements KeyListener{
 		jMenuBar1.setPreferredSize(new Dimension(109, 30));
 
 		jMenu1.setText("File");
-		jMenu1.setFont(new Font("Microsoft YaHei UI", 0, 14)); // NOI18N
+		jMenu1.setFont(Contains.F_YH_0_14);
 		jMenu1.setMinimumSize(new Dimension(27, 25));
 		jMenu1.setPreferredSize(new Dimension(27, 25));
 		jMenuBar1.add(jMenu1);
 
 		jMenu2.setText("Edit");
-		jMenu2.setFont(new Font("Microsoft YaHei UI", 0, 14)); // NOI18N
+		jMenu2.setFont(Contains.F_YH_0_14);
 		jMenuBar1.add(jMenu2);
 
 		jMenu3.setText("jMenu3");
-		jMenu3.setFont(new Font("Microsoft YaHei UI", 0, 14)); // NOI18N
+		jMenu3.setFont(Contains.F_YH_0_14);
 		jMenuBar1.add(jMenu3);
 
 		setJMenuBar(jMenuBar1);
@@ -268,7 +270,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
 		jLabel1.setText("当前时间：");
-		//jLabel2.setText("2020年6月11日 星期二 12:00:00");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -295,6 +296,10 @@ public class IndexFrame extends JFrame implements KeyListener{
 	//小工具
 	private void toolkit() {
 		jPanel2 = new JPanel();
+		jButton6 = new JButton();
+		jButton7 = new JButton();
+		jButton17 = new JButton();
+		
 		jButton6.setText("定时关机");
 		jButton6.addActionListener(new ActionListener() {
 			@Override
@@ -303,16 +308,28 @@ public class IndexFrame extends JFrame implements KeyListener{
 			}
 		});
 
+		jButton7.setText("文件查重");
+		jButton7.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				jButton7ActionPerformed(evt);
+			}
+		});
+
+		jButton17.setText("重命名文件");
 		GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
+
 		jPanel2Layout.setHorizontalGroup(
 				jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(jPanel2Layout.createSequentialGroup()
 								.addGap(21, 21, 21)
 								.addComponent(jButton6)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-								//.addComponent(jButton7)
-								.addContainerGap(665, Short.MAX_VALUE))
+								.addComponent(jButton7)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jButton17)
+								.addContainerGap(570, Short.MAX_VALUE))
 		);
 		jPanel2Layout.setVerticalGroup(
 				jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -320,8 +337,8 @@ public class IndexFrame extends JFrame implements KeyListener{
 								.addContainerGap()
 								.addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jButton6)
-										//.addComponent(jButton7)
-								)
+										.addComponent(jButton7)
+										.addComponent(jButton17))
 								.addContainerGap(525, Short.MAX_VALUE))
 		);
 
@@ -339,23 +356,9 @@ public class IndexFrame extends JFrame implements KeyListener{
 		jButton3 = new JButton();
 		jButton4 = new JButton();
 		jButton5 = new JButton();
-		jButton6 = new JButton();
 		jButton8 = new JButton();
 		jButton9 = new JButton();
-		// 设置table内容居中
-		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-		tcr.setHorizontalAlignment(JLabel.CENTER);
-		jTable1.setDefaultRenderer(Object.class, tcr);
-		// 设置table Header居中
-		((DefaultTableCellRenderer)jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-
-		JTableHeader head = jTable1.getTableHeader(); // 创建表格标题对象
-		head.setFont(new Font("微软雅黑", Font.PLAIN, 16));// 设置表头字体
-		jTable1.setFont(new Font("微软雅黑", Font.PLAIN, 14));// 设置表格字体
-		jTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		initTable();
-		jTable1.setAutoscrolls(false);
-		jTable1.setRowHeight(25);
+		SwingUtil.tableCenter(jTable1,Contains.COMPLETEH,null);
 		jScrollPane1.setViewportView(jTable1);
 
 		jButton1.setText("新增");
@@ -494,7 +497,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 				}
 				boolean b = JsonUtil.objectToJson(Contains.HOTKEYS,Contains.HOTKEYROOT,Contains.JSONFILENAME);
 				if (b) {
-					initTable();
+					initHotT();
 					message = "删除成功~";
 				} else {
 					message = "系统错误~";
@@ -510,7 +513,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 	private void jButton3ActionPerformed(ActionEvent evt) {
 		isMW = !isMW;
 		String text = jButton3.getText();
-		initTable();
+		initHotT();
 		if ("明文".equals(text)) {
 			jButton3.setText("密文");
 		} else {
@@ -556,8 +559,20 @@ public class IndexFrame extends JFrame implements KeyListener{
 		new ShutdownFrame(this, true);
 	}
 
-	//private void jButton7ActionPerformed(ActionEvent evt) {
-	//}
+	//文件查重
+	private void jButton7ActionPerformed(ActionEvent evt) {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// 进度条显示之前父窗口不可用
+				new DocumentDuplicationCheck(new IndexFrame(),true);
+			}
+		});
+		thread.start();
+//		System.out.println(thread.getName());
+		wait = new WaitFrame(new IndexFrame(),true);
+		wait.showBar();
+	}
 
 	// 备份
 	private void jButton8ActionPerformed(ActionEvent evt) {
@@ -568,12 +583,9 @@ public class IndexFrame extends JFrame implements KeyListener{
 			return ;
 		} else {
 			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
-			String[] headers = new String[]{
-					"ID", "热键", "内容", "注释", "加密"
-			};
 			ExcelData data =new ExcelData();
 			data.setList(Contains.HOTKEYS);
-			data.setHeaders(headers);
+			data.setHeaders(Contains.COMPLETEH);
 			data.setSheetName(Contains.YMDHMS.format(new Date()));
 			String msg = "";
 			try {
@@ -587,7 +599,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 		}
 	}
 
-	//导入
+	// 导入
 	private void jButton9ActionPerformed(ActionEvent evt) {
 		int i = SwingUtil.openFile("excel");
 		Contains.window = dialog;
@@ -610,7 +622,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 				boolean b = JsonUtil.objectToJson(Contains.HOTKEYS,Contains.HOTKEYROOT,Contains.JSONFILENAME);
 				if (b) {
 					isMW = false;
-					initTable();
+					initHotT();
 					msg = "导入成功~";
 				} else {
 					msg = "系统错误~";
@@ -791,44 +803,11 @@ public class IndexFrame extends JFrame implements KeyListener{
 		}
 	}
 	
-	public void initTaskT() {
-		SwingUtil.initTable(jTable2,Contains.TASKH,SwingUtil.getTableData(Contains.TASKS));
+	private void initTaskT() {
+		SwingUtil.setValueTable(jTable2,Contains.TASKS,Contains.TASKH);
 	}
-
-	public void initTable() {
-		Object[][] os = getData();
-		jTable1.setModel(new DefaultTableModel(os,Contains.COMPLETEH));
-		TableColumn column0 = jTable1.getColumnModel().getColumn(0);
-	}
-
-	public Object[][] getData() {
-		List<Hotkey> hotkeys = Contains.HOTKEYS;
-		if (hotkeys != null) {
-			int size = hotkeys.size();
-			if(size > 0) {
-				int column = Hotkey.class.getDeclaredFields().length;
-				Object[][] os = new Object[size][column];
-				for (int i = 0; i < size; i++) {
-					Hotkey hotkey = hotkeys.get(i);
-					if (hotkey.getHotkey() != null) {
-						String kaction = hotkey.getKaction();
-						if (!isMW) {
-							if (hotkey.getEncrypt() == 0) {
-								kaction = Contains.textDecode(kaction);
-							}
-						}
-						String[] hks = new String[]{
-								hotkey.getKId() + "", "CTRL + SHIFT + " + hotkey.getHotkey(), kaction, hotkey.getExplain(), Contains.yesNo(hotkey.getEncrypt())
-						};
-						for (int j = 0; j < hks.length; j++) {
-							os[i][j] = hks[j];
-						}
-					}
-				}
-				return os;
-			}
-		}
-		return null;
+	public void initHotT() {
+		SwingUtil.setValueTable(jTable1,Contains.HOTKEYS,Contains.COMPLETEH);
 	}
 
 	public void open() {
@@ -836,61 +815,27 @@ public class IndexFrame extends JFrame implements KeyListener{
 			@Override
 			public void run() {
 				IndexFrame win = new IndexFrame();
-				win.setTitle("自动补全系统 "+Contains.props.getProperty("version")+" 作者：卢少");
+				String title = "自动补全系统 "+Contains.props.getProperty("version")+" 作者：卢少";
+				win.setTitle(title);
 				//win.setTitle("自动补全系统  作者：卢少 QQ:2538808545");
 				//win.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 				//String path = ClassUtils.getDefaultClassLoader().getResource("imgs/logn.png").getPath();
 				ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
 				win.setIconImage(icon.getImage());
 				win.setResizable(false);
+				//SwingUtil.setFrameTitle(this,title,"imgs/logn.png");
 				Integer runtime = (Integer) Contains.CONFIG.get("runtime");
 				if (runtime >= 2) {
 					miniTray(win);
 				} else {
 					win.setVisible(true);
 				}
-				//String property = System.getProperties().getProperty("user.dir");
-				//JOptionPane.showMessageDialog(win,property);
-
-				/*win.addKeyListener(new KeyListener() {
-					@Override
-					public void keyTyped(KeyEvent e) {
-
-					}
-
-					@Override
-					public void keyPressed(KeyEvent e) {
-
-					}
-
-					@Override
-					public void keyReleased(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-							win.setVisible(false);
-							miniTray(win);
-						}
-					}
-				});*/
 
 				//居中
 				win.setLocationRelativeTo(null);
-				/*win.addWindowListener(new WindowAdapter() { // 窗口关闭事件
-					@Override
-					public void windowClosing(WindowEvent e) {
-						//System.exit(0);
-						//miniTray(win);
-					};//windowClosing
-
-					@Override
-					public void windowIconified(WindowEvent e) { // 窗口最小化事件
-						win.setVisible(false);
-						//miniTray(win);
-					}//windowIconified
-				});//addWindowListener
-				//最小化到任务栏
-				//win.setExtendedState(ICONIFIED);*/
 			}
 		});
+//		获取焦点
 		this.setFocusable(true);
 	}
 
@@ -954,7 +899,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 	private JButton jButton4;
 	private JButton jButton5;
 	private JButton jButton6;
-	//private JButton jButton7;
+	private JButton jButton7;
 	private JButton jButton8;
 	private JButton jButton9;
 	private JButton jButton10;
@@ -964,6 +909,7 @@ public class IndexFrame extends JFrame implements KeyListener{
 	private JButton jButton14;
 	private JButton jButton15;
 	private JButton jButton16;
+	private JButton jButton17;
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JMenu jMenu1;
@@ -981,10 +927,6 @@ public class IndexFrame extends JFrame implements KeyListener{
 	private JTable jTable1;
 	private JTable jTable2;
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -994,5 +936,10 @@ public class IndexFrame extends JFrame implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//System.out.println("taiqi");
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
 	}
 }

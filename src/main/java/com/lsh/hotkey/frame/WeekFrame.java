@@ -26,74 +26,72 @@ public class WeekFrame extends JDialog {
 		initComponents();
 	}
 
-	private Font font = new Font("宋体", 1, 14);
-
 	@SuppressWarnings("unchecked")
 	private void initComponents() {
 
-		buttonGroup1 = new javax.swing.ButtonGroup();
-		jRadioButton1 = new javax.swing.JRadioButton();
-		jCheckBox2 = new javax.swing.JCheckBox();
-		jCheckBox3 = new javax.swing.JCheckBox();
-		jCheckBox4 = new javax.swing.JCheckBox();
-		jCheckBox5 = new javax.swing.JCheckBox();
-		jCheckBox6 = new javax.swing.JCheckBox();
-		jCheckBox7 = new javax.swing.JCheckBox();
-		jCheckBox8 = new javax.swing.JCheckBox();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel3 = new javax.swing.JLabel();
-		jLabel4 = new javax.swing.JLabel();
-		jTextField3 = new javax.swing.JTextField();
-		jLabel5 = new javax.swing.JLabel();
-		jButton1 = new javax.swing.JButton();
-		jButton2 = new javax.swing.JButton();
-		jComboBox1 = new javax.swing.JComboBox<>();
-		jComboBox2 = new javax.swing.JComboBox<>();
-		jComboBox3 = new javax.swing.JComboBox<>();
-		jComboBox4 = new javax.swing.JComboBox<>();
-		jRadioButton2 = new javax.swing.JRadioButton();
-		jRadioButton3 = new javax.swing.JRadioButton();
-		jRadioButton4 = new javax.swing.JRadioButton();
-		jRadioButton5 = new javax.swing.JRadioButton();
-		jRadioButton6 = new javax.swing.JRadioButton();
+		buttonGroup1 = new ButtonGroup();
+		jRadioButton1 = new JRadioButton();
+		jCheckBox2 = new JCheckBox();
+		jCheckBox3 = new JCheckBox();
+		jCheckBox4 = new JCheckBox();
+		jCheckBox5 = new JCheckBox();
+		jCheckBox6 = new JCheckBox();
+		jCheckBox7 = new JCheckBox();
+		jCheckBox8 = new JCheckBox();
+		jLabel1 = new JLabel();
+		jLabel3 = new JLabel();
+		jLabel4 = new JLabel();
+		jTextField3 = new JTextField();
+		jLabel5 = new JLabel();
+		jButton1 = new JButton();
+		jButton2 = new JButton();
+		jComboBox1 = new JComboBox<>();
+		jComboBox2 = new JComboBox<>();
+		jComboBox3 = new JComboBox<>();
+		jComboBox4 = new JComboBox<>();
+		jRadioButton2 = new JRadioButton();
+		jRadioButton3 = new JRadioButton();
+		jRadioButton4 = new JRadioButton();
+		jRadioButton5 = new JRadioButton();
+		jRadioButton6 = new JRadioButton();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		buttonGroup1.add(jRadioButton1);
-		jRadioButton1.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton1.setFont(Contains.F_S_1_14);
 		jRadioButton1.setSelected(true);
 		jRadioButton1.setText("每周");
 
-		jCheckBox2.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox2.setFont(Contains.F_S_1_14);
 		jCheckBox2.setText("日");
 
-		jCheckBox3.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox3.setFont(Contains.F_S_1_14);
 		jCheckBox3.setText("一");
 
-		jCheckBox4.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox4.setFont(Contains.F_S_1_14);
 		jCheckBox4.setText("二");
 
-		jCheckBox5.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox5.setFont(Contains.F_S_1_14);
 		jCheckBox5.setText("三");
 
-		jCheckBox6.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox6.setFont(Contains.F_S_1_14);
 		jCheckBox6.setText("四");
 
-		jCheckBox7.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox7.setFont(Contains.F_S_1_14);
 		jCheckBox7.setText("五");
 
-		jCheckBox8.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jCheckBox8.setFont(Contains.F_S_1_14);
 		jCheckBox8.setText("六");
 
-		jLabel1.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jLabel1.setFont(Contains.F_S_1_14);
 		jLabel1.setText("从星期");
 
 		jLabel3.setText("-");
 
-		jLabel4.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jLabel4.setFont(Contains.F_S_1_14);
 		jLabel4.setText("内");
 
-		jLabel5.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jLabel5.setFont(Contains.F_S_1_14);
 		jLabel5.setText("周的星期");
 
 		jButton1.setText("确定");
@@ -112,124 +110,124 @@ public class WeekFrame extends JDialog {
 			}
 		});
 
-		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(weeks));
+		jComboBox1.setModel(new DefaultComboBoxModel<>(weeks));
 
-		jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(weeks));
+		jComboBox2.setModel(new DefaultComboBoxModel<>(weeks));
 
-		jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(weeks));
+		jComboBox3.setModel(new DefaultComboBoxModel<>(weeks));
 
-		jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(weeks));
+		jComboBox4.setModel(new DefaultComboBoxModel<>(weeks));
 
 		buttonGroup1.add(jRadioButton2);
-		jRadioButton2.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton2.setFont(Contains.F_S_1_14);
 		jRadioButton2.setText("不指定");
 
 		buttonGroup1.add(jRadioButton3);
-		jRadioButton3.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton3.setFont(Contains.F_S_1_14);
 		jRadioButton3.setText("周期");
 
 		buttonGroup1.add(jRadioButton4);
-		jRadioButton4.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton4.setFont(Contains.F_S_1_14);
 		jRadioButton4.setText("第");
 
 		buttonGroup1.add(jRadioButton5);
-		jRadioButton5.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton5.setFont(Contains.F_S_1_14);
 		jRadioButton5.setText("本月最后一个星期");
 
 		buttonGroup1.add(jRadioButton6);
-		jRadioButton6.setFont(new java.awt.Font("宋体", 1, 14)); // NOI18N
+		jRadioButton6.setFont(Contains.F_S_1_14);
 		jRadioButton6.setText("指定");
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								.addGap(59, 59, 59)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addGroup(layout.createSequentialGroup()
-												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 														.addComponent(jRadioButton2)
 														.addGroup(layout.createSequentialGroup()
 																.addComponent(jRadioButton4)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(jLabel5)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jComboBox3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 														.addComponent(jRadioButton1))
-												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+												.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 										.addGroup(layout.createSequentialGroup()
-												.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 														.addGroup(layout.createSequentialGroup()
-																.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+																.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
 																		.addComponent(jButton1)
 																		.addGroup(layout.createSequentialGroup()
 																				.addComponent(jCheckBox2)
-																				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																				.addComponent(jCheckBox3)))
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(jCheckBox4)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(jCheckBox5)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 																		.addComponent(jButton2)
 																		.addGroup(layout.createSequentialGroup()
 																				.addComponent(jCheckBox6)
-																				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																				.addComponent(jCheckBox7)
-																				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																				.addComponent(jCheckBox8))))
 														.addComponent(jRadioButton6)
 														.addGroup(layout.createSequentialGroup()
 																.addComponent(jRadioButton5)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jComboBox4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 														.addGroup(layout.createSequentialGroup()
 																.addComponent(jRadioButton3)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(jLabel1)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(jLabel4)))
 												.addGap(0, 98, Short.MAX_VALUE))))
 		);
 		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								.addGap(46, 46, 46)
 								.addComponent(jRadioButton1)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 								.addComponent(jRadioButton2)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jLabel1)
 										.addComponent(jLabel4)
-										.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(jLabel3)
-										.addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(jRadioButton3))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+										.addComponent(jTextField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(jLabel5)
-										.addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jComboBox3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(jRadioButton4))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jRadioButton5)
-										.addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(jComboBox4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 								.addComponent(jRadioButton6)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jCheckBox2)
 										.addComponent(jCheckBox3)
 										.addComponent(jCheckBox4)
@@ -238,7 +236,7 @@ public class WeekFrame extends JDialog {
 										.addComponent(jCheckBox7)
 										.addComponent(jCheckBox8))
 								.addGap(28, 28, 28)
-								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jButton1)
 										.addComponent(jButton2))
 								.addContainerGap(31, Short.MAX_VALUE))
@@ -246,7 +244,7 @@ public class WeekFrame extends JDialog {
 
 		init();
 		pack();
-		SwingUtil.setFrameTitle(this);
+		SwingUtil.setFrameTitle(this,"设置周");
 	}// </editor-fold>                        
 
 	private void jButton1ActionPerformed(ActionEvent evt) {
@@ -393,30 +391,30 @@ public class WeekFrame extends JDialog {
 		return num;
 	}
 
-	private javax.swing.ButtonGroup buttonGroup1;
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JCheckBox jCheckBox2;
-	private javax.swing.JCheckBox jCheckBox3;
-	private javax.swing.JCheckBox jCheckBox4;
-	private javax.swing.JCheckBox jCheckBox5;
-	private javax.swing.JCheckBox jCheckBox6;
-	private javax.swing.JCheckBox jCheckBox7;
-	private javax.swing.JCheckBox jCheckBox8;
-	private javax.swing.JComboBox<String> jComboBox1;
-	private javax.swing.JComboBox<String> jComboBox2;
-	private javax.swing.JComboBox<String> jComboBox3;
-	private javax.swing.JComboBox<String> jComboBox4;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JRadioButton jRadioButton1;
-	private javax.swing.JRadioButton jRadioButton2;
-	private javax.swing.JRadioButton jRadioButton3;
-	private javax.swing.JRadioButton jRadioButton4;
-	private javax.swing.JRadioButton jRadioButton5;
-	private javax.swing.JRadioButton jRadioButton6;
-	private javax.swing.JTextField jTextField3;
+	private ButtonGroup buttonGroup1;
+	private JButton jButton1;
+	private JButton jButton2;
+	private JCheckBox jCheckBox2;
+	private JCheckBox jCheckBox3;
+	private JCheckBox jCheckBox4;
+	private JCheckBox jCheckBox5;
+	private JCheckBox jCheckBox6;
+	private JCheckBox jCheckBox7;
+	private JCheckBox jCheckBox8;
+	private JComboBox<String> jComboBox1;
+	private JComboBox<String> jComboBox2;
+	private JComboBox<String> jComboBox3;
+	private JComboBox<String> jComboBox4;
+	private JLabel jLabel1;
+	private JLabel jLabel3;
+	private JLabel jLabel4;
+	private JLabel jLabel5;
+	private JRadioButton jRadioButton1;
+	private JRadioButton jRadioButton2;
+	private JRadioButton jRadioButton3;
+	private JRadioButton jRadioButton4;
+	private JRadioButton jRadioButton5;
+	private JRadioButton jRadioButton6;
+	private JTextField jTextField3;
 	// End of variables declaration                   
 }

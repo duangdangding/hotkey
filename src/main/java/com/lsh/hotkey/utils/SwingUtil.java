@@ -2,7 +2,6 @@ package com.lsh.hotkey.utils;
 
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
-import com.lsh.hotkey.frame.ExcelFileFilter;
 import com.melloware.jintellitype.HotkeyListener;
 import com.melloware.jintellitype.JIntellitype;
 import org.quartz.*;
@@ -12,6 +11,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -21,7 +22,8 @@ import java.util.List;
 import java.util.Map;
 /**
  * 创建CronTrigger
- * CronTrigger实例可以通过TriggerBuilder（配置主要属性）和CronScheduleBuilder（配置CronTrigger专有的属性）配置。为了以DSL风格使用这些builder，需要静态导入：下面这3个
+ * CronTrigger实例可以通过TriggerBuilder（配置主要属性）和CronScheduleBuilder（配置CronTrigger专有的属性）配置。
+ * 为了以DSL风格使用这些builder，需要静态导入：下面这3个
  */
 
 /**
@@ -30,6 +32,15 @@ import java.util.Map;
  * @create: 2020-07-15 14:16
  **/
 public class SwingUtil {
+
+	/**
+	 * 设置剪切板内容 （后期能否做到 layui弹窗样式）
+	 * @param data
+	 */
+	public static void setClipboard(String data) {
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(new StringSelection(data), null);
+	}
 
 	/**
 	 * 选择jCheckBox
@@ -87,17 +98,74 @@ public class SwingUtil {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 初始化自定义table
 	 */
 	public static void initTable(JTable jTable,String[] headers,Object[][] os) {
 		jTable.setModel(new DefaultTableModel(os,headers));
-		jTable.getColumnModel().getColumn(0);
+		//jTable.getColumnModel().getColumn(0);
+	}
+
+	/**
+	 * 情况Jtable内容，使用反射设置表格内容
+	 * @param jTable
+	 * @param data
+	 */
+	public static void setValueTable(JTable jTable,List<?> data,String[] headers) {
+		//清空内容
+		//((DefaultTableModel)jTable.getModel()).getDataVector().clear();
+		DefaultTableModel model = new DefaultTableModel(null,headers);
+		int size = data.size();
+		if (!data.isEmpty() && size > 0){
+			try {
+				Object o3 = data.get(0);
+				if (o3 != null) {
+					Class<?> claZZ = o3.getClass();
+					Field[] fields = claZZ.getDeclaredFields();
+					int columns = fields.length;
+
+					model.setRowCount(size);
+					model.setColumnCount(columns);
+					Method method = null;
+					Object o;
+					for (int i = 0; i < size; i++) {
+						for (int j = 0; j < columns; j++) {
+							Field field = fields[j];
+							field.setAccessible(true);
+							method = claZZ.getDeclaredMethod(ClazzUtil.getMethodName(field.getName()));
+							method.setAccessible(true);
+							Object o2 = data.get(i);
+							if (o2 != null) {
+								o = method.invoke(o2);
+								// 是数组对象
+								if (Contains.isArray(o)) {
+									//对象转数组
+									int length = Array.getLength(o);
+									StringBuffer sb = new StringBuffer();
+									for (int k = 0; k < length; k++) {
+										Object o1 = Array.get(o, k);
+										sb.append(o1.toString());
+									}
+									o = sb.toString();
+								}
+								model.setValueAt(o,i,j);
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			model.setRowCount(0);
+		}
+		jTable.setModel(model);
 	}
 
 	// 初始化表格数据
 	public static void tableCenter(JTable table, String[] headers, Object[][] os) {
+		//public static void tableCenter(JTable table) {
 		// 设置table内容居中
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(JLabel.CENTER);
@@ -106,13 +174,14 @@ public class SwingUtil {
 		((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		JTableHeader head = table.getTableHeader(); // 创建表格标题对象
-		head.setFont(new Font("微软雅黑", Font.PLAIN, 16));// 设置表头字体
-		table.setFont(new Font("微软雅黑", Font.PLAIN, 14));// 设置表格字体
+		head.setFont(Contains.F_Y_0_16);// 设置表头字体
+		table.setFont(Contains.F_Y_0_14);// 设置表格字体
+		//多选
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		SwingUtil.initTable(table,headers,os);
 
-		table.setAutoscrolls(false);
-		table.setRowHeight(25);
+		//table.setAutoscrolls(false);
+		//table.setRowHeight(25);
 	}
 
 	/**
@@ -168,7 +237,7 @@ public class SwingUtil {
 	}
 
 	/**
-	 * file过滤器   
+	 * file过滤器
 	 * @param model excel *
 	 * @return
 	 */
@@ -200,25 +269,32 @@ public class SwingUtil {
 	 */
 	public static void readTask() throws SchedulerException {
 		Contains.TASKS = JsonUtil.jsonToObject(Contains.TASKFPATH, TaskEntry.class);
-	//	执行任务
+		//	执行任务
 		Scheduler scheduler= Contains.scheduler;
 		for (int i = 0; i < Contains.TASKS.size(); i++) {
 			TaskEntry taskEntry = Contains.TASKS.get(i);
-		//	意义绑定并执行
+			//	一一绑定并执行
 			JobUtil.bingTask(taskEntry);
 		}
 	}
 
 	/**
-	 * 设置窗口图标
+	 * 设置窗口图标 （JDialog 和 JFrame类型不一样，虽然最终父类都是Window但是父类没有设置属性的方法）
 	 * @param frame
 	 */
-	public static void setFrameTitle(JDialog frame) {
-		ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/add.png"),"");
-		frame.setIconImage(icon.getImage());
+	public static void setFrameTitle(JDialog frame,String title) {
+		// 设置大小不可变 就能把标题栏的图标隐藏
+		//frame.setResizable(false);
 		//居中
+		frame.setTitle("   " + title);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+	public static void setFrameTitle(JDialog frame,String title,String icon) {
+		setFrameTitle(frame,title);
+		frame.setResizable(true);
+		ImageIcon icons=new ImageIcon(JsonUtil.toData(icon),"");
+		frame.setIconImage(icons.getImage());
 	}
 
 	/**
@@ -229,7 +305,7 @@ public class SwingUtil {
 		if (maps.size() > 0) {
 			Contains.CONFIG = maps.get(0);
 		}
-		
+
 		if (Contains.CONFIG.size() == 0) {
 			Contains.CONFIG.put("runtime",1);
 			JsonUtil.objectToJson(Contains.CONFIG,Contains.HOTKEYROOT,Contains.CGJSONFILENAME);
@@ -246,7 +322,7 @@ public class SwingUtil {
 	 * 注册热键
 	 */
 	public static void registerHotKey() {
-		
+
 		List<Hotkey> hotkeys = JsonUtil.jsonToObject(Contains.JSONPATH,Hotkey.class);
 		Contains.HOTKEYS = hotkeys;
 		if (hotkeys != null) {
@@ -274,8 +350,8 @@ public class SwingUtil {
 							Hotkey o = (Hotkey) SqlUtil.setlectAll(map).get(0);*/
 								Hotkey o = Contains.HOTKEYS.get(i);
 								String kaction = o.getKaction();
-								Integer encrypt = o.getEncrypt();
-								if (encrypt == 0) {
+								String encrypt = o.getEncrypt();
+								if ("是".equals(encrypt)) {
 									kaction = Contains.textDecode(kaction);
 								}
 								char[] uchars = kaction.toCharArray();
@@ -286,7 +362,7 @@ public class SwingUtil {
 						}
 					}
 				};
-				
+
 				//添加监听
 				JIntellitype.getInstance().addHotKeyListener(hotkeyListener);
 			}

@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
  * @author Administrator
  */
 public class MonthFrame extends JDialog {
-	private Font font = new Font("宋体", 1, 14);
 	private String monCron = "";
 	private JTextField textField;
 
@@ -60,74 +59,71 @@ public class MonthFrame extends JDialog {
         jButton2 = new JButton();
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(font); // NOI18N
+        jRadioButton1.setFont(Contains.F_S_1_14);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("每月");
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(font); // NOI18N
+        jRadioButton2.setFont(Contains.F_S_1_14);
         jRadioButton2.setText("周期");
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(font); // NOI18N
+        jRadioButton3.setFont(Contains.F_S_1_14);
 	    jRadioButton3.setText("从");
 
         buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(font); // NOI18N
+        jRadioButton4.setFont(Contains.F_S_1_14);
         jRadioButton4.setText("指定");
 
-        jCheckBox2.setFont(font); // NOI18N
+        jCheckBox2.setFont(Contains.F_S_1_14);
         jCheckBox2.setText("01");
 
-        jCheckBox3.setFont(font); // NOI18N
+        jCheckBox3.setFont(Contains.F_S_1_14);
         jCheckBox3.setText("02");
 
-        jCheckBox4.setFont(font); // NOI18N
+        jCheckBox4.setFont(Contains.F_S_1_14);
         jCheckBox4.setText("03");
 
-        jCheckBox5.setFont(font); // NOI18N
+        jCheckBox5.setFont(Contains.F_S_1_14);
         jCheckBox5.setText("04");
 
-        jCheckBox6.setFont(font); // NOI18N
+        jCheckBox6.setFont(Contains.F_S_1_14);
         jCheckBox6.setText("05");
 
-        jCheckBox7.setFont(font); // NOI18N
+        jCheckBox7.setFont(Contains.F_S_1_14);
         jCheckBox7.setText("06");
 
-        jCheckBox8.setFont(font); // NOI18N
+        jCheckBox8.setFont(Contains.F_S_1_14);
         jCheckBox8.setText("07");
 
-        jCheckBox9.setFont(font); // NOI18N
+        jCheckBox9.setFont(Contains.F_S_1_14);
         jCheckBox9.setText("08");
 
-        jCheckBox10.setFont(font); // NOI18N
+        jCheckBox10.setFont(Contains.F_S_1_14);
         jCheckBox10.setText("09");
 
-        jCheckBox11.setFont(font); // NOI18N
+        jCheckBox11.setFont(Contains.F_S_1_14);
         jCheckBox11.setText("10");
 
-        jCheckBox12.setFont(font); // NOI18N
+        jCheckBox12.setFont(Contains.F_S_1_14);
         jCheckBox12.setText("11");
 
-        jCheckBox13.setFont(font); // NOI18N
+        jCheckBox13.setFont(Contains.F_S_1_14);
         jCheckBox13.setText("12");
 
-        jLabel1.setFont(font); // NOI18N
+        jLabel1.setFont(Contains.F_S_1_14);
         jLabel1.setText("从");
 
-        //jLabel2.setFont(font); // NOI18N
-        //jLabel2.setText("从");
-
-        jLabel3.setFont(font); // NOI18N
+        jLabel3.setFont(Contains.F_S_1_14);
         jLabel3.setText("-");
 
-        jLabel4.setFont(font); // NOI18N
+        jLabel4.setFont(Contains.F_S_1_14);
         jLabel4.setText("月内");
 
-        jLabel5.setFont(font); // NOI18N
+        jLabel5.setFont(Contains.F_S_1_14);
         jLabel5.setText("日开始，每");
 
-        jLabel6.setFont(font); // NOI18N
+        jLabel6.setFont(Contains.F_S_1_14);
         jLabel6.setText("月执行一次");
 
 	    jButton1.setText("确定");
@@ -262,7 +258,7 @@ public class MonthFrame extends JDialog {
 
         pack();
 	    init();
-	    SwingUtil.setFrameTitle(this);
+	    SwingUtil.setFrameTitle(this,"设置月");
     }// </editor-fold>//GEN-END:initComponents
 
 	private void init() {

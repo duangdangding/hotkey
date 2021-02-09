@@ -1,4 +1,4 @@
-package com.lsh.hotkey.frame;
+package com.lsh.hotkey.utils;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;

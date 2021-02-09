@@ -1,5 +1,6 @@
 package com.lsh.hotkey.entry;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * @author: LuShao
  * @create: 2020-07-14 17:27
  **/
-public class ExcelData {
+public class ExcelData implements Serializable {
 	
 	private String sheetName; // 工作表的名字
 	private String[] headers; // 头部

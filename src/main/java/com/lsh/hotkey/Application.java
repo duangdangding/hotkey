@@ -1,19 +1,18 @@
 package com.lsh.hotkey;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.lsh.hotkey.frame.IndexFrame;
 import com.lsh.hotkey.utils.Contains;
 import com.lsh.hotkey.utils.JsonUtil;
 import com.lsh.hotkey.utils.SwingUtil;
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
-import org.springframework.util.ClassUtils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.net.URL;
 import java.util.Properties;
 
 /**
@@ -35,7 +34,7 @@ public class Application {
 			byte[] bytes = JsonUtil.toData("application.properties");
 			//将字节数组转换成流
 			InputStream in = new BufferedInputStream(new ByteArrayInputStream(bytes));
-			Contains.props.load(in);;
+			Contains.props.load(in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,46 +61,11 @@ public class Application {
 		SwingUtil.readConfig();
 		// 注册热键
 		SwingUtil.registerHotKey();
-		BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
-		//BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.generalNoTranslucencyShadow;
-		//BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
-		//BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
 		try {
-			BeautyEyeLNFHelper.launchBeautyEyeLNF();
+			UIManager.setLookAndFeel( new FlatLightLaf() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		/*// You should always work with UI inside Event Dispatch Thread (EDT)
-		// That includes installing L&F, creating any Swing components etc.
-		SwingUtilities.invokeLater (new Runnable ()
-		{
-			@Override
-			public void run ()
-			{
-				// Install WebLaF as application LaF
-				WebLookAndFeel.install ();
-
-				// You can also specify preferred skin right-away
-				// WebLookAndFeel.install ( WebDarkSkin.class );
-
-				// You can also do that in one of the old-fashioned ways
-				// UIManager.setLookAndFeel ( new WebLookAndFeel () );
-				// UIManager.setLookAndFeel ( "com.alee.laf.WebLookAndFeel" );
-				// UIManager.setLookAndFeel ( WebLookAndFeel.class.getCanonicalName () );
-
-				// You can also configure other WebLaF managers as you like now
-				// StyleManager
-				// SettingsManager
-				// LanguageManager
-				// ...
-
-				// Initialize your application once you're done setting everything up  
-				// JFrame frame = ...
-
-				// You can also use Web* components to get access to some extended WebLaF features
-				// WebFrame frame = ...
-			}
-		} );*/
 		IndexFrame indexFrame = new IndexFrame();
 		Contains.mainF = indexFrame;
 		indexFrame.open();

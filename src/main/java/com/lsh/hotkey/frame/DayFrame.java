@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
  */
 public class DayFrame extends JDialog {
 
-	private Font font = new Font("宋体", 1, 14);
 	private String dayCron = "";
 	private JTextField textField;
 
@@ -86,130 +85,130 @@ public class DayFrame extends JDialog {
         jLabel8 = new JLabel();
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(font); // NOI18N
+        jRadioButton1.setFont(Contains.F_S_1_14);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("每天");
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(font); // NOI18N
+        jRadioButton3.setFont(Contains.F_S_1_14);
         jRadioButton3.setText("周期");
 
         buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(font); // NOI18N
+        jRadioButton4.setFont(Contains.F_S_1_14);
 	    jRadioButton4.setText("从");
 
         buttonGroup1.add(jRadioButton7);
-        jRadioButton7.setFont(font); // NOI18N
+        jRadioButton7.setFont(Contains.F_S_1_14);
         jRadioButton7.setText("指定");
 
-        jCheckBox2.setFont(font); // NOI18N
+        jCheckBox2.setFont(Contains.F_S_1_14);
         jCheckBox2.setText("01");
 
-        jCheckBox3.setFont(font); // NOI18N
+        jCheckBox3.setFont(Contains.F_S_1_14);
         jCheckBox3.setText("02");
 
-        jCheckBox4.setFont(font); // NOI18N
+        jCheckBox4.setFont(Contains.F_S_1_14);
         jCheckBox4.setText("03");
 
-        jCheckBox5.setFont(font); // NOI18N
+        jCheckBox5.setFont(Contains.F_S_1_14);
         jCheckBox5.setText("04");
 
-        jCheckBox6.setFont(font); // NOI18N
+        jCheckBox6.setFont(Contains.F_S_1_14);
         jCheckBox6.setText("05");
 
-        jCheckBox7.setFont(font); // NOI18N
+        jCheckBox7.setFont(Contains.F_S_1_14);
         jCheckBox7.setText("06");
 
-        jCheckBox8.setFont(font); // NOI18N
+        jCheckBox8.setFont(Contains.F_S_1_14);
         jCheckBox8.setText("07");
 
-        jCheckBox9.setFont(font); // NOI18N
+        jCheckBox9.setFont(Contains.F_S_1_14);
         jCheckBox9.setText("08");
 
-        jCheckBox10.setFont(font); // NOI18N
+        jCheckBox10.setFont(Contains.F_S_1_14);
         jCheckBox10.setText("09");
 
-        jCheckBox11.setFont(font); // NOI18N
+        jCheckBox11.setFont(Contains.F_S_1_14);
         jCheckBox11.setText("10");
 
-        jCheckBox12.setFont(font); // NOI18N
+        jCheckBox12.setFont(Contains.F_S_1_14);
         jCheckBox12.setText("11");
 
-        jCheckBox13.setFont(font); // NOI18N
+        jCheckBox13.setFont(Contains.F_S_1_14);
         jCheckBox13.setText("12");
 
-        jCheckBox14.setFont(font); // NOI18N
+        jCheckBox14.setFont(Contains.F_S_1_14);
         jCheckBox14.setText("13");
 
-        jCheckBox15.setFont(font); // NOI18N
+        jCheckBox15.setFont(Contains.F_S_1_14);
         jCheckBox15.setText("14");
 
-        jCheckBox16.setFont(font); // NOI18N
+        jCheckBox16.setFont(Contains.F_S_1_14);
         jCheckBox16.setText("15");
 
-        jCheckBox17.setFont(font); // NOI18N
+        jCheckBox17.setFont(Contains.F_S_1_14);
         jCheckBox17.setText("16");
 
-        jCheckBox18.setFont(font); // NOI18N
+        jCheckBox18.setFont(Contains.F_S_1_14);
         jCheckBox18.setText("17");
 
-        jCheckBox19.setFont(font); // NOI18N
+        jCheckBox19.setFont(Contains.F_S_1_14);
         jCheckBox19.setText("18");
 
-        jCheckBox20.setFont(font); // NOI18N
+        jCheckBox20.setFont(Contains.F_S_1_14);
         jCheckBox20.setText("19");
 
-        jCheckBox21.setFont(font); // NOI18N
+        jCheckBox21.setFont(Contains.F_S_1_14);
         jCheckBox21.setText("20");
 
-        jCheckBox22.setFont(font); // NOI18N
+        jCheckBox22.setFont(Contains.F_S_1_14);
         jCheckBox22.setText("21");
 
-        jCheckBox23.setFont(font); // NOI18N
+        jCheckBox23.setFont(Contains.F_S_1_14);
         jCheckBox23.setText("22");
 
-        jCheckBox24.setFont(font); // NOI18N
+        jCheckBox24.setFont(Contains.F_S_1_14);
         jCheckBox24.setText("23");
 
-        jCheckBox25.setFont(font); // NOI18N
+        jCheckBox25.setFont(Contains.F_S_1_14);
         jCheckBox25.setText("24");
 
-        jCheckBox26.setFont(font); // NOI18N
+        jCheckBox26.setFont(Contains.F_S_1_14);
         jCheckBox26.setText("25");
 
-        jCheckBox27.setFont(font); // NOI18N
+        jCheckBox27.setFont(Contains.F_S_1_14);
         jCheckBox27.setText("26");
 
-        jCheckBox28.setFont(font); // NOI18N
+        jCheckBox28.setFont(Contains.F_S_1_14);
         jCheckBox28.setText("27");
 
-        jCheckBox29.setFont(font); // NOI18N
+        jCheckBox29.setFont(Contains.F_S_1_14);
         jCheckBox29.setText("28");
 
-        jCheckBox30.setFont(font); // NOI18N
+        jCheckBox30.setFont(Contains.F_S_1_14);
         jCheckBox30.setText("29");
 
-        jCheckBox31.setFont(font); // NOI18N
+        jCheckBox31.setFont(Contains.F_S_1_14);
         jCheckBox31.setText("30");
 
-        jCheckBox32.setFont(font); // NOI18N
+        jCheckBox32.setFont(Contains.F_S_1_14);
         jCheckBox32.setText("31");
 
-        jLabel1.setFont(font); // NOI18N
+        jLabel1.setFont(Contains.F_S_1_14);
         jLabel1.setText("从");
 
-        //jLabel2.setFont(font); // NOI18N
+        //jLabel2.setFont(Contains.F_S_1_14);
         //jLabel2.setText("从");
 
         jLabel3.setText("-");
 
-        jLabel4.setFont(font); // NOI18N
+        jLabel4.setFont(Contains.F_S_1_14);
         jLabel4.setText("日内");
 
-        jLabel5.setFont(font); // NOI18N
+        jLabel5.setFont(Contains.F_S_1_14);
         jLabel5.setText("日开始，每");
 
-        jLabel6.setFont(font); // NOI18N
+        jLabel6.setFont(Contains.F_S_1_14);
         jLabel6.setText("天执行一次");
 
 	    jButton1.setText("确定");
@@ -229,21 +228,21 @@ public class DayFrame extends JDialog {
 	    });
 
 	    buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(font); // NOI18N
+        jRadioButton2.setFont(Contains.F_S_1_14);
         jRadioButton2.setText("不指定");
 
 	    buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(font); // NOI18N
+        jRadioButton6.setFont(Contains.F_S_1_14);
         jRadioButton6.setText("本月最后一天");
 
 	    buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(font); // NOI18N
+        jRadioButton5.setFont(Contains.F_S_1_14);
 	    jRadioButton5.setText("每月");
 
-        //jLabel7.setFont(font); // NOI18N
+        //jLabel7.setFont(Contains.F_S_1_14);
         //jLabel7.setText("每月");
 
-        jLabel8.setFont(font); // NOI18N
+        jLabel8.setFont(Contains.F_S_1_14);
         jLabel8.setText("日最近的工作日");
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -457,7 +456,7 @@ public class DayFrame extends JDialog {
 
         pack();
         init();
-	    SwingUtil.setFrameTitle(this);
+	    SwingUtil.setFrameTitle(this,"设置天");
     }// </editor-fold>//GEN-END:initComponents
 
 	private void init() {

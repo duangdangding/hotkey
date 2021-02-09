@@ -10,12 +10,16 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -303,9 +307,24 @@ public class PoiUtil {
 				hotkey.setExplain(cell.getStringCellValue());
 				break;
 			case 4: // 是否加密
-				hotkey.setEncrypt(Integer.valueOf(cell.getStringCellValue()));
+				//hotkey.setEncrypt(Integer.valueOf(cell.getStringCellValue()));
+				hotkey.setEncrypt(cell.getStringCellValue());
 				break;
 		}
 	}
 
+	public static void main(String[] args) throws ParseException {
+		//1606502693114
+		//2020-11-28 02:44:53
+		long l = System.currentTimeMillis();
+		System.out.println(l);
+		Date date = new Date(1606502693000L);
+		System.out.println(date);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String format = sdf.format(date);
+		System.out.println(format);
+		Date parse = sdf.parse("2020-11-28 02:44:53");
+		long time = parse.getTime();
+		System.out.println(time);
+	}
 }

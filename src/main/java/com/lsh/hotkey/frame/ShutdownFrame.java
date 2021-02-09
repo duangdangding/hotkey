@@ -2,6 +2,7 @@ package com.lsh.hotkey.frame;
 
 import com.lsh.hotkey.utils.Contains;
 import com.lsh.hotkey.utils.JsonUtil;
+import com.lsh.hotkey.utils.SwingUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
@@ -24,7 +25,6 @@ public class ShutdownFrame extends JDialog {
 
     private void initComponents() {
 
-        jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
@@ -35,16 +35,13 @@ public class ShutdownFrame extends JDialog {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new Font("宋体", 1, 14)); // NOI18N
-        jLabel1.setText("  定时关机");
-
-        jLabel2.setFont(new Font("宋体", 0, 14)); // NOI18N
+        jLabel2.setFont(Contains.F_S_0_14);
         jLabel2.setText("定时时长：");
 
-        jLabel3.setFont(new Font("宋体", 0, 14)); // NOI18N
+        jLabel3.setFont(Contains.F_S_0_14);
         jLabel3.setText("分钟");
 
-        jLabel4.setFont(new Font("宋体", 0, 14)); // NOI18N
+        jLabel4.setFont(Contains.F_S_0_14);
         jLabel4.setText("秒");
 
         jButton1.setText("开始计时");
@@ -67,7 +64,6 @@ public class ShutdownFrame extends JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -91,7 +87,6 @@ public class ShutdownFrame extends JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
@@ -107,15 +102,16 @@ public class ShutdownFrame extends JDialog {
         );
 
         pack();
-	    init();
+	    SwingUtil.setFrameTitle(this,"定时关机");
+	    //init();
     }
     
-    private void init() {
+   /* private void init() {
 	    ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/add.png"),"");
 	    this.setIconImage(icon.getImage());
 	    this.setLocationRelativeTo(null);
 	    this.setVisible(true);
-    }
+    }*/
 	// 开始定时
     private void jButton1ActionPerformed(ActionEvent evt) {
 	    String minu = jTextField1.getText().trim();
@@ -126,7 +122,6 @@ public class ShutdownFrame extends JDialog {
 	    try {
 		    
 	    	if ("".equals(minu) && "".equals(second)) {
-			    //JOptionPane.showMessageDialog(this,"请输入定时时间！");
 			    int option = dialog.showConfirmDialog(null, "没有填写时间就是立即关机呐", "立即关机提示", JOptionPane.YES_NO_OPTION);
 			    if(option != JOptionPane.YES_OPTION){
 				    return;
@@ -173,7 +168,6 @@ public class ShutdownFrame extends JDialog {
 
     private JButton jButton1;
     private JButton jButton2;
-    private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
