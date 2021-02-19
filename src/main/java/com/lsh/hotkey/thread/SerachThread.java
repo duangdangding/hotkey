@@ -18,25 +18,30 @@ import java.util.concurrent.CountDownLatch;
 public class SerachThread extends Thread {
     private File root;
     private CountDownLatch latch;
-    public SerachThread(File root,CountDownLatch latch) {
+    private int index;
+    public SerachThread(File root,CountDownLatch latch,int index) {
         this.root = root;
         this.latch = latch;
+        this.index = index;
     }
     @Override
     public void run() {
         try {
-            getFileMsg(root);
+            if (index == 1) {
+                getFileMsg2(root);
+            } else if (index == 0) {
+                getFileMsg1(root);
+            }
             latch.countDown();//当前线程调用此方法，则计数减一
         }catch (Exception e) {
             e.printStackTrace();
         }
-        // super.run();
     }
     /**
      * 递归遍历文件
      * @param file
      */
-    private void getFileMsg(File file) {
+    private void getFileMsg1(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
             if (files != null) {
@@ -44,12 +49,28 @@ public class SerachThread extends Thread {
                     if (file1.isFile()) {
                         addFileMsg(file1);
                     } else {
-                        getFileMsg(file1);
+                        getFileMsg1(file1);
                     }
                 }
             }
         } else {
             addFileMsg(file);
+        }
+    }
+    private void getFileMsg2(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File file1 : files) {
+                    if (file1.isFile()) {
+                        Contains.FILESS.add(file1.getAbsolutePath());
+                    } else {
+                        getFileMsg2(file1);
+                    }
+                }
+            }
+        } else {
+            Contains.FILESS.add(file.getAbsolutePath());
         }
     }
     /**

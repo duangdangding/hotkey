@@ -18,7 +18,6 @@ import java.util.List;
  * @author Administrator
  */
 public class TaskFrame extends JDialog {
-	JOptionPane dialog = new JOptionPane();
 
 	private TaskEntry taskEntry = new TaskEntry();
 	private TaskEntry save = new TaskEntry();
@@ -89,104 +88,80 @@ public class TaskFrame extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new ButtonGroup();
-        jLabel3 = new JLabel();
-        jLabel4 = new JLabel();
-        jLabel5 = new JLabel();
-        jLabel6 = new JLabel();
-        jLabel7 = new JLabel();
-        jLabel8 = new JLabel();
+        jLabel3 = new JLabel("周");
+        jLabel4 = new JLabel("月");
+        jLabel5 = new JLabel("日");
+        jLabel6 = new JLabel("时");
+        jLabel7 = new JLabel("分");
+        jLabel8 = new JLabel("秒");
         jTextField2 = new JTextField();
         jTextField3 = new JTextField();
         jTextField4 = new JTextField();
         jTextField5 = new JTextField();
         jTextField6 = new JTextField();
         jTextField7 = new JTextField();
-	    jButton5 = new JButton();
-	    jButton6 = new JButton();
-	    jButton7 = new JButton();
-	    jButton8 = new JButton();
-	    jButton9 = new JButton();
-	    jButton10 = new JButton();
-        jRadioButton1 = new JRadioButton();
+	    jButton5 = new JButton("选择");
+	    jButton6 = new JButton("选择");
+	    jButton7 = new JButton("选择");
+	    jButton8 = new JButton("选择");
+	    jButton9 = new JButton("选择");
+	    jButton10 = new JButton("选择");
+        jRadioButton1 = new JRadioButton("提示消息");
         jScrollPane1 = new JScrollPane();
         jTextArea1 = new JTextArea();
-        jRadioButton2 = new JRadioButton();
+        jRadioButton2 = new JRadioButton("打开程序");
 	    jList1 = new JList<>();
         jScrollPane2 = new JScrollPane();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
-        jButton4 = new JButton();
+        jButton1 = new JButton("选择程序");
+        jButton2 = new JButton("移除程序");
+        jButton3 = new JButton("保存任务");
+        jButton4 = new JButton("执行任务");
         jScrollPane3 = new JScrollPane();
         jLabel2 = new JLabel();
-	    jLabel9 = new JLabel();
+	    jLabel9 = new JLabel("任务名称");
 	    jTextField1 = new JTextField();
-		jRadioButton3 = new JRadioButton();
+		jRadioButton3 = new JRadioButton("执行CMD命令");
 		jTextField8 = new JTextField();
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
         jLabel3.setFont(Contains.F_S_1_18);
-        jLabel3.setText("周");
-
         jLabel4.setFont(Contains.F_S_1_18);
-        jLabel4.setText("月");
-
         jLabel5.setFont(Contains.F_S_1_18);
-        jLabel5.setText("日");
-
         jLabel6.setFont(Contains.F_S_1_18);
-        jLabel6.setText("时");
-
         jLabel7.setFont(Contains.F_S_1_18);
-        jLabel7.setText("分");
-
         jLabel8.setFont(Contains.F_S_1_18);
-        jLabel8.setText("秒");
 
         jTextField4.setMinimumSize(new Dimension(6, 24));
 
-	    jButton5.setText("选择");
 	    jButton5.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton5ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton6.setText("选择");
 	    jButton6.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton6ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton7.setText("选择");
 	    jButton7.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton7ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton8.setText("选择");
 	    jButton8.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton8ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton9.setText("选择");
 	    jButton9.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton9ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton10.setText("选择");
 	    jButton10.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -196,7 +171,6 @@ public class TaskFrame extends JDialog {
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);
-        jRadioButton1.setText("提示消息");
         jRadioButton1.addItemListener(new ItemListener() {
 	        @Override
 	        public void itemStateChanged(ItemEvent e) {
@@ -209,7 +183,6 @@ public class TaskFrame extends JDialog {
         jScrollPane1.setViewportView(jTextArea1);
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("打开程序");
 	    jRadioButton2.addItemListener(new ItemListener() {
 		    @Override
 		    public void itemStateChanged(ItemEvent e) {
@@ -225,31 +198,24 @@ public class TaskFrame extends JDialog {
 	    });
         jScrollPane2.setViewportView(jList1);
 
-	    jButton1.setText("选择程序");
 	    jButton1.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton1ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton2.setText("移除程序");
 	    jButton2.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton2ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton3.setText("保存任务");
 	    jButton3.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
 			    jButton3ActionPerformed(evt);
 		    }
 	    });
-
-	    jButton4.setText("执行任务");
 	    jButton4.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -261,10 +227,7 @@ public class TaskFrame extends JDialog {
 	    jLabel2.setText("<html> <body  style=\"overflow-y: scroll;word-wrap: break-word;word-break: break-all;overflow-x: hidden\"> 秒:可出现\", - * /\"四个字符，有效范围为0-59的整数 <br> 分:可出现\", - * /\"四个字符，有效范围为0-59的整数 <br> 时:可出现\", - * /\"四个字符，有效范围为0-23的整数 <br> 日:可出现\", - * / ? L W C\"八个字符，有效范围为0-31的整数 <br> 月:可出现\", - * /\"四个字符，有效范围为1-12的整数或JAN-DEc <br> 周:可出现\", - * / ? L C #\"四个字符，有效范围为1-7的整数或SUN-SAT两个范围。1表示星期天，<br>2表示星期一， 依次类推<br> <br> (1)*：表示匹配该域的任意值，假如在分域使用*, 即表示每分钟都会触发事件。<br> (2)?:只能用在日和周两个域。它也匹配域的任意值，但实际不会。因为日和周会相互影响。<br> 例如想在每月的20日触发调度，不管20日到底是星期几，则只能使用如下写法： 13 13 15 20 * ?, <br> 其中最后一位只能用？，而不能使用*，如果使用*表示不管星期几都会触发，实际上并不是这样。<br> (3)-:表示范围，例如在分域使用5-20，表示从5分到20分钟每分钟触发一次<br> (4)/：表示起始时间开始触发，然后每隔固定时间触发一次，例如在分域使用5/20,<br>则意味着5分钟触发一次，而25，45等分别触发一次.<br> (5),:表示列出枚举值值。例如：在分域使用5,20，则意味着在5和20分每分钟触发一次。<br> (6)L:表示最后，只能出现在周和日域，如果在周域使用5L,<br>意味着在最后的一个星期四触发。<br> (7)W:表示有效工作日(周一到周五),只能出现在日域，系统将在离指定日期的最近的有效工作日触发事件。<br> 例如：在 日使用5W，如果5日是星期六，则将在最近的工作日：星期五，即4日触发。如果5日是星期天，<br> 则在6日(周一)触发；如果5日在星期一到星期五中的一天，则就在5日触发。另外一点，W的最近寻找不会跨过月份<br> (8)LW:这两个字符可以连用，表示在某个月最后一个工作日，即最后一个星期五。<br> (9)#:用于确定每个月第几个星期几，只能出现在日域。例如在4#2，表示某月的第二个星期三。<br> <br> <!--举几个例子:--> <!--0 0 2 1 * ? * 表示在每月的1日的凌晨2点调度任务--> <!--0 15 10 ? * MON-FRI 表示周一到周五每天上午10：15执行作业--> <!--0 15 10 ? 6L 2002-2006 表示2002-2006年的每个月的最后一个星期五上午10:15执行作-->  一个cron表达式有至少6个（也可能7个）有空格分隔的时间元素。<br> 秒（0~59）<br> 分钟（0~59）<br> 小时（0~23）<br> 天（月）（0~31，但是你需要考虑你月的天数）<br> 月（0~11）<br> 天（星期）（1~7 1=SUN 或 SUN，MON，TUE，WED，THU，FRI，SAT）<br> <br> 其中每个元素可以是一个值(如6),一个连续区间(9-12),一个间隔时间(8-18/4)(/表示每隔4小时),一个列表(1,3,5),<br> 通配符。由于\"月份中的日期\"和\"星期中的日期\"这两个元素互斥的,必须要对其中一个设置?<br> <br> <!--0 0 10,14,16 * * ? 每天上午10点，下午2点，4点--> <!--0 0/30 9-17 * * ? 朝九晚五工作时间内每半小时--> <!--0 0 12 ? * WED 表示每个星期三中午12点--> <!--\"0 0 12 * * ?\" 每天中午12点触发--> <!--\"0 15 10 ? * *\" 每天上午10:15触发--> <!--\"0 15 10 * * ?\" 每天上午10:15触发--> <!--\"0 15 10 * * ? *\" 每天上午10:15触发--> <!--\"0 15 10 * * ? 2005\" 2005年的每天上午10:15触发--> <!--\"0 * 14 * * ?\" 在每天下午2点到下午2:59期间的每1分钟触发--> <!--\"0 0/5 14 * * ?\" 在每天下午2点到下午2:55期间的每5分钟触发--> <!--\"0 0/5 14,18 * * ?\" 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发--> <!--\"0 0-5 14 * * ?\" 在每天下午2点到下午2:05期间的每1分钟触发--> <!--\"0 10,44 14 ? 3 WED\" 每年三月的星期三的下午2:10和2:44触发--> <!--\"0 15 10 ? * MON-FRI\" 周一至周五的上午10:15触发--> <!--\"0 15 10 15 * ?\" 每月15日上午10:15触发--> <!--\"0 15 10 L * ?\" 每月最后一日的上午10:15触发--> <!--\"0 15 10 ? * 6L\" 每月的最后一个星期五上午10:15触发--> <!--\"0 15 10 ? * 6L 2002-2005\" 2002年至2005年的每月的最后一个星期五上午10:15触发--> <!--\"0 15 10 ? * 6#3\" 每月的第三个星期五上午10:15触发-->  有些子表达式能包含一些范围或列表<br> 例如：子表达式（天（星期））可以为 “MON-FRI”，“MON，WED，FRI”，“MON-WED,SAT”<br> “*”字符代表所有可能的值<br> 因此，“*”在子表达式（月）里表示每个月的含义，“*”在子表达式（天（星期））表示星期的每一天<br> “/”字符用来指定数值的增量<br> 例如：在子表达式（分钟）里的“0/15”表示从第0分钟开始，每15分钟<br> 在子表达式（分钟）里的“3/20”表示从第3分钟开始，每20分钟（它和“3，23，43”）的含义一样<br> “？”字符仅被用于天（月）和天（星期）两个子表达式，表示不指定值<br> 当2个子表达式其中之一被指定了值以后，为了避免冲突，需要将另一个子表达式的值设为“？”<br> “L” 字符仅被用于天（月）和天（星期）两个子表达式，它是单词“last”的缩写<br> 但是它在两个子表达式里的含义是不同的。<br> 在天（月）子表达式中，“L”表示一个月的最后一天<br> 在天（星期）自表达式中，“L”表示一个星期的最后一天，也就是SAT<br> 如果在“L”前有具体的内容，它就具有其他的含义了<br> 例如：“6L”表示这个月的倒数第６天，“FRIL”表示这个月的最一个星期五<br> 注意：在使用“L”参数时，不要指定列表或范围，因为这会导致问题<br> 字段 允许值 允许的特殊字符<br> 秒 0-59 , - * /<br> 分 0-59 , - * /<br> 小时 0-23 , - * /<br> 日期 1-31 , - * ? / L W C<br> 月份 1-12 或者 JAN-DEC , - * /<br> 星期 1-7 或者 SUN-SAT , - * ? / L C #<br> </body> </html>");
 	    jScrollPane3.setViewportView(jLabel2);
 
-	    jLabel9.setText("任务名称");
-
 		buttonGroup1.add(jRadioButton3);
-		jRadioButton3.setText("执行CMD命令");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -526,7 +489,6 @@ public class TaskFrame extends JDialog {
 			listModel.addElement(absolutePath);
 			files.add(absolutePath);
 			//String msg = "";
-			//JOptionPane.showMessageDialog(this,msg);
 		}
 	}
 	// 移除程序
@@ -547,10 +509,10 @@ public class TaskFrame extends JDialog {
 		String cron = second + space + minute + space + hours + space + day + space + month + space + weekend;
 		save.setCronExpre(cron);
 		boolean b = CronExpression.isValidExpression(cron);
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (!b) {
-			dialog.showMessageDialog(this,"任务不符合规则~");
+			Contains.DIALOG.showMessageDialog(this,"任务不符合规则~");
 			return;
 		}
 		Integer type ;
@@ -559,7 +521,7 @@ public class TaskFrame extends JDialog {
 			type = 1;
 			String text = jTextArea1.getText();
 			if (text == "") {
-				dialog.showMessageDialog(this,"消息不能为空~");
+				Contains.DIALOG.showMessageDialog(this,"消息不能为空~");
 				return ;
 			}
 			save.setMessage(text);
@@ -567,7 +529,7 @@ public class TaskFrame extends JDialog {
 		} else if(jRadioButton2.isSelected()){
 			type = 2;
 			if (files.size() == 0) {
-				dialog.showMessageDialog(this,"程序列表不能为空~");
+				Contains.DIALOG.showMessageDialog(this,"程序列表不能为空~");
 				return ;
 			}
 			save.setExecs(files.toArray(new String[files.size()]));
@@ -577,7 +539,7 @@ public class TaskFrame extends JDialog {
 			comment = "执行CMD命令";
 			String cmd = jTextField8.getText().trim();
 			if (cmd.length() == 0) {
-				dialog.showMessageDialog(this,"CMD命令不能为空~");
+				Contains.DIALOG.showMessageDialog(this,"CMD命令不能为空~");
 				return ;
 			}
 			save.setCmd(cmd);
@@ -585,7 +547,7 @@ public class TaskFrame extends JDialog {
 		if (taskName.trim() !=null && taskName.trim() != "") {
 			save.setTaskName(taskName);
 		} else {
-			dialog.showMessageDialog(this,"任务名称不能为空~");
+			Contains.DIALOG.showMessageDialog(this,"任务名称不能为空~");
 		}
 		save.setExecType(type);
 		save.setComment(comment);
@@ -627,19 +589,19 @@ public class TaskFrame extends JDialog {
 			}
 		}
 		jButton4.setEnabled(b1);
-		dialog.showMessageDialog(this,msg);
+		Contains.DIALOG.showMessageDialog(this,msg);
 	}
 	// 执行任务
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		String taskName = save.getTaskName();
 		boolean b = JobUtil.isExistJobKey(taskName);
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (b) {
 			JobUtil.deleteJob(save.getTaskName());
 		}
 		JobUtil.bingTask(save);
-		dialog.showMessageDialog(this,"任务执行成功~");
+		Contains.DIALOG.showMessageDialog(this,"任务执行成功~");
 	}
 
     private ButtonGroup buttonGroup1;

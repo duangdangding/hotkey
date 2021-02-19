@@ -6,6 +6,7 @@ import com.melloware.jintellitype.HotkeyListener;
 import com.melloware.jintellitype.JIntellitype;
 import org.quartz.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,9 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -251,6 +255,32 @@ public class SwingUtil {
 		}
 		// 此句是打开文件选择器的触发语句
 		return Contains.JFILE.showOpenDialog(null);
+	}
+
+	/**
+	 * 打开文件选择框
+	 * @param model 1设定只能选择到文件夹 0只能选择文件
+	 * @return
+	 */
+	public static int openJfile(int model) {
+		Contains.JFILE.setFileSelectionMode(model);
+		// 此句是打开文件选择器的触发语句
+		return Contains.JFILE.showOpenDialog(null);
+	}
+
+	/**
+	 * 选择文件过后 设置文本内容
+	 * @param jTextField
+	 * @param model
+	 */
+	public static void setTextFile(JTextField jTextField,int model) {
+		int i = openJfile(model);
+		if (i == 1) {
+			return;
+		} else {
+			String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
+			jTextField.setText(absolutePath);
+		}
 	}
 
 	/**
@@ -567,6 +597,18 @@ public class SwingUtil {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			String IMG_PATH = "C:\\Users\\Administrator\\Desktop\\生活小技巧.gif";
+			BufferedImage img = ImageIO.read(new File(IMG_PATH));
+			ImageIcon icon = new ImageIcon(img);
+			JLabel label = new JLabel(icon);
+			JOptionPane.showMessageDialog(null, label);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -29,104 +29,64 @@ public class MonthFrame extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new ButtonGroup();
-        jRadioButton1 = new JRadioButton();
-        jRadioButton2 = new JRadioButton();
-        jRadioButton3 = new JRadioButton();
-        jRadioButton4 = new JRadioButton();
-        jCheckBox2 = new JCheckBox();
-        jCheckBox3 = new JCheckBox();
-        jCheckBox4 = new JCheckBox();
-        jCheckBox5 = new JCheckBox();
-        jCheckBox6 = new JCheckBox();
-        jCheckBox7 = new JCheckBox();
-        jCheckBox8 = new JCheckBox();
-        jCheckBox9 = new JCheckBox();
-        jCheckBox10 = new JCheckBox();
-        jCheckBox11 = new JCheckBox();
-        jCheckBox12 = new JCheckBox();
-        jCheckBox13 = new JCheckBox();
-        jLabel1 = new JLabel();
+        jRadioButton1 = new JRadioButton("每月");
+        jRadioButton2 = new JRadioButton("周期");
+        jRadioButton3 = new JRadioButton("从");
+        jRadioButton4 = new JRadioButton("指定");
+        jCheckBox2 = new JCheckBox("01");
+        jCheckBox3 = new JCheckBox("02");
+        jCheckBox4 = new JCheckBox("03");
+        jCheckBox5 = new JCheckBox("04");
+        jCheckBox6 = new JCheckBox("05");
+        jCheckBox7 = new JCheckBox("06");
+        jCheckBox8 = new JCheckBox("07");
+        jCheckBox9 = new JCheckBox("08");
+        jCheckBox10 = new JCheckBox("09");
+        jCheckBox11 = new JCheckBox("10");
+        jCheckBox12 = new JCheckBox("11");
+        jCheckBox13 = new JCheckBox("12");
+        jLabel1 = new JLabel("从");
         //jLabel2 = new JLabel();
         jTextField1 = new JTextField();
-        jLabel3 = new JLabel();
+        jLabel3 = new JLabel("-");
         jTextField2 = new JTextField();
-        jLabel4 = new JLabel();
+        jLabel4 = new JLabel("月内");
         jTextField3 = new JTextField();
         jTextField4 = new JTextField();
-        jLabel5 = new JLabel();
-        jLabel6 = new JLabel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
+        jLabel5 = new JLabel("日开始，每");
+        jLabel6 = new JLabel("月执行一次");
+        jButton1 = new JButton("确定");
+        jButton2 = new JButton("取消");
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(Contains.F_S_1_14);
         jRadioButton1.setSelected(true);
-        jRadioButton1.setText("每月");
-
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(Contains.F_S_1_14);
-        jRadioButton2.setText("周期");
-
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(Contains.F_S_1_14);
-	    jRadioButton3.setText("从");
-
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setFont(Contains.F_S_1_14);
-        jRadioButton4.setText("指定");
-
+        
         jCheckBox2.setFont(Contains.F_S_1_14);
-        jCheckBox2.setText("01");
-
         jCheckBox3.setFont(Contains.F_S_1_14);
-        jCheckBox3.setText("02");
-
         jCheckBox4.setFont(Contains.F_S_1_14);
-        jCheckBox4.setText("03");
-
         jCheckBox5.setFont(Contains.F_S_1_14);
-        jCheckBox5.setText("04");
-
         jCheckBox6.setFont(Contains.F_S_1_14);
-        jCheckBox6.setText("05");
-
         jCheckBox7.setFont(Contains.F_S_1_14);
-        jCheckBox7.setText("06");
-
         jCheckBox8.setFont(Contains.F_S_1_14);
-        jCheckBox8.setText("07");
-
         jCheckBox9.setFont(Contains.F_S_1_14);
-        jCheckBox9.setText("08");
-
         jCheckBox10.setFont(Contains.F_S_1_14);
-        jCheckBox10.setText("09");
-
         jCheckBox11.setFont(Contains.F_S_1_14);
-        jCheckBox11.setText("10");
-
         jCheckBox12.setFont(Contains.F_S_1_14);
-        jCheckBox12.setText("11");
-
         jCheckBox13.setFont(Contains.F_S_1_14);
-        jCheckBox13.setText("12");
-
+        
         jLabel1.setFont(Contains.F_S_1_14);
-        jLabel1.setText("从");
-
         jLabel3.setFont(Contains.F_S_1_14);
-        jLabel3.setText("-");
-
         jLabel4.setFont(Contains.F_S_1_14);
-        jLabel4.setText("月内");
-
         jLabel5.setFont(Contains.F_S_1_14);
-        jLabel5.setText("日开始，每");
-
         jLabel6.setFont(Contains.F_S_1_14);
-        jLabel6.setText("月执行一次");
 
-	    jButton1.setText("确定");
 	    jButton1.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -134,7 +94,6 @@ public class MonthFrame extends JDialog {
 		    }
 	    });
 
-	    jButton2.setText("取消");
 	    jButton2.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {

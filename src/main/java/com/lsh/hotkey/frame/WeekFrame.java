@@ -30,79 +30,52 @@ public class WeekFrame extends JDialog {
 	private void initComponents() {
 
 		buttonGroup1 = new ButtonGroup();
-		jRadioButton1 = new JRadioButton();
-		jCheckBox2 = new JCheckBox();
-		jCheckBox3 = new JCheckBox();
-		jCheckBox4 = new JCheckBox();
-		jCheckBox5 = new JCheckBox();
-		jCheckBox6 = new JCheckBox();
-		jCheckBox7 = new JCheckBox();
-		jCheckBox8 = new JCheckBox();
-		jLabel1 = new JLabel();
-		jLabel3 = new JLabel();
-		jLabel4 = new JLabel();
+		jRadioButton1 = new JRadioButton("每周");
+		jCheckBox2 = new JCheckBox("日");
+		jCheckBox3 = new JCheckBox("一");
+		jCheckBox4 = new JCheckBox("二");
+		jCheckBox5 = new JCheckBox("三");
+		jCheckBox6 = new JCheckBox("四");
+		jCheckBox7 = new JCheckBox("五");
+		jCheckBox8 = new JCheckBox("六");
+		jLabel1 = new JLabel("从星期");
+		jLabel3 = new JLabel("-");
+		jLabel4 = new JLabel("内");
 		jTextField3 = new JTextField();
-		jLabel5 = new JLabel();
-		jButton1 = new JButton();
-		jButton2 = new JButton();
+		jLabel5 = new JLabel("周的星期");
+		jButton1 = new JButton("确定");
+		jButton2 = new JButton("取消");
 		jComboBox1 = new JComboBox<>();
 		jComboBox2 = new JComboBox<>();
 		jComboBox3 = new JComboBox<>();
 		jComboBox4 = new JComboBox<>();
-		jRadioButton2 = new JRadioButton();
-		jRadioButton3 = new JRadioButton();
-		jRadioButton4 = new JRadioButton();
-		jRadioButton5 = new JRadioButton();
-		jRadioButton6 = new JRadioButton();
-
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		jRadioButton2 = new JRadioButton("不指定");
+		jRadioButton3 = new JRadioButton("周期");
+		jRadioButton4 = new JRadioButton("第");
+		jRadioButton5 = new JRadioButton("本月最后一个星期");
+		jRadioButton6 = new JRadioButton("指定");
 
 		buttonGroup1.add(jRadioButton1);
 		jRadioButton1.setFont(Contains.F_S_1_14);
 		jRadioButton1.setSelected(true);
-		jRadioButton1.setText("每周");
-
 		jCheckBox2.setFont(Contains.F_S_1_14);
-		jCheckBox2.setText("日");
-
 		jCheckBox3.setFont(Contains.F_S_1_14);
-		jCheckBox3.setText("一");
-
 		jCheckBox4.setFont(Contains.F_S_1_14);
-		jCheckBox4.setText("二");
-
 		jCheckBox5.setFont(Contains.F_S_1_14);
-		jCheckBox5.setText("三");
-
 		jCheckBox6.setFont(Contains.F_S_1_14);
-		jCheckBox6.setText("四");
-
 		jCheckBox7.setFont(Contains.F_S_1_14);
-		jCheckBox7.setText("五");
-
 		jCheckBox8.setFont(Contains.F_S_1_14);
-		jCheckBox8.setText("六");
-
+		
 		jLabel1.setFont(Contains.F_S_1_14);
-		jLabel1.setText("从星期");
-
-		jLabel3.setText("-");
-
 		jLabel4.setFont(Contains.F_S_1_14);
-		jLabel4.setText("内");
-
 		jLabel5.setFont(Contains.F_S_1_14);
-		jLabel5.setText("周的星期");
 
-		jButton1.setText("确定");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
 			}
 		});
-
-		jButton2.setText("取消");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,32 +84,20 @@ public class WeekFrame extends JDialog {
 		});
 
 		jComboBox1.setModel(new DefaultComboBoxModel<>(weeks));
-
 		jComboBox2.setModel(new DefaultComboBoxModel<>(weeks));
-
 		jComboBox3.setModel(new DefaultComboBoxModel<>(weeks));
-
 		jComboBox4.setModel(new DefaultComboBoxModel<>(weeks));
 
 		buttonGroup1.add(jRadioButton2);
 		jRadioButton2.setFont(Contains.F_S_1_14);
-		jRadioButton2.setText("不指定");
-
 		buttonGroup1.add(jRadioButton3);
 		jRadioButton3.setFont(Contains.F_S_1_14);
-		jRadioButton3.setText("周期");
-
 		buttonGroup1.add(jRadioButton4);
 		jRadioButton4.setFont(Contains.F_S_1_14);
-		jRadioButton4.setText("第");
-
 		buttonGroup1.add(jRadioButton5);
 		jRadioButton5.setFont(Contains.F_S_1_14);
-		jRadioButton5.setText("本月最后一个星期");
-
 		buttonGroup1.add(jRadioButton6);
 		jRadioButton6.setFont(Contains.F_S_1_14);
-		jRadioButton6.setText("指定");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);

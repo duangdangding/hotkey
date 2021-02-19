@@ -15,6 +15,12 @@ public class WaitFrame extends JDialog {
     public WaitFrame(DocumentDuplicationCheck documentDuplicationCheck, boolean modal) {
         super(documentDuplicationCheck, modal);
     }
+    public WaitFrame(RenameFrame renameFrame, boolean modal) {
+        super(renameFrame, modal);
+    }
+    public WaitFrame(VideoToGif parent, boolean modal) {
+        super(parent, modal);
+    }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -52,11 +58,13 @@ public class WaitFrame extends JDialog {
         this.setVisible(true);
 //        this.setUndecorated(true);
     }
-    public void closeBar() {
+   /* @Override
+    public void dispose() {
+//        dispose();
+        setVisible(false);
         this.dispose();
         this.setVisible(false);
-        this.setEnabled(false);
-    }
+    }*/
 
     private JProgressBar jProgressBar1;
 

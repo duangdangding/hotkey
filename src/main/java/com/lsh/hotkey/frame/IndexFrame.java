@@ -21,7 +21,6 @@ import java.util.List;
  * @author Administrator
  */
 public class IndexFrame extends JFrame implements KeyListener {
-	JOptionPane dialog = new JOptionPane();
 	public static WaitFrame wait;
 
 	private boolean isMW = true;
@@ -128,7 +127,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 		SwingUtil.tableCenter(jTable2,Contains.TASKH,SwingUtil.getTableData(Contains.TASKS));
 		//SwingUtil.tableCenter(jTable2);
 		jScrollPane2.setViewportView(jTable2);
-		
+
 		jButton10.setText("新增");
 		jButton10.addActionListener(new ActionListener() {
 			@Override
@@ -184,7 +183,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 				jButton12ActionPerformed(evt);
 			}
 		});
-		
+
 		GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
 		jPanel5.setLayout(jPanel5Layout);
 		jPanel5Layout.setHorizontalGroup(
@@ -216,7 +215,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton16, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jButton12, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
-		
+
 		GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
 		jPanel3.setLayout(jPanel3Layout);
 		jPanel3Layout.setHorizontalGroup(
@@ -238,14 +237,14 @@ public class IndexFrame extends JFrame implements KeyListener {
 		);
 		jTabbedPane1.addTab("定时任务", jPanel3);
 	}
-	
+
 	//菜单
 	private void menu() {
 		jMenuBar1 = new JMenuBar();
 		jMenu1 = new JMenu();
 		jMenu2 = new JMenu();
 		jMenu3 = new JMenu();
-		
+
 		jMenuBar1.setPreferredSize(new Dimension(109, 30));
 
 		jMenu1.setText("File");
@@ -264,7 +263,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 		setJMenuBar(jMenuBar1);
 	}
-	
+
 	// 底部时间显示
 	private void bottomTimer() {
 		jLabel1 = new JLabel();
@@ -292,15 +291,15 @@ public class IndexFrame extends JFrame implements KeyListener {
 										.addComponent(jLabel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 		);
 	}
-	
+
 	//小工具
 	private void toolkit() {
 		jPanel2 = new JPanel();
-		jButton6 = new JButton();
-		jButton7 = new JButton();
-		jButton17 = new JButton();
-		
-		jButton6.setText("定时关机");
+		jButton6 = new JButton("定时关机");
+		jButton7 = new JButton("文件查重");
+		jButton17 = new JButton("重命名文件");
+		jButton18 = new JButton("视频转GIF");
+
 		jButton6.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -308,7 +307,6 @@ public class IndexFrame extends JFrame implements KeyListener {
 			}
 		});
 
-		jButton7.setText("文件查重");
 		jButton7.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -316,7 +314,18 @@ public class IndexFrame extends JFrame implements KeyListener {
 			}
 		});
 
-		jButton17.setText("重命名文件");
+		jButton17.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				jButton17ActionPerformed(evt);
+			}
+		});
+		jButton18.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				jButton18ActionPerformed(evt);
+			}
+		});
 		GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
 		jPanel2.setLayout(jPanel2Layout);
 
@@ -329,6 +338,8 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton7)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 								.addComponent(jButton17)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jButton18)
 								.addContainerGap(570, Short.MAX_VALUE))
 		);
 		jPanel2Layout.setVerticalGroup(
@@ -338,78 +349,66 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(jButton6)
 										.addComponent(jButton7)
-										.addComponent(jButton17))
+										.addComponent(jButton17)
+										.addComponent(jButton18))
 								.addContainerGap(525, Short.MAX_VALUE))
 		);
 
 		jTabbedPane1.addTab("小工具", jPanel2);
 	}
-	
+
 	// 补全panel
 	private void completePanel() {
 		jPanel1 = new JPanel();
 		jScrollPane1 = new JScrollPane();
 		jTable1 = new JTable();
 		jPanel4 = new JPanel();
-		jButton1 = new JButton();
-		jButton2 = new JButton();
-		jButton3 = new JButton();
-		jButton4 = new JButton();
-		jButton5 = new JButton();
-		jButton8 = new JButton();
-		jButton9 = new JButton();
+		jButton1 = new JButton("新增");
+		jButton2 = new JButton("删除");
+		jButton3 = new JButton("明文");
+		jButton4 = new JButton("全选");
+		jButton5 = new JButton("编辑");
+		jButton8 = new JButton("备份");
+		jButton9 = new JButton("导入");
 		SwingUtil.tableCenter(jTable1,Contains.COMPLETEH,null);
 		jScrollPane1.setViewportView(jTable1);
 
-		jButton1.setText("新增");
 		jButton1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton1ActionPerformed(evt);
 			}
 		});
-
-		jButton2.setText("删除");
 		jButton2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton2ActionPerformed(evt);
 			}
 		});
-
-		jButton3.setText("明文");
 		jButton3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton3ActionPerformed(evt);
 			}
 		});
-
-		jButton4.setText("全选");
 		jButton4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton4ActionPerformed(evt);
 			}
 		});
-
-		jButton5.setText("编辑");
 		jButton5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton5ActionPerformed(evt);
 			}
 		});
-
-		jButton8.setText("备份");
 		jButton8.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				jButton8ActionPerformed(evt);
 			}
 		});
-
-		jButton9.setText("导入");
 		jButton9.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -448,7 +447,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton8, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jButton9, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
-		
+
 		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(
@@ -478,7 +477,6 @@ public class IndexFrame extends JFrame implements KeyListener {
 	}
 	// 解除绑定热键
 	private void removeKey(int id) {
-		
 		JIntellitype.getInstance().unregisterHotKey(id);
 		Contains.HOTKEYS.remove(id);
 	}
@@ -486,10 +484,10 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private void jButton2ActionPerformed(ActionEvent evt) {
 		String message = "";
 		int [] selectRows = jTable1.getSelectedRows();  //获得所有被选中的索引
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (selectRows.length > 0) {
-			int valuex=dialog.showConfirmDialog(this,"确认删除选中吗？", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			int valuex=Contains.DIALOG.showConfirmDialog(this,"确认删除选中吗？", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			if (valuex == JOptionPane.YES_OPTION) {
 				for (int selectRow : selectRows) {
 					//int id = Integer.valueOf((String) jTable1.getValueAt(selectRow, 0));
@@ -502,11 +500,11 @@ public class IndexFrame extends JFrame implements KeyListener {
 				} else {
 					message = "系统错误~";
 				}
-				dialog.showMessageDialog(this,message);
+				Contains.DIALOG.showMessageDialog(this,message);
 			}
 		} else {
 			message = "请先选择需要删除的行~";
-			dialog.showMessageDialog(this,message);
+			Contains.DIALOG.showMessageDialog(this,message);
 		}
 	}
 	// 明文
@@ -536,7 +534,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 		//获得所有被选中的索引
 		int [] selectRows = jTable1.getSelectedRows();
 		int length = selectRows.length;
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (length > 0) {
 			if (length == 1) {
@@ -547,10 +545,10 @@ public class IndexFrame extends JFrame implements KeyListener {
 				Contains.AUSTATE = 2;
 				AddFrame addFrame = new AddFrame(this, true);
 			} else {
-				dialog.showMessageDialog(this,"只能选择一个进行修改~");
+				Contains.DIALOG.showMessageDialog(this,"只能选择一个进行修改~");
 			}
 		} else {
-			dialog.showMessageDialog(this,"先选择需要编辑的行(单选)~");
+			Contains.DIALOG.showMessageDialog(this,"先选择需要编辑的行(单选)~");
 		}
 	}
 
@@ -573,11 +571,19 @@ public class IndexFrame extends JFrame implements KeyListener {
 		wait = new WaitFrame(new IndexFrame(),true);
 		wait.showBar();
 	}
+	// 文件重命名
+	private void jButton17ActionPerformed(ActionEvent evt) {
+		new RenameFrame(new IndexFrame(),true);
+	}
+	// 视频转GIF
+	private void jButton18ActionPerformed(ActionEvent evt) {
+		new VideoToGif(this,true);
+	}
 
 	// 备份
 	private void jButton8ActionPerformed(ActionEvent evt) {
 		int i = SwingUtil.openDir();
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (i == 1) {
 			return ;
@@ -595,19 +601,19 @@ public class IndexFrame extends JFrame implements KeyListener {
 				e.printStackTrace();
 				msg = "备份失败！";
 			}
-			dialog.showMessageDialog(this,msg);
+			Contains.DIALOG.showMessageDialog(this,msg);
 		}
 	}
 
 	// 导入
 	private void jButton9ActionPerformed(ActionEvent evt) {
 		int i = SwingUtil.openFile("excel");
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (i == 1) {
 			return ;
 		} else {
-			int option = JOptionPane.showConfirmDialog(null, "要删除现在的热键吗？", "导入提示", JOptionPane.YES_NO_OPTION);
+			int option = Contains.DIALOG.showConfirmDialog(null, "要删除现在的热键吗？", "导入提示", JOptionPane.YES_NO_OPTION);
 			if(option == JOptionPane.YES_OPTION){
 				for (int i1 = 0; i1 < Contains.HOTKEYS.size(); i1++) {
 					removeKey(Contains.HOTKEYS.get(i1).getKId());
@@ -631,7 +637,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 				e.printStackTrace();
 				msg = "导入失败！";
 			}
-			dialog.showMessageDialog(this,msg);
+			Contains.DIALOG.showMessageDialog(this,msg);
 		}
 	}
 	// 定时任务 新增
@@ -639,16 +645,16 @@ public class IndexFrame extends JFrame implements KeyListener {
 		this.setTaskEntry(null);
 		Contains.TASKSTATE = 1;
 		new TaskFrame(this, true);
-		
+
 	}
 	// 定时任务 删除
 	private void jButton11ActionPerformed(ActionEvent evt) {
 		String message = "";
 		int [] selectRows = jTable2.getSelectedRows();  //获得所有被选中的索引
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (selectRows.length > 0) {
-			int valuex=dialog.showConfirmDialog(this,"确认删除选中吗？", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			int valuex=Contains.DIALOG.showConfirmDialog(this,"确认删除选中吗？", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			if (valuex == JOptionPane.YES_OPTION) {
 				for (int selectRow : selectRows) {
 					//int id = Integer.valueOf((String) jTable1.getValueAt(selectRow, 0));
@@ -664,11 +670,11 @@ public class IndexFrame extends JFrame implements KeyListener {
 				} else {
 					message = "系统错误~";
 				}
-				dialog.showMessageDialog(this,message);
+				Contains.DIALOG.showMessageDialog(this,message);
 			}
 		} else {
 			message = "请先选择需要删除的行~";
-			dialog.showMessageDialog(this,message);
+			Contains.DIALOG.showMessageDialog(this,message);
 		}
 	}
 	// 定时任务 全选
@@ -687,7 +693,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 		//获得所有被选中的索引
 		int [] selectRows = jTable2.getSelectedRows();
 		int length = selectRows.length;
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (length > 0) {
 			if (length == 1) {
@@ -702,16 +708,16 @@ public class IndexFrame extends JFrame implements KeyListener {
 				Contains.TASKSTATE = 2;
 				new TaskFrame(this, true);
 			} else {
-				dialog.showMessageDialog(this,"只能选择一个进行修改~");
+				Contains.DIALOG.showMessageDialog(this,"只能选择一个进行修改~");
 			}
 		} else {
-			dialog.showMessageDialog(this,"先选择需要编辑的行(单选)~");
+			Contains.DIALOG.showMessageDialog(this,"先选择需要编辑的行(单选)~");
 		}
 	}
 	// 定时任务 备份
 	private void jButton15ActionPerformed(ActionEvent evt) {
 		int i = SwingUtil.openDir();
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (i == 1) {
 			return ;
@@ -729,18 +735,18 @@ public class IndexFrame extends JFrame implements KeyListener {
 				e.printStackTrace();
 				msg = "备份失败！";
 			}
-			dialog.showMessageDialog(this,msg);
+			Contains.DIALOG.showMessageDialog(this,msg);
 		}
 	}
 	// 定时任务 导入
 	private void jButton16ActionPerformed(ActionEvent evt) {
 		int i = SwingUtil.openFile("excel");
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (i == 1) {
 			return ;
 		} else {
-			int option = JOptionPane.showConfirmDialog(null, "要删除现在的任务吗？", "导入提示", JOptionPane.YES_NO_OPTION);
+			int option = Contains.DIALOG.showConfirmDialog(null, "要删除现在的任务吗？", "导入提示", JOptionPane.YES_NO_OPTION);
 			if(option == JOptionPane.YES_OPTION){
 				for (int i1 = 0; i1 < Contains.TASKS.size(); i1++) {
 					String taskName = Contains.TASKS.get(i1).getTaskName();
@@ -769,14 +775,14 @@ public class IndexFrame extends JFrame implements KeyListener {
 				e.printStackTrace();
 				msg = "导入失败！";
 			}
-			dialog.showMessageDialog(this,msg);
+			Contains.DIALOG.showMessageDialog(this,msg);
 		}
 	}
 	// 执行任务
 	private void jButton12ActionPerformed(ActionEvent evt) {
 		String message = "";
 		int [] selectRows = jTable2.getSelectedRows();  //获得所有被选中的索引
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (selectRows.length > 0) {
 			for (int selectRow : selectRows) {
@@ -796,13 +802,13 @@ public class IndexFrame extends JFrame implements KeyListener {
 					message = tName+"任务启动成功~";
 				}
 			}
-			dialog.showMessageDialog(this,message);
+			Contains.DIALOG.showMessageDialog(this,message);
 		} else {
 			message = "请先选择需要执行任务的行~";
-			dialog.showMessageDialog(this,message);
+			Contains.DIALOG.showMessageDialog(this,message);
 		}
 	}
-	
+
 	private void initTaskT() {
 		SwingUtil.setValueTable(jTable2,Contains.TASKS,Contains.TASKH);
 	}
@@ -841,9 +847,9 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 	static SystemTray tray = SystemTray.getSystemTray();
 	private static TrayIcon trayIcon = null;
-	
+
 	//窗口最小化到任务栏托盘
-	private static void miniTray(JFrame mf) {  
+	private static void miniTray(JFrame mf) {
 		ImageIcon trayImg=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
 		PopupMenu pop = new PopupMenu();  //增加托盘右击菜单
 		MenuItem show = new MenuItem("还原");
@@ -910,6 +916,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private JButton jButton15;
 	private JButton jButton16;
 	private JButton jButton17;
+	private JButton jButton18;
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JMenu jMenu1;

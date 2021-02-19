@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  */
 public class DocumentDuplicationCheck extends JDialog {
 	private JedisUtil jedisUtil = new JedisUtil();
-	private JOptionPane dialog = new JOptionPane();
 	private static CountDownLatch latch;
 	private List<FilePojo> filePojos = new ArrayList<>();
 	private Properties properties = new Properties();
@@ -56,10 +54,10 @@ public class DocumentDuplicationCheck extends JDialog {
 			initComponents();
 			initFileTa(Contains.FILES);
 		} catch (Exception e) {
-			dialog.showMessageDialog(this,e.getMessage());
+			Contains.DIALOG.showMessageDialog(this,e.getMessage());
 		} finally {
 			// 缓存获取之后,数据填充之后关闭进度条
-			parent.wait.closeBar();
+			parent.wait.dispose();
 		}
 
 		if (properties != null) {
@@ -75,15 +73,15 @@ public class DocumentDuplicationCheck extends JDialog {
 		buttonGroup1 = new ButtonGroup();
 		buttonGroup2 = new ButtonGroup();
 		buttonGroup3 = new ButtonGroup();
-		jLabel2 = new JLabel();
-		jLabel3 = new JLabel();
-		jLabel4 = new JLabel();
-		jLabel5 = new JLabel();
+		jLabel2 = new JLabel("文件排除");
+		jLabel3 = new JLabel("查询范围");
+		jLabel4 = new JLabel("大小限制");
+		jLabel5 = new JLabel("重复条件");
 		jLabel6 = new JLabel();
 		exclude = new JTextField(20);
 		clude = new JTextField(20);
-		jLabel10 = new JLabel();
-		jLabel11 = new JLabel();
+		jLabel10 = new JLabel("大于");
+		jLabel11 = new JLabel("小于");
 		jTextField3 = new JTextField();
 		jTextField4 = new JTextField();
 		k = new JRadioButton("K");
@@ -99,32 +97,24 @@ public class DocumentDuplicationCheck extends JDialog {
 		delBtn = new JButton("删除");
 		select1 = new JButton("选择");
 		select2 = new JButton("选择");
-		jLabel8 = new JLabel();
+		jLabel8 = new JLabel("*可手动选择，可复制粘贴，用英文:(分号)隔开");
 		resultMsg = new JLabel();
 		fileNamejrd = new JRadioButton("文件名");
 		fileTypejrd = new JRadioButton("文件类型");
-		contentJrd = new JRadioButton("文本内容");
+//		contentJrd = new JRadioButton("文本内容");
 		jTextField5 = new JTextField();
 		serchBtn = new JButton("开始查询");
 		jScrollPane1 = new JScrollPane();
 		jTable1 = new JTable();
 		jLabel1 = new JLabel();
 //		expreJrd = new JRadioButton("使用*号");
-
 		jLabel2.setFont(Contains.F_S_1_14);
-		jLabel2.setText("文件排除");
 		jLabel3.setFont(Contains.F_S_1_14);
-		jLabel3.setText("查询范围");
 		jLabel4.setFont(Contains.F_S_1_14);
-		jLabel4.setText("大小限制");
 		jLabel5.setFont(Contains.F_S_1_14);
-		jLabel5.setText("重复条件");
 
 		jLabel6.setForeground(new Color(255, 0, 0));
 		jLabel6.setText("<html><body>*建立索引：根据查询范围和文件排除组合产生<br>*开始检索：建立索引之后开始检索</body></html>");
-
-		jLabel10.setText("大于");
-		jLabel11.setText("小于");
 
 		buttonGroup1.add(k);
 		buttonGroup1.add(m);
@@ -138,14 +128,13 @@ public class DocumentDuplicationCheck extends JDialog {
 		buttonGroup2.add(oldDatejrd);
 
 		jLabel8.setForeground(new Color(255, 0, 0));
-		jLabel8.setText("*可手动选择，可复制粘贴，用英文:(分号)隔开");
 
 		//resultMsg.setText("索引未建立。。。");
 
 		buttonGroup3.add(fileNamejrd);
 		fileNamejrd.setSelected(true);
 		buttonGroup3.add(fileTypejrd);
-		buttonGroup3.add(contentJrd);
+//		buttonGroup3.add(contentJrd);
 //		buttonGroup3.add(expreJrd);
 
 		select1.addActionListener(new ActionListener() {
@@ -195,9 +184,10 @@ public class DocumentDuplicationCheck extends JDialog {
 		jScrollPane1.setViewportView(jTable1);
 
 		jLabel1.setForeground(new Color(255, 0, 0));
-		jLabel1.setText("<html><body>*文件名：通过文件名模糊查询路径<br>*文件类型： 如txt<br>*文本内容：先查询文件路径是否包含，" +
-				"再查询文本文件是否包含内容<br> 文本文件类型有：xml,txt,doc,docx,ppt,pptx,xls,xlsx,pdf<br>" +
+		jLabel1.setText("<html><body>*文件名：通过文件名模糊查询路径<br>*文件类型： 如txt<br>" +
 				"多个可以用英文,(逗号隔开)</body></html>      ");
+//		*文本内容：先查询文件路径是否包含，" +
+//				"再查询文本文件是否包含内容<br> 文本文件类型有：xml,txt,doc,docx,ppt,pptx,xls,xlsx,pdf<br>
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -283,8 +273,8 @@ public class DocumentDuplicationCheck extends JDialog {
 												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 												.addComponent(fileTypejrd)
 												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-												.addComponent(contentJrd)
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+//												.addComponent(contentJrd)
+//												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 //												.addComponent(expreJrd)
 //												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 												.addComponent(jTextField5)
@@ -345,7 +335,7 @@ public class DocumentDuplicationCheck extends JDialog {
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 										.addComponent(fileNamejrd)
 										.addComponent(fileTypejrd)
-										.addComponent(contentJrd)
+//										.addComponent(contentJrd)
 										.addComponent(jTextField5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(serchBtn)
 //										.addComponent(expreJrd)
@@ -380,7 +370,7 @@ public class DocumentDuplicationCheck extends JDialog {
 		new FileList(this,true);
 	}
 	private void btnActionPerformed(ActionEvent evt) {
-		Contains.window = dialog;
+		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		String excludeStr = exclude.getText().trim();
 		String cludeStr = clude.getText().trim();
@@ -393,7 +383,7 @@ public class DocumentDuplicationCheck extends JDialog {
 				public void run() {
 					createFileIndex(cludeStr,excludeStr);
 					initFileTa(Contains.FILES);
-					wait.closeBar();
+					wait.dispose();
 				}
 			});
 			thread.start();
@@ -421,7 +411,7 @@ public class DocumentDuplicationCheck extends JDialog {
 						lti = Integer.valueOf(lt);
 					}
 				} catch (NumberFormatException numberFormatException) {
-					dialog.showMessageDialog(this,"大小限制请输入数字！");
+					Contains.DIALOG.showMessageDialog(this,"大小限制请输入数字！");
 					return;
 				}
 				String unit = "";
@@ -564,11 +554,11 @@ public class DocumentDuplicationCheck extends JDialog {
 		if("开始查询".equals(btnStr)) {
 			boolean fnSelect = fileNamejrd.isSelected();
 			boolean ftSelect = fileTypejrd.isSelected();
-			boolean conSelect = contentJrd.isSelected();
+//			boolean conSelect = contentJrd.isSelected();
 //			boolean expreSelect = expreJrd.isSelected();
 			String content = jTextField5.getText().trim();
 			if (StringUtils.isEmpty(content)) {
-				dialog.showMessageDialog(this,"请输入要查询的内容！");
+				Contains.DIALOG.showMessageDialog(this,"请输入要查询的内容！");
 				return;
 			}
 			List<FilePojo> lists = new ArrayList<>();
@@ -602,7 +592,7 @@ public class DocumentDuplicationCheck extends JDialog {
 				}
 			}
 			// 文本内容
-			else if (conSelect) {
+			/*else if (conSelect) {
 //				首先把文本文档查询出来
 				String[] split = content.toUpperCase().split(",");
 				for (FilePojo pojo : Contains.FILES) {
@@ -615,7 +605,7 @@ public class DocumentDuplicationCheck extends JDialog {
 						}
 					}
 				}
-			}
+			}*/
 			//正则表达式
 			/*else {
 				Pattern compile = Pattern.compile(content);
@@ -640,7 +630,7 @@ public class DocumentDuplicationCheck extends JDialog {
 	private void deleteFileAndCol(List<String> deleteList) {
 		if (!deleteList.isEmpty()) {
 			int size = deleteList.size();
-			int valuex = dialog.showConfirmDialog(this,"确认删除选中文件" + size + "个", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			int valuex = Contains.DIALOG.showConfirmDialog(this,"确认删除选中文件" + size + "个", "请确认",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			if (valuex == JOptionPane.YES_OPTION) {
 				for (int j = 0; j < size; j++) {
 					String path = deleteList.get(j);
@@ -779,7 +769,7 @@ public class DocumentDuplicationCheck extends JDialog {
 	private JRadioButton oldDatejrd;
 	private JRadioButton fileNamejrd;
 	private JRadioButton fileTypejrd;
-	private JRadioButton contentJrd;
+//	private JRadioButton contentJrd;
 //	private JRadioButton expreJrd;
 	private JScrollPane jScrollPane1;
 	private JTable jTable1;
@@ -821,7 +811,7 @@ public class DocumentDuplicationCheck extends JDialog {
 			roots = File.listRoots();
 		}
 		if (roots.length == 0) {
-			dialog.showMessageDialog(this,"没有可以查询的文件夹！如果查询全盘可以不填写！");
+			Contains.DIALOG.showMessageDialog(this,"没有可以查询的文件夹！如果查询全盘可以不填写！");
 			return;
 		}
 
@@ -830,7 +820,7 @@ public class DocumentDuplicationCheck extends JDialog {
 		if (length > 0) {
 			latch = new CountDownLatch(length);
 			for (int i = 0; i < length; i++) {
-				Contains.POOL.execute(new SerachThread(roots[i],latch));
+				Contains.POOL.execute(new SerachThread(roots[i],latch,0));
 			}
 			try {
 				// 结束线程池
@@ -872,7 +862,7 @@ public class DocumentDuplicationCheck extends JDialog {
 			properties.setProperty("cludeStr",cludeStr);
 			properties.setProperty("excludeStr",excludeStr);
 			FileUtil.whiteProp(Contains.SETPROP,properties);
-			dialog.setVisible(false);
+			Contains.DIALOG.setVisible(false);
 		}
 	}
 

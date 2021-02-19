@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
  * @author Administrator
  */
 public class ShutdownFrame extends JDialog {
-	JOptionPane dialog = new JOptionPane();
 
     public ShutdownFrame(Frame parent, boolean modal) {
         super(parent, modal);
@@ -25,26 +24,18 @@ public class ShutdownFrame extends JDialog {
 
     private void initComponents() {
 
-        jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
-        jLabel4 = new JLabel();
+        jLabel2 = new JLabel("定时时长：");
+        jLabel3 = new JLabel("分钟");
+        jLabel4 = new JLabel("秒");
         jTextField1 = new JTextField();
         jTextField2 = new JTextField();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        jButton1 = new JButton("开始计时");
+        jButton2 = new JButton("取消关机");
 
         jLabel2.setFont(Contains.F_S_0_14);
-        jLabel2.setText("定时时长：");
-
         jLabel3.setFont(Contains.F_S_0_14);
-        jLabel3.setText("分钟");
-
         jLabel4.setFont(Contains.F_S_0_14);
-        jLabel4.setText("秒");
 
-        jButton1.setText("开始计时");
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -52,7 +43,6 @@ public class ShutdownFrame extends JDialog {
             }
         });
 
-        jButton2.setText("取消关机");
         jButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -103,26 +93,18 @@ public class ShutdownFrame extends JDialog {
 
         pack();
 	    SwingUtil.setFrameTitle(this,"定时关机");
-	    //init();
     }
     
-   /* private void init() {
-	    ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/add.png"),"");
-	    this.setIconImage(icon.getImage());
-	    this.setLocationRelativeTo(null);
-	    this.setVisible(true);
-    }*/
 	// 开始定时
     private void jButton1ActionPerformed(ActionEvent evt) {
 	    String minu = jTextField1.getText().trim();
 	    String second = jTextField2.getText().trim();
 	    Integer seconds = 0;
-	    Contains.window = dialog;
-	    Contains.parentWindow = dialog;
+	    Contains.window = Contains.DIALOG;
+	    Contains.parentWindow = Contains.DIALOG;
 	    try {
-		    
 	    	if ("".equals(minu) && "".equals(second)) {
-			    int option = dialog.showConfirmDialog(null, "没有填写时间就是立即关机呐", "立即关机提示", JOptionPane.YES_NO_OPTION);
+			    int option = Contains.DIALOG.showConfirmDialog(null, "没有填写时间就是立即关机呐", "立即关机提示", JOptionPane.YES_NO_OPTION);
 			    if(option != JOptionPane.YES_OPTION){
 				    return;
 			    }
@@ -136,7 +118,7 @@ public class ShutdownFrame extends JDialog {
 					    seconds += m * 60;
 					    msg += m+"分钟";
 				    } else {
-					    dialog.showMessageDialog(this,"m:请输入正确的数字！");
+                        Contains.DIALOG.showMessageDialog(this,"m:请输入正确的数字！");
 					    return;
 				    }
 			    }
@@ -146,24 +128,24 @@ public class ShutdownFrame extends JDialog {
 					    seconds += s;
 					    msg += s+"秒";
 				    } else {
-					    dialog.showMessageDialog(this,"s:请输入正确的数字！");
+                        Contains.DIALOG.showMessageDialog(this,"s:请输入正确的数字！");
 					    return;
 				    }
 			    }
-			    dialog.showMessageDialog(this,msg+"之后关闭！如果需要取消关机，请点击取消关机按钮！\n" +
+                Contains.DIALOG.showMessageDialog(this,msg+"之后关闭！如果需要取消关机，请点击取消关机按钮！\n" +
 					    "不足1分钟系统会提示一分钟计算，实际关机时间以设置时间为准！");
 		    }
 		    Contains.exeCMD("shutdown /s /t " + seconds);
 	    }catch (NumberFormatException e) {
-		    dialog.showMessageDialog(this,"请输入数字~");
+            Contains.DIALOG.showMessageDialog(this,"请输入数字~");
 	    }
     }
 	// 取消关机
     private void jButton2ActionPerformed(ActionEvent evt) {
 	    String s = Contains.exeCMD("shutdown /a");
-	    Contains.window = dialog;
+	    Contains.window = Contains.DIALOG;
 	    Contains.parentWindow = this;
-	    dialog.showMessageDialog(this,"已取消关机！");
+        Contains.DIALOG.showMessageDialog(this,"已取消关机！");
     }
 
     private JButton jButton1;

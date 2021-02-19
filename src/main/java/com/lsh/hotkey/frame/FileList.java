@@ -20,13 +20,25 @@ import java.util.Enumeration;
 public class FileList extends JDialog {
 	private DefaultListModel listModel = new DefaultListModel();
 	DocumentDuplicationCheck parent = null;
+	RenameFrame renameFrame = null;
 	private int[] selectIndex;
+	private String clazz;
 
     public FileList(DocumentDuplicationCheck parent, boolean modal) {
         super(parent, modal);
 	    Contains.window = this;
 	    this.parent = parent;
 	    initListModel(parent.fileListStr);
+        initComponents();
+        clazz = parent.getClass().getSimpleName();
+	    SwingUtil.setFrameTitle(this,"文件列表");
+    }
+    public FileList(RenameFrame parent, boolean modal) {
+        super(parent, modal);
+	    Contains.window = this;
+		clazz = parent.getClass().getSimpleName();
+	    this.renameFrame = parent;
+	    initListModel(renameFrame.getjTextField1().getText());
         initComponents();
 	    SwingUtil.setFrameTitle(this,"文件列表");
     }
@@ -45,10 +57,10 @@ public class FileList extends JDialog {
         buttonGroup1 = new ButtonGroup();
         jScrollPane2 = new JScrollPane();
         jList1 = new JList<>();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-	    jButton3 = new JButton();
-	    jButton4 = new JButton();
+        jButton1 = new JButton("选择文件夹");
+        jButton2 = new JButton("移除文件夹");
+	    jButton3 = new JButton("确定");
+	    jButton4 = new JButton("取消");
 
         jList1.setModel(listModel);
         jList1.addMouseListener(new MouseAdapter() {
@@ -59,7 +71,6 @@ public class FileList extends JDialog {
         });
         jScrollPane2.setViewportView(jList1);
 
-        jButton1.setText("选择文件夹");
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -67,14 +78,12 @@ public class FileList extends JDialog {
             }
         });
 
-        jButton2.setText("移除文件夹");
         jButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-	    jButton3.setText("确定");
 	    jButton3.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -82,7 +91,6 @@ public class FileList extends JDialog {
 		    }
 	    });
 
-	    jButton4.setText("取消");
 	    jButton4.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -154,11 +162,17 @@ public class FileList extends JDialog {
     }
 	private void jButton3ActionPerformed(ActionEvent evt) {
 		String s = listModelToStr();
-		if (Contains.AUSTATE == 1) {
-    		parent.getExclude().setText(s);
-	    } else {
-    		parent.getClude().setText(s);
-	    }
+		if (clazz.equals("DocumentDuplicationCheck")) {
+			if (Contains.AUSTATE == 1) {
+				parent.getExclude().setText(s);
+			} else {
+				parent.getClude().setText(s);
+			}
+		}
+		if (clazz.equals("RenameFrame")) {
+			renameFrame.getjTextField1().setText(s);
+		}
+		
 	}
 
 	private String listModelToStr() {
@@ -171,9 +185,6 @@ public class FileList extends JDialog {
 		return sb.toString();
 	}
 
-	/**
-     * @param args the command line arguments
-     */
     private ButtonGroup buttonGroup1;
     private JButton jButton1;
     private JButton jButton2;

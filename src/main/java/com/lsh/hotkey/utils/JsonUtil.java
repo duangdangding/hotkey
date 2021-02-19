@@ -1,8 +1,10 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.lsh.hotkey.entry.UserInfo;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
@@ -233,6 +235,23 @@ public class JsonUtil {
 		@SuppressWarnings("unchecked")
 		List<T> ts = (List<T>) JSONArray.parseArray(jsonString, clazz);
 		return ts;
+	}
+
+	public static void main(String[] args) {
+		String filePath = "C:\\Users\\Administrator\\Desktop\\快手请求连接.txt";
+		String s = readJson(filePath);
+		System.out.println(s);
+		Object data = JSONUtil.parseObj(s).get("data");
+
+		Object userList = JSONUtil.parseObj(data).get("visionProfileUserList");
+		Object userList2 = JSONUtil.parseObj(userList).get("fols");
+//		System.out.println(userList2);
+		cn.hutool.json.JSONArray objects = JSONUtil.parseArray(userList2);
+		List<UserInfo> userInfos = jsonToList(objects.toString(), UserInfo.class);
+		for (int i = 0; i < userInfos.size(); i++) {
+			String userId = userInfos.get(i).getUserId();
+			System.out.println(userId);
+		}
 	}
 
 }

@@ -30,188 +30,110 @@ public class DayFrame extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new ButtonGroup();
-        jRadioButton1 = new JRadioButton();
-        jRadioButton3 = new JRadioButton();
-        jRadioButton4 = new JRadioButton();
-        jRadioButton7 = new JRadioButton();
-        jCheckBox2 = new JCheckBox();
-        jCheckBox3 = new JCheckBox();
-        jCheckBox4 = new JCheckBox();
-        jCheckBox5 = new JCheckBox();
-        jCheckBox6 = new JCheckBox();
-        jCheckBox7 = new JCheckBox();
-        jCheckBox8 = new JCheckBox();
-        jCheckBox9 = new JCheckBox();
-        jCheckBox10 = new JCheckBox();
-        jCheckBox11 = new JCheckBox();
-        jCheckBox12 = new JCheckBox();
-        jCheckBox13 = new JCheckBox();
-        jCheckBox14 = new JCheckBox();
-        jCheckBox15 = new JCheckBox();
-        jCheckBox16 = new JCheckBox();
-        jCheckBox17 = new JCheckBox();
-        jCheckBox18 = new JCheckBox();
-        jCheckBox19 = new JCheckBox();
-        jCheckBox20 = new JCheckBox();
-        jCheckBox21 = new JCheckBox();
-        jCheckBox22 = new JCheckBox();
-        jCheckBox23 = new JCheckBox();
-        jCheckBox24 = new JCheckBox();
-        jCheckBox25 = new JCheckBox();
-        jCheckBox26 = new JCheckBox();
-        jCheckBox27 = new JCheckBox();
-        jCheckBox28 = new JCheckBox();
-        jCheckBox29 = new JCheckBox();
-        jCheckBox30 = new JCheckBox();
-        jCheckBox31 = new JCheckBox();
-        jCheckBox32 = new JCheckBox();
-        jLabel1 = new JLabel();
+        jRadioButton1 = new JRadioButton("每天");
+        jRadioButton3 = new JRadioButton("周期");
+        jRadioButton4 = new JRadioButton("从");
+        jRadioButton7 = new JRadioButton("指定");
+        jCheckBox2 = new JCheckBox("01");
+        jCheckBox3 = new JCheckBox("02");
+        jCheckBox4 = new JCheckBox("03");
+        jCheckBox5 = new JCheckBox("04");
+        jCheckBox6 = new JCheckBox("05");
+        jCheckBox7 = new JCheckBox("06");
+        jCheckBox8 = new JCheckBox("07");
+        jCheckBox9 = new JCheckBox("08");
+        jCheckBox10 = new JCheckBox("09");
+        jCheckBox11 = new JCheckBox("10");
+        jCheckBox12 = new JCheckBox("11");
+        jCheckBox13 = new JCheckBox("12");
+        jCheckBox14 = new JCheckBox("13");
+        jCheckBox15 = new JCheckBox("14");
+        jCheckBox16 = new JCheckBox("15");
+        jCheckBox17 = new JCheckBox("16");
+        jCheckBox18 = new JCheckBox("17");
+        jCheckBox19 = new JCheckBox("18");
+        jCheckBox20 = new JCheckBox("19");
+        jCheckBox21 = new JCheckBox("20");
+        jCheckBox22 = new JCheckBox("21");
+        jCheckBox23 = new JCheckBox("22");
+        jCheckBox24 = new JCheckBox("23");
+        jCheckBox25 = new JCheckBox("24");
+        jCheckBox26 = new JCheckBox("25");
+        jCheckBox27 = new JCheckBox("26");
+        jCheckBox28 = new JCheckBox("27");
+        jCheckBox29 = new JCheckBox("28");
+        jCheckBox30 = new JCheckBox("29");
+        jCheckBox31 = new JCheckBox("30");
+        jCheckBox32 = new JCheckBox("31");
+        jLabel1 = new JLabel("从");
         //jLabel2 = new JLabel();
         jTextField1 = new JTextField();
-        jLabel3 = new JLabel();
+        jLabel3 = new JLabel("-");
         jTextField2 = new JTextField();
-        jLabel4 = new JLabel();
+        jLabel4 = new JLabel("日内");
         jTextField3 = new JTextField();
         jTextField4 = new JTextField();
-        jLabel5 = new JLabel();
-        jLabel6 = new JLabel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jRadioButton2 = new JRadioButton();
-        jRadioButton6 = new JRadioButton();
-        jRadioButton5 = new JRadioButton();
+        jLabel5 = new JLabel("日开始，每");
+        jLabel6 = new JLabel("天执行一次");
+        jButton1 = new JButton("确定");
+        jButton2 = new JButton("取消");
+        jRadioButton2 = new JRadioButton("不指定");
+        jRadioButton6 = new JRadioButton("本月最后一天");
+        jRadioButton5 = new JRadioButton("每月");
         //jLabel7 = new JLabel();
         jTextField5 = new JTextField();
-        jLabel8 = new JLabel();
+        jLabel8 = new JLabel("日最近的工作日");
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(Contains.F_S_1_14);
         jRadioButton1.setSelected(true);
-        jRadioButton1.setText("每天");
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(Contains.F_S_1_14);
-        jRadioButton3.setText("周期");
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setFont(Contains.F_S_1_14);
-	    jRadioButton4.setText("从");
 
         buttonGroup1.add(jRadioButton7);
         jRadioButton7.setFont(Contains.F_S_1_14);
-        jRadioButton7.setText("指定");
 
         jCheckBox2.setFont(Contains.F_S_1_14);
-        jCheckBox2.setText("01");
-
         jCheckBox3.setFont(Contains.F_S_1_14);
-        jCheckBox3.setText("02");
-
         jCheckBox4.setFont(Contains.F_S_1_14);
-        jCheckBox4.setText("03");
-
         jCheckBox5.setFont(Contains.F_S_1_14);
-        jCheckBox5.setText("04");
-
         jCheckBox6.setFont(Contains.F_S_1_14);
-        jCheckBox6.setText("05");
-
         jCheckBox7.setFont(Contains.F_S_1_14);
-        jCheckBox7.setText("06");
-
         jCheckBox8.setFont(Contains.F_S_1_14);
-        jCheckBox8.setText("07");
-
         jCheckBox9.setFont(Contains.F_S_1_14);
-        jCheckBox9.setText("08");
-
         jCheckBox10.setFont(Contains.F_S_1_14);
-        jCheckBox10.setText("09");
-
         jCheckBox11.setFont(Contains.F_S_1_14);
-        jCheckBox11.setText("10");
-
         jCheckBox12.setFont(Contains.F_S_1_14);
-        jCheckBox12.setText("11");
-
         jCheckBox13.setFont(Contains.F_S_1_14);
-        jCheckBox13.setText("12");
-
         jCheckBox14.setFont(Contains.F_S_1_14);
-        jCheckBox14.setText("13");
-
         jCheckBox15.setFont(Contains.F_S_1_14);
-        jCheckBox15.setText("14");
-
         jCheckBox16.setFont(Contains.F_S_1_14);
-        jCheckBox16.setText("15");
-
         jCheckBox17.setFont(Contains.F_S_1_14);
-        jCheckBox17.setText("16");
-
         jCheckBox18.setFont(Contains.F_S_1_14);
-        jCheckBox18.setText("17");
-
         jCheckBox19.setFont(Contains.F_S_1_14);
-        jCheckBox19.setText("18");
-
         jCheckBox20.setFont(Contains.F_S_1_14);
-        jCheckBox20.setText("19");
-
         jCheckBox21.setFont(Contains.F_S_1_14);
-        jCheckBox21.setText("20");
-
         jCheckBox22.setFont(Contains.F_S_1_14);
-        jCheckBox22.setText("21");
-
         jCheckBox23.setFont(Contains.F_S_1_14);
-        jCheckBox23.setText("22");
-
         jCheckBox24.setFont(Contains.F_S_1_14);
-        jCheckBox24.setText("23");
-
         jCheckBox25.setFont(Contains.F_S_1_14);
-        jCheckBox25.setText("24");
-
         jCheckBox26.setFont(Contains.F_S_1_14);
-        jCheckBox26.setText("25");
-
         jCheckBox27.setFont(Contains.F_S_1_14);
-        jCheckBox27.setText("26");
-
         jCheckBox28.setFont(Contains.F_S_1_14);
-        jCheckBox28.setText("27");
-
         jCheckBox29.setFont(Contains.F_S_1_14);
-        jCheckBox29.setText("28");
-
         jCheckBox30.setFont(Contains.F_S_1_14);
-        jCheckBox30.setText("29");
-
         jCheckBox31.setFont(Contains.F_S_1_14);
-        jCheckBox31.setText("30");
-
         jCheckBox32.setFont(Contains.F_S_1_14);
-        jCheckBox32.setText("31");
 
         jLabel1.setFont(Contains.F_S_1_14);
-        jLabel1.setText("从");
-
-        //jLabel2.setFont(Contains.F_S_1_14);
-        //jLabel2.setText("从");
-
-        jLabel3.setText("-");
-
         jLabel4.setFont(Contains.F_S_1_14);
-        jLabel4.setText("日内");
-
         jLabel5.setFont(Contains.F_S_1_14);
-        jLabel5.setText("日开始，每");
-
         jLabel6.setFont(Contains.F_S_1_14);
-        jLabel6.setText("天执行一次");
-
-	    jButton1.setText("确定");
+        
 	    jButton1.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -219,7 +141,6 @@ public class DayFrame extends JDialog {
 		    }
 	    });
 
-	    jButton2.setText("取消");
 	    jButton2.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -229,21 +150,11 @@ public class DayFrame extends JDialog {
 
 	    buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(Contains.F_S_1_14);
-        jRadioButton2.setText("不指定");
-
 	    buttonGroup1.add(jRadioButton6);
         jRadioButton6.setFont(Contains.F_S_1_14);
-        jRadioButton6.setText("本月最后一天");
-
 	    buttonGroup1.add(jRadioButton5);
         jRadioButton5.setFont(Contains.F_S_1_14);
-	    jRadioButton5.setText("每月");
-
-        //jLabel7.setFont(Contains.F_S_1_14);
-        //jLabel7.setText("每月");
-
         jLabel8.setFont(Contains.F_S_1_14);
-        jLabel8.setText("日最近的工作日");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

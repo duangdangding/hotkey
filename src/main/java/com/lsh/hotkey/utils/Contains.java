@@ -6,6 +6,7 @@ import com.lsh.hotkey.entry.FileTypeEm;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.frame.IndexFrame;
+import com.lsh.hotkey.frame.WaitFrame;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
@@ -35,11 +36,12 @@ public class Contains {
 	public static final JFileChooser JFILE=new JFileChooser();
 	public static final ExecutorService POOL = Executors.newFixedThreadPool(100);
 	public static IndexFrame mainF = null;
+	public static JOptionPane DIALOG = new JOptionPane();
+	public static volatile WaitFrame wait;
 	/**
 	 * 记录打开的窗口
 	 */
 	public static Container window = null;
-	
 	public static Container parentWindow = null;
 	
 	/**
@@ -140,7 +142,7 @@ public class Contains {
 	 * 符合条件的 file集合
 	 */
 	public static List<FilePojo> FILES; 
-	//public static List<String> FILES; 
+	public static List<String> FILESS; 
 	
 	/**
 	 * 判断对象是不是数组
@@ -266,22 +268,22 @@ public class Contains {
 		String line = null;
 		try {
 			Runtime runtime = Runtime.getRuntime();
-			runtime.traceInstructions(true);
-			runtime.traceMethodCalls(true);
+//			runtime.traceInstructions(true);
+//			runtime.traceMethodCalls(true);
+			System.out.println("CMD~~~" + cmd);
 			Process p = runtime.exec(cmd);
 			br = new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.forName("GBK")));
 			while ((line = br.readLine()) != null) {
 				line += line;
-				//System.out.println(line);
 			}
 		} catch (IOException e) {
-			line = e.getMessage();
+			e.printStackTrace();
 		} finally {
 			if (br != null) {
 				try {
 					br.close();
 				} catch (Exception e) {
-					line = e.getMessage();
+					e.printStackTrace();
 				}
 			}
 		}
@@ -302,6 +304,51 @@ public class Contains {
 			files.add(pojo);
 			maps.put(name,files);
 		}
+	}
+
+	/**
+	 * 数字转汉字
+	 * @param str
+	 */
+	public static String numToString(String str) {
+		String[] split = str.split("");
+		String result = "";
+		for (int i = 0; i < split.length; i++) {
+			String ind = split[i];
+			switch (ind) {
+				case "0" :
+					result += "零";
+					break;
+				case "1" :
+					result += "一";
+					break;
+				case "2" :
+					result += "二";
+					break;
+				case "3" :
+					result += "三";
+					break;
+				case "4" :
+					result += "四";
+					break;
+				case "5" :
+					result += "五";
+					break;
+				case "6" :
+					result += "六";
+					break;
+				case "7" :
+					result += "七";
+					break;
+				case "8" :
+					result += "八";
+					break;
+				case "9" :
+					result += "九";
+					break;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -385,6 +432,35 @@ public class Contains {
 		Desktop.getDesktop().open(new File(file));
 	}
 
+	/**
+	 * 根据时间（时:分:秒）
+	 * @param time
+	 * @return 返回秒
+	 */
+	public static int timeToSecond(String time) {
+		String[] times = time.split(":");
+		int second = 0;
+		second += Integer.valueOf(times[0]) * 3600;
+		second += Integer.valueOf(times[1]) * 60;
+		second += Integer.valueOf(times[2]);
+		return second;
+	}
+
 	public static void main(String[] args) {
+		/*Contains contains = new Contains();
+		Class<? extends Contains> aClass = contains.getClass();
+		String simpleName = aClass.getSimpleName();
+		System.out.println(simpleName);*/
+//		String newName = "_.";
+//		boolean matches = newName.matches("[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$");
+//		boolean matches = newName.matches("[^(A-Za-z0-9\\\\u4e00-\\\\u9fa5_\\-\\.)]");
+//		boolean matches = newName.matches("[^(A-Za-z0-9\\\\u4e00-\\\\u9fa5\\-)]");
+//		System.out.println(matches);
+//		String name = contains.getClass().getName();
+//		System.out.println(name);
+//		exeCMD("rename D:/test2/9fd0d135a0a4266ea19a95c216521979.jpg D:/test2/157.jpg");
+		File file = new File("D:/test2/9fd0d135a0a4266ea19a95c216521979.jpg");
+		boolean b = file.renameTo(new File("157.jpg"));
+		
 	}
 }
