@@ -378,7 +378,7 @@ public class DocumentDuplicationCheck extends JDialog {
 
 		//建立索引
 		if ("建立索引".equals(btnStr) || Contains.FILES.isEmpty()) {
-			Thread thread = new Thread(new Runnable() {
+			Contains.POOL.execute(new Runnable() {
 				@Override
 				public void run() {
 					createFileIndex(cludeStr,excludeStr);
@@ -386,7 +386,6 @@ public class DocumentDuplicationCheck extends JDialog {
 					wait.dispose();
 				}
 			});
-			thread.start();
 			wait = new WaitFrame(new DocumentDuplicationCheck(),true);
 			wait.showBar();
 			return;

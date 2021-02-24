@@ -1,8 +1,6 @@
 package com.lsh.hotkey.utils;
 
-import com.lsh.hotkey.Application;
 import com.lsh.hotkey.entry.FilePojo;
-import com.lsh.hotkey.entry.FileTypeEm;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.frame.IndexFrame;
@@ -14,7 +12,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,8 +19,6 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @Description:

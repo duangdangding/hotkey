@@ -27,7 +27,7 @@ public class VideoToGif extends JDialog {
     }
 
     public VideoToGif() {
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -91,7 +91,7 @@ public class VideoToGif extends JDialog {
         jSlider3.setPaintLabels(true);
 //        jSlider4.setPaintTicks(true);
 //        jSlider4.setPaintLabels(true);
-        
+
         jTextField3.setText("");
         jTextField4.setText("");
 
@@ -199,7 +199,7 @@ public class VideoToGif extends JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    setPaintLabels(boolean b)	确定是否在滑块上绘制标签
+    //    setPaintLabels(boolean b)	确定是否在滑块上绘制标签
 //            setPaintTicks(boolean b)	确定是否在滑块上绘制刻度标记
 //            setPaintTrack(boolean b)	确定是否在滑块上绘制滑
 //    private int end = 0;
@@ -210,14 +210,14 @@ public class VideoToGif extends JDialog {
         } else {
             String absolutePath = Contains.JFILE.getSelectedFile().getAbsolutePath();
             jTextField1.setText(absolutePath);
-            
+
             VideoUtil.getVideoDuration(new File(absolutePath));
             int videoLen = (int) VideoUtil.videoLen;
-            
+
             jSlider1.setMinimum(0);
             jSlider1.setMaximum(videoLen);
             jSlider1.setEnabled(true);
-            
+
             jSlider2.setMinimum(0);
             jSlider2.setMaximum(videoLen);
             jSlider2.setEnabled(true);
@@ -253,8 +253,8 @@ public class VideoToGif extends JDialog {
         textField.setText(result);
 //        textField.setText(value + "");
     }
-    
-//    开始转换
+
+    //    开始转换
     private void jButton6ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         String text1 = jTextField1.getText().trim();
         String text2 = jTextField2.getText().trim();
@@ -263,8 +263,8 @@ public class VideoToGif extends JDialog {
             String text4 = jTextField4.getText().trim();
             int value1 = jSlider3.getValue();
             String value2 = jTextField5.getText().trim();
-            int start = 0;
-            Thread thread = new Thread(new Runnable() {
+//            int start = 0;
+            Contains.POOL.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -277,8 +277,9 @@ public class VideoToGif extends JDialog {
                     }
                 }
             });
-            thread.start();
-           Contains.wait = new WaitFrame(new VideoToGif(),true);
+//            Thread thread = new Thread();
+//            thread.start();
+            Contains.wait = new WaitFrame(new VideoToGif(),true);
             Contains.DIALOG.showMessageDialog(this,"转换完成");
 
         } else {
@@ -300,7 +301,7 @@ public class VideoToGif extends JDialog {
     private JSlider jSlider1;
     private JSlider jSlider2;
     private JSlider jSlider3;
-//    private JSlider jSlider4;
+    //    private JSlider jSlider4;
     private JTextField jTextField1;
     private JTextField jTextField2;
     private JTextField jTextField3;

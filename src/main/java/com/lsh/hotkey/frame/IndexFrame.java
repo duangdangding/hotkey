@@ -559,15 +559,13 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 	//文件查重
 	private void jButton7ActionPerformed(ActionEvent evt) {
-		Thread thread = new Thread(new Runnable() {
+		Contains.POOL.execute(new Runnable() {
 			@Override
 			public void run() {
 				// 进度条显示之前父窗口不可用
 				new DocumentDuplicationCheck(new IndexFrame(),true);
 			}
 		});
-		thread.start();
-//		System.out.println(thread.getName());
 		wait = new WaitFrame(new IndexFrame(),true);
 		wait.showBar();
 	}

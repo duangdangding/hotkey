@@ -209,9 +209,6 @@ public class RenameFrame extends JDialog {
 
     private void jButton2ActionPerformed(ActionEvent e){
         jButton2.setEnabled(false);
-        WaitFrame waitFrame = new WaitFrame(new RenameFrame(),true);
-        RameThread thread = new RameThread(waitFrame);
-//        thread.start();
         Contains.window = Contains.DIALOG;
         Contains.parentWindow = this;
         String textt = jTextField1.getText().trim();
@@ -309,38 +306,43 @@ public class RenameFrame extends JDialog {
                         if (newName.length() <= 255) {
                             boolean matches = newName.matches("[^(A-Za-z0-9\\\\u4e00-\\\\u9fa5_\\-\\.)]");
                             if (matches) {
+//                                System.out.println(newName+"........");
                                 Contains.DIALOG.showMessageDialog(this,"从" + newName + "开始，文件名不符合规则！");
                                 return;
                             } else {
                                 //                    使用cmd重命名文件
 //                            String s = Contains.exeCMD("rename " + path + " " + newName);
-                                new File(path).renameTo(new File(fileNameq + newName));
+                                final String finalNewName = newName;
+                                Contains.POOL.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        boolean b = new File(path).renameTo(new File(fileNameq + finalNewName));
+//                                        System.out.println(b);
+                                    }
+                                });
                             }
                         } else {
                             Contains.DIALOG.showMessageDialog(this,"从" + newName + "开始，文件名太长！");
                             return;
                         }
+//                        System.out.println(fileName + "~" +newName);
                     }
                 } catch (Exception exception) {
                     Contains.DIALOG.showMessageDialog(this,exception.getMessage());
                     return;
                 }finally {
-                    thread.stopThread();
                     jButton2.setEnabled(true);
                 }
             } else {
                 Contains.DIALOG.showMessageDialog(this,"先选择一个格式！");
-                thread.stopThread();
                 jButton2.setEnabled(true);
                 return;
             }
         } else {
-            thread.stopThread();
             jButton2.setEnabled(true);
             Contains.DIALOG.showMessageDialog(this,"请先选择文件夹！");
             return;
         }
-        thread.stopThread();
     }
     private void jButton1ActionPerformed(ActionEvent e){
         new FileList(this,true);
