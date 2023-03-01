@@ -107,7 +107,7 @@ public class Contains {
 	};
 	// 定时任务头部
 	public static final String[] TASKH = new String[]{
-			"ID", "cron表达式", "执行类型", "提示消息", "程序列表", "CMD命令","注释","任务名"
+			"ID", "cron表达式", "执行类型", "提示消息", "程序列表", "CMD命令","状态","任务名"
 	};
 	// 定时任务头部
 	public static final String[] SERCHFILEHEADER = new String[]{

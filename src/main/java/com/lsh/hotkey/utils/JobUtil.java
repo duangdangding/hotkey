@@ -4,7 +4,9 @@ import com.lsh.hotkey.entry.TaskEntry;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
@@ -97,12 +99,32 @@ public class JobUtil {
 			// 绑定关系是1：N
 			Contains.scheduler.scheduleJob(jobDetail, trigger);
 			Contains.scheduler.start();
-//			Contains.DIALOG.showMessageDialog(Contains.parentWindow,"任务执行成功~");
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
 		}
 		return result;
+	}
+
+	/**
+	 * 结束所有正在运行的job 并删除task列表
+	 * @author lushao
+	 * 2023/3/1 17:49
+	 * @return void
+	 * @throws SchedulerException
+	 */
+	public static void deleteAndEndRunJob() throws SchedulerException {
+		for (String groupName : Contains.scheduler.getJobGroupNames()) {
+			for (JobKey jobKey : Contains.scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+				String jobName = jobKey.getName();
+				String jobGroup = jobKey.getGroup();
+				//get job's trigger
+				List<Trigger> triggers = (List<Trigger>) Contains.scheduler.getTriggersOfJob(jobKey);
+				Date nextFireTime = triggers.get(0).getNextFireTime();
+				System.out.println("[jobName] : " + jobName + " [groupName] : "
+						+ jobGroup + " - " + nextFireTime);
+			}
+		}
 	}
 
 }

@@ -213,28 +213,37 @@ public class SwingUtil {
 						Field field = fields[j];
 						//如果字段是私有的,那么必须要对这个字段设置
 						field.setAccessible(true);
-						method = clazz.getDeclaredMethod(ClazzUtil.getMethodName(field.getName()));
+						String fieldName = field.getName();
+						method = clazz.getDeclaredMethod(ClazzUtil.getMethodName(fieldName));
 						method.setAccessible(true);
 						o = method.invoke(data.get(i));
-						boolean b = Contains.isArray(o);
-						// 是数组对象
-						if (b) {
-							//对象转数组
-							int length = Array.getLength(o);
-							StringBuilder sb = new StringBuilder();
-							for (int k = 0; k < length; k++) {
-								Object o1 = Array.get(o, k);
-								sb.append(o1.toString());
+						if (fieldName.equals("state")) {
+							int temp = null == o ? 1 : Integer.parseInt(o.toString());
+							if (1 == temp) {
+								hks[j] = "正在运行";
+							} else {
+								hks[j] = "禁止执行";
 							}
-							//o = new String(sb.toString().getBytes(),"utf-8");
-							o = sb.toString();
+						} else {
+							boolean b = Contains.isArray(o);
+							if (b) {
+								//对象转数组
+								int length = Array.getLength(o);
+								StringBuilder sb = new StringBuilder();
+								for (int k = 0; k < length; k++) {
+									Object o1 = Array.get(o, k);
+									sb.append(o1.toString());
+								}
+								//o = new String(sb.toString().getBytes(),"utf-8");
+								o = sb.toString();
+							}
+							hks[j] = o;
 						}
-						//System.out.println(o);
-						hks[j] = o;
 					}
-					for (int j = 0; j < hks.length; j++) {
-						os[i][j] = hks[j];
-					}
+					System.arraycopy(hks, 0, os[i], 0, hks.length);
+					// for (int j = 0; j < hks.length; j++) {
+					// 	os[i][j] = hks[j];
+					// }
 				}
 				return os;
 			} catch (Exception e) {

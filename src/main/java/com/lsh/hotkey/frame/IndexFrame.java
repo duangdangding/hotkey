@@ -5,6 +5,7 @@ import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.utils.*;
 import com.melloware.jintellitype.JIntellitype;
+import org.quartz.SchedulerException;
 
 
 import javax.swing.*;
@@ -122,6 +123,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 		jButton15 = new JButton();
 		jButton16 = new JButton();
 		jButton12 = new JButton();
+		jButton19 = new JButton();
 
 		// 初始化表格数据
 		SwingUtil.tableCenter(jTable2,Contains.TASKH,SwingUtil.getTableData(Contains.TASKS));
@@ -184,6 +186,14 @@ public class IndexFrame extends JFrame implements KeyListener {
 			}
 		});
 
+		jButton19.setText("删除所有的任务");
+		jButton19.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				jButton19ActionPerformed(evt);
+			}
+		});
+
 		GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
 		jPanel5.setLayout(jPanel5Layout);
 		jPanel5Layout.setHorizontalGroup(
@@ -202,6 +212,8 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton16)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jButton12)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jButton19)
 								.addGap(0, 0, Short.MAX_VALUE))
 		);
 		jPanel5Layout.setVerticalGroup(
@@ -214,7 +226,9 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton14, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jButton15, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jButton16, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButton12, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+								.addComponent(jButton12, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButton19, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						)
 		);
 
 		GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
@@ -812,6 +826,16 @@ public class IndexFrame extends JFrame implements KeyListener {
 		}
 	}
 
+	// 结束所有的任务并删除
+	private void jButton19ActionPerformed(ActionEvent evt) {
+		try {
+			JobUtil.deleteAndEndRunJob();
+		} catch (SchedulerException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
 	private void initTaskT() {
 		SwingUtil.setValueTable(jTable2,Contains.TASKS,Contains.TASKH);
 	}
@@ -920,6 +944,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private JButton jButton16;
 	private JButton jButton17;
 	private JButton jButton18;
+	private JButton jButton19;
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JMenu jMenu1;

@@ -8,6 +8,7 @@ import com.lsh.hotkey.utils.JobUtil;
 import com.lsh.hotkey.utils.JsonUtil;
 import com.lsh.hotkey.utils.SwingUtil;
 import org.quartz.CronExpression;
+import org.quartz.SchedulerException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -552,7 +553,7 @@ public class TaskFrame extends JDialog {
 			JOptionPane.showMessageDialog(this,"任务名称不能为空~");
 		}
 		save.setExecType(type);
-		save.setComment(comment);
+		// save.setComment(comment);
 		String msg ="";
 		boolean b1 = false;
 		if (state == 2) {
@@ -631,6 +632,7 @@ public class TaskFrame extends JDialog {
     private JButton jButton2;
     private JButton jButton3;
     private JButton jButton4;
+    private JButton jButton5;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
@@ -655,7 +657,6 @@ public class TaskFrame extends JDialog {
     private JTextField jTextField6;
     private JTextField jTextField7;
 	private JTextField jTextField8;
-	private JButton jButton5;
 	private JButton jButton6;
 	private JButton jButton7;
 	private JButton jButton8;
