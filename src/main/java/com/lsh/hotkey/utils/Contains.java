@@ -1,5 +1,7 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.lsh.hotkey.entry.FilePojo;
 import com.lsh.hotkey.entry.Hotkey;
@@ -39,10 +41,10 @@ public class Contains {
 	 */
 	public static Container window = null;
 	public static Container parentWindow = null;
-	
+
 	/**
-	* 字体
-	*/
+	 * 字体
+	 */
 	public static final Font F_S_0_14 = new Font("宋体", 0, 14);
 	public static final Font F_YH_0_14 = new Font("Microsoft YaHei UI", 0, 14);
 	public static final Font F_Y_0_14 = new Font("微软雅黑", 0, 14);
@@ -53,7 +55,7 @@ public class Contains {
 	public static final Font F_S_1_18 = new Font("宋体", 1, 18);
 	public static final String SLABLE = "<html><body>";
 	public static final String ELABLE = "</body></html>";
-	
+
 	/**
 	 * 1 打开新增窗口 2 编辑窗口
 	 */
@@ -66,7 +68,7 @@ public class Contains {
 	/**
 	 * 定时任务列表
 	 */
-	public static final Map<String,TaskEntry> TASKS = new HashMap<>();
+	public static List<TaskEntry> TASKS = new ArrayList<>();
 	// 配置项
 	public static JSONObject CONFIG = new JSONObject();
 	// 用户目录
@@ -111,10 +113,10 @@ public class Contains {
 	public static final String[] SERCHFILEHEADER = new String[]{
 			"文件路径", "文件名","文件类型", "文件大小(字节)", "创建时间"
 	};
-	
+
 	private static final Base64.Decoder decoder = Base64.getDecoder();
 	private static final Base64.Encoder encoder = Base64.getEncoder();
-	
+
 	private static final int F1 = 112;
 	private static final int F2 = 113;
 	private static final int F3 = 114;
@@ -137,9 +139,9 @@ public class Contains {
 	/**
 	 * 符合条件的 file集合
 	 */
-	public static List<FilePojo> FILES; 
-	public static List<String> FILESS; 
-	
+	public static List<FilePojo> FILES;
+	public static List<String> FILESS;
+
 	/**
 	 * 判断对象是不是数组
 	 * @param obj
@@ -164,7 +166,7 @@ public class Contains {
 		}
 		return result;
 	}
-	
+
 	public static int keycode(String key) {
 		int code = 0;
 		switch (key) {
@@ -287,6 +289,61 @@ public class Contains {
 	}
 
 	/**
+	 * 执行cmd命令
+	 * @author lushao
+	 * 2023/3/1 14:42
+	 * @param command
+	 * @return void
+	 */
+	public static void exec(String command) {
+		System.out.println("开始执行任务：" + command);
+		exec(command,"");
+	}
+	public static void exec(String cmd,String tarPath) {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		if (StrUtil.isNotBlank(tarPath)) {
+			processBuilder.directory(new File(tarPath));
+		}
+
+		// 设置为 true 后，错误会和标准输出一样输出
+		processBuilder.redirectErrorStream(true);
+
+		// 构建一个命令
+		List<String> command = new ArrayList<>();
+		// 该命令的位置，可以用 which 查找
+		// command.add("cmd.exe");
+		command.add("cmd");
+		command.add("/c");
+		command.add(cmd);
+		processBuilder.command(command);
+
+		try {
+			Process process = processBuilder.start();
+			InputStream is = process.getInputStream();
+			// 使用 hutool 工具类 解析 inputStream
+//            FastByteArrayOutputStream read = IoUtil.read(is);
+			String read = IoUtil.read(is, Charset.forName("gbk"));
+			System.out.println(read);
+			// log.info(allFilename + " ：" + read);
+			is.close();
+			if(process.isAlive()){
+				process.waitFor();
+			}
+		} catch (Exception e) {
+			String message = e.getMessage();
+			if (StrUtil.isNotBlank(message)) {
+				if (message.contains("权限")) {
+					message = "没有足够的权限执行命令，请以管理员权限运行程序。。。";
+				}
+				Contains.DIALOG.showMessageDialog(Contains.parentWindow,message);
+			} else {
+				Contains.DIALOG.showMessageDialog(Contains.parentWindow,"未知错误！");
+			}
+		}
+
+	}
+
+	/**
 	 * 分组
 	 * @param listmodel
 	 * @param size
@@ -361,7 +418,7 @@ public class Contains {
 			}
 		}
 	}
-	
+
 	/**
 	 * 开机自动启动
 	 */
@@ -457,6 +514,6 @@ public class Contains {
 //		exeCMD("rename D:/test2/9fd0d135a0a4266ea19a95c216521979.jpg D:/test2/157.jpg");
 		File file = new File("D:/test2/9fd0d135a0a4266ea19a95c216521979.jpg");
 		boolean b = file.renameTo(new File("157.jpg"));
-		
+
 	}
 }

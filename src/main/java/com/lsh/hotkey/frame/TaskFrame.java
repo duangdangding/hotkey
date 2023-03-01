@@ -1,5 +1,7 @@
 package com.lsh.hotkey.frame;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.lsh.hotkey.utils.Contains;
 import com.lsh.hotkey.utils.JobUtil;
@@ -512,16 +514,16 @@ public class TaskFrame extends JDialog {
 		Contains.window = Contains.DIALOG;
 		Contains.parentWindow = this;
 		if (!b) {
-			Contains.DIALOG.showMessageDialog(this,"任务不符合规则~");
+			JOptionPane.showMessageDialog(this,"任务不符合规则~");
 			return;
 		}
-		Integer type ;
+		int type ;
 		String comment;
 		if (jRadioButton1.isSelected()) {
 			type = 1;
 			String text = jTextArea1.getText();
-			if (text == "") {
-				Contains.DIALOG.showMessageDialog(this,"消息不能为空~");
+			if (StrUtil.isBlank(text)) {
+				JOptionPane.showMessageDialog(this,"消息不能为空~");
 				return ;
 			}
 			save.setMessage(text);
@@ -529,7 +531,7 @@ public class TaskFrame extends JDialog {
 		} else if(jRadioButton2.isSelected()){
 			type = 2;
 			if (files.size() == 0) {
-				Contains.DIALOG.showMessageDialog(this,"程序列表不能为空~");
+				JOptionPane.showMessageDialog(this,"程序列表不能为空~");
 				return ;
 			}
 			save.setExecs(files.toArray(new String[files.size()]));
@@ -539,15 +541,15 @@ public class TaskFrame extends JDialog {
 			comment = "执行CMD命令";
 			String cmd = jTextField8.getText().trim();
 			if (cmd.length() == 0) {
-				Contains.DIALOG.showMessageDialog(this,"CMD命令不能为空~");
+				JOptionPane.showMessageDialog(this,"CMD命令不能为空~");
 				return ;
 			}
 			save.setCmd(cmd);
 		}
-		if (taskName.trim() !=null && taskName.trim() != "") {
+		if (StrUtil.isNotBlank(taskName)) {
 			save.setTaskName(taskName);
 		} else {
-			Contains.DIALOG.showMessageDialog(this,"任务名称不能为空~");
+			JOptionPane.showMessageDialog(this,"任务名称不能为空~");
 		}
 		save.setExecType(type);
 		save.setComment(comment);
@@ -574,8 +576,18 @@ public class TaskFrame extends JDialog {
 				msg = "修改成功~";
 			}
 		} else {
+			// 任务中 和 任务列表中不存在此任务名 才可添加成功
 			boolean existJobKey = JobUtil.isExistJobKey(taskName);
-			if (!existJobKey) {
+			boolean exsitName = false;
+			if (CollUtil.isNotEmpty(Contains.TASKS)) {
+				for (TaskEntry task : Contains.TASKS) {
+					if (taskName.equals(task.getTaskName())) {
+						exsitName = true;
+						break;
+					}
+				}
+			}
+			if (!existJobKey && !exsitName) {
 				save.setTaskId(Contains.TASKS.size());
 				Contains.TASKS.add(save);
 				boolean bsuc = JsonUtil.objectToJson(Contains.TASKS,Contains.HOTKEYROOT,Contains.TASKFILE);
@@ -602,6 +614,8 @@ public class TaskFrame extends JDialog {
 		}
 		JobUtil.bingTask(save);
 		Contains.DIALOG.showMessageDialog(this,"任务执行成功~");
+		SwingUtil.closeWindow(Contains.window);
+		SwingUtil.closeWindow(Contains.parentWindow);
 	}
 
     private ButtonGroup buttonGroup1;

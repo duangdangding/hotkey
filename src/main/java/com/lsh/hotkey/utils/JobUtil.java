@@ -63,10 +63,10 @@ public class JobUtil {
 	public static void bingTask(TaskEntry taskEntry) {
 		Integer execType = taskEntry.getExecType();
 		String taskName = taskEntry.getTaskName();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		Integer taskId = taskEntry.getTaskId();
 		if (execType == 1) {
-			sb.append("JOptionPane.showMessageDialog(Contains.mainF,\"" + taskEntry.getMessage() + "\");");
+			sb.append("JOptionPane.showMessageDialog(Contains.mainF,\"").append(taskEntry.getMessage()).append("\");");
 		} else if (execType == 2) {
 			String[] execs = taskEntry.getExecs();
 			for (int j = 0; j < execs.length; j++) {
@@ -78,8 +78,10 @@ public class JobUtil {
 		} else if (execType == 3) {
 			String cmd = taskEntry.getCmd();
 			cmd = cmd.replace("/","//").replace("\\","\\\\");
-			cmd = cmd.replace("////", "//").replace("\\\\\\\\", "\\\\");
-			sb.append("Contains.exeCMD(\"").append(cmd).append("\");");
+			System.out.println(cmd);
+			// cmd = cmd.replace("////", "//").replace("\\\\\\\\", "\\\\");
+			// System.out.println(cmd);
+			sb.append("Contains.exec(\"").append(cmd).append("\");");
 			//sb.append("JOptionPane.showMessageDialog(\"启动完成~\");");
 		}
 		try {

@@ -1,6 +1,9 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.melloware.jintellitype.HotkeyListener;
@@ -52,10 +55,10 @@ public class SwingUtil {
 	 * @param str
 	 */
 	public static void selectBox(Container ct,String str) {
-		int cron = Integer.valueOf(str);
+		int cron = Integer.parseInt(str);
 		List<JCheckBox> allJCheckBox = SwingUtil.getAllJCheckBox(ct, null);
 		for (JCheckBox jCheckBox : allJCheckBox) {
-			int num = Integer.valueOf(jCheckBox.getText());
+			int num = Integer.parseInt(jCheckBox.getText());
 			if (num == cron) {
 				jCheckBox.setSelected(true);
 				break;
@@ -121,8 +124,8 @@ public class SwingUtil {
 		//清空内容
 		//((DefaultTableModel)jTable.getModel()).getDataVector().clear();
 		DefaultTableModel model = new DefaultTableModel(null,headers);
-		int size = data.size();
-		if (!data.isEmpty() && size > 0){
+		if (CollUtil.isNotEmpty(data)){
+			int size = data.size();
 			try {
 				Object o3 = data.get(0);
 				if (o3 != null) {
@@ -218,7 +221,7 @@ public class SwingUtil {
 						if (b) {
 							//对象转数组
 							int length = Array.getLength(o);
-							StringBuffer sb = new StringBuffer();
+							StringBuilder sb = new StringBuilder();
 							for (int k = 0; k < length; k++) {
 								Object o1 = Array.get(o, k);
 								sb.append(o1.toString());
@@ -299,13 +302,19 @@ public class SwingUtil {
 	 * 读取并执行定时任务
 	 */
 	public static void readTask() throws SchedulerException {
-		Contains.TASKS = JsonUtil.jsonToObject(Contains.TASKFPATH, TaskEntry.class);
+		// Contains.TASKS = JsonUtil.jsonToObject(Contains.TASKFPATH, TaskEntry.class);
+		JSONArray array = JsonUtil.readJsonFileToJsonArray(Contains.TASKFPATH);
+		if (array.size() > 0) {
+			Contains.TASKS = JSONUtil.toList(array,TaskEntry.class);
+		}
+
 		//	执行任务
 //		Scheduler scheduler= Contains.scheduler;
-		for (int i = 0; i < Contains.TASKS.size(); i++) {
-			TaskEntry taskEntry = Contains.TASKS.get(i);
-			//	一一绑定并执行
-			JobUtil.bingTask(taskEntry);
+		if (CollUtil.isNotEmpty(Contains.TASKS)) {
+			for (TaskEntry task : Contains.TASKS) {
+				//	一一绑定并执行
+				JobUtil.bingTask(task);
+			}
 		}
 	}
 
