@@ -1,5 +1,6 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.json.JSONObject;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
 import com.melloware.jintellitype.HotkeyListener;
@@ -300,7 +301,7 @@ public class SwingUtil {
 	public static void readTask() throws SchedulerException {
 		Contains.TASKS = JsonUtil.jsonToObject(Contains.TASKFPATH, TaskEntry.class);
 		//	执行任务
-		Scheduler scheduler= Contains.scheduler;
+//		Scheduler scheduler= Contains.scheduler;
 		for (int i = 0; i < Contains.TASKS.size(); i++) {
 			TaskEntry taskEntry = Contains.TASKS.get(i);
 			//	一一绑定并执行
@@ -331,12 +332,9 @@ public class SwingUtil {
 	 * 读取配置
 	 */
 	public static void readConfig() {
-		List<Map> maps = JsonUtil.jsonToObject(Contains.JSONCONFIG, Map.class);
-		if (maps.size() > 0) {
-			Contains.CONFIG = maps.get(0);
-		}
-
-		if (Contains.CONFIG.size() == 0) {
+//		List<Map<String,Object>> maps = JsonUtil.jsonToObject(Contains.JSONCONFIG, Map.class);
+		Contains.CONFIG = JsonUtil.readJsonFileToObject(Contains.JSONCONFIG);
+		if (null == Contains.CONFIG || null == Contains.CONFIG.get("runtime")) {
 			Contains.CONFIG.put("runtime",1);
 			JsonUtil.objectToJson(Contains.CONFIG,Contains.HOTKEYROOT,Contains.CGJSONFILENAME);
 		} else {

@@ -1,5 +1,6 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.json.JSONObject;
 import com.lsh.hotkey.entry.FilePojo;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
@@ -65,9 +66,9 @@ public class Contains {
 	/**
 	 * 定时任务列表
 	 */
-	public static List<TaskEntry> TASKS = new ArrayList<>();
+	public static final Map<String,TaskEntry> TASKS = new HashMap<>();
 	// 配置项
-	public static Map CONFIG = new HashMap();
+	public static JSONObject CONFIG = new JSONObject();
 	// 用户目录
 	public static final String USERHOME = System.getProperties().getProperty("user.home") + File.separator;
 	//根目录

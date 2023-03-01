@@ -67,24 +67,25 @@ public class JobUtil {
 		Integer taskId = taskEntry.getTaskId();
 		if (execType == 1) {
 			sb.append("JOptionPane.showMessageDialog(Contains.mainF,\"" + taskEntry.getMessage() + "\");");
-		}
-		if (execType == 2) {
+		} else if (execType == 2) {
 			String[] execs = taskEntry.getExecs();
 			for (int j = 0; j < execs.length; j++) {
-				sb.append("Contains.exeCMD(\"cmd /c start " + execs[j] + "\");");
+				String exec = execs[j];
+				exec = exec.replace("/","//").replace("\\","\\\\");
+				exec = exec.replace("////", "//").replace("\\\\\\\\", "\\\\");
+				sb.append("Contains.exeCMD(\"cmd /c start ").append(exec).append("\");");
 			}
-		}
-		if (execType == 3) {
+		} else if (execType == 3) {
 			String cmd = taskEntry.getCmd();
-			sb.append("Contains.exeCMD(\""+cmd+"\");");
+			cmd = cmd.replace("/","//").replace("\\","\\\\");
+			cmd = cmd.replace("////", "//").replace("\\\\\\\\", "\\\\");
+			sb.append("Contains.exeCMD(\"").append(cmd).append("\");");
 			//sb.append("JOptionPane.showMessageDialog(\"启动完成~\");");
 		}
 		try {
 			Class clazz = ClazzUtil.testInvoke("CronJob" + taskId, sb.toString());
 			// JobDetail  
-			JobDetail jobDetail = newJob(clazz)
-					.withIdentity(taskName)
-					.build();
+			JobDetail jobDetail = newJob(clazz).withIdentity(taskName).build();
 			// Trigger
 			Trigger trigger = newTrigger()
 					.withIdentity("trigger" + taskId)

@@ -1,10 +1,10 @@
 package com.lsh.hotkey.utils;
 
+import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lsh.hotkey.entry.UserInfo;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
@@ -75,6 +75,38 @@ public class JsonUtil {
 	}
 
 	/**
+	 * 读取json文件转成JSONObject
+	 * @author lushao
+	 * 2023/3/1 13:32
+	 * @param filePath
+	 * @return cn.hutool.json.JSONObject
+	 */
+	public static cn.hutool.json.JSONObject readJsonFileToObject(String filePath) {
+		try {
+			return JSONUtil.readJSONObject(new File(filePath),StandardCharsets.UTF_8);
+		} catch (IORuntimeException e) {
+//			throw new RuntimeException(e);
+			return new cn.hutool.json.JSONObject();
+		}
+	}
+
+	/**
+	 * 读取json文件转成JSONArray
+	 * @author lushao
+	 * 2023/3/1 13:44
+	 * @param filePath
+	 * @return cn.hutool.json.JSONArray
+	 */
+	public static cn.hutool.json.JSONArray readJsonFileToJsonArray(String filePath) {
+		try {
+			return JSONUtil.readJSONArray(new File(filePath), StandardCharsets.UTF_8);
+		} catch (IORuntimeException e) {
+//			throw new RuntimeException(e);
+			return new cn.hutool.json.JSONArray();
+		}
+	}
+
+	/**
 	 * 将对象转换成json格式字符串，并写入指定文件
 	 * @param o
 	 * @param root
@@ -94,7 +126,6 @@ public class JsonUtil {
 	 *
 	 * @param jsonStr
 	 * @param root
-	 * @param file
 	 * @return
 	 */
 	public static boolean writeJsonToFile(String jsonStr, String root, String fileName) {
@@ -119,96 +150,12 @@ public class JsonUtil {
 	}
 
 	/**
-	 * 格式化JSON
-	 *
-	 * @author Anndy
-	 */
-	public static String formatJson(String jsonStr) {
-		if (null == jsonStr || "".equals(jsonStr)) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder();
-		char last = '\0';
-		char current = '\0';
-		int indent = 0;
-		boolean isInQuotationMarks = false;
-		for (int i = 0; i < jsonStr.length(); i++) {
-			last = current;
-			current = jsonStr.charAt(i);
-			switch (current) {
-				case '"':
-					if (last != '\\') {
-						isInQuotationMarks = !isInQuotationMarks;
-					}
-					sb.append(current);
-					break;
-				case '{':
-				case '[':
-					sb.append(current);
-					if (!isInQuotationMarks) {
-						sb.append('\n');
-						indent++;
-						addIndentBlank(sb, indent);
-					}
-					break;
-				case '}':
-				case ']':
-					if (!isInQuotationMarks) {
-						sb.append('\n');
-						indent--;
-						addIndentBlank(sb, indent);
-					}
-					sb.append(current);
-					break;
-				case ',':
-					sb.append(current);
-					if (last != '\\' && !isInQuotationMarks) {
-						sb.append('\n');
-						addIndentBlank(sb, indent);
-					}
-					break;
-				default:
-					sb.append(current);
-			}
-		}
-
-		return sb.toString();
-	}
-
-	/**
 	 * 添加space
 	 */
 	private static void addIndentBlank(StringBuilder sb, int indent) {
 		for (int i = 0; i < indent; i++) {
 			sb.append('\t');
 		}
-	}
-
-	/**
-	 * 读取json文件内容
-	 *
-	 * @return
-	 */
-	public static String readJson_bak() {
-		String content = "";
-		try {
-			File jsonFile = ResourceUtils.getFile("classpath:config.json");
-			content = FileUtils.readFileToString(jsonFile, "UTF-8");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return content;
-	}
-
-	/**
-	 * 读取json文件
-	 *
-	 * @return
-	 */
-	public static String readJson() {
-		return new String(toData("config.json"), StandardCharsets.UTF_8);
 	}
 
 	/**
@@ -235,23 +182,6 @@ public class JsonUtil {
 		@SuppressWarnings("unchecked")
 		List<T> ts = (List<T>) JSONArray.parseArray(jsonString, clazz);
 		return ts;
-	}
-
-	public static void main(String[] args) {
-		String filePath = "C:\\Users\\Administrator\\Desktop\\快手请求连接.txt";
-		String s = readJson(filePath);
-		System.out.println(s);
-		Object data = JSONUtil.parseObj(s).get("data");
-
-		Object userList = JSONUtil.parseObj(data).get("visionProfileUserList");
-		Object userList2 = JSONUtil.parseObj(userList).get("fols");
-//		System.out.println(userList2);
-		cn.hutool.json.JSONArray objects = JSONUtil.parseArray(userList2);
-		List<UserInfo> userInfos = jsonToList(objects.toString(), UserInfo.class);
-		for (int i = 0; i < userInfos.size(); i++) {
-			String userId = userInfos.get(i).getUserId();
-			System.out.println(userId);
-		}
 	}
 
 }
