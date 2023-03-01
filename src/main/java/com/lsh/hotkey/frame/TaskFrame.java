@@ -560,7 +560,11 @@ public class TaskFrame extends JDialog {
 			for (int i = 0; i < Contains.TASKS.size(); i++) {
 				int id = Contains.TASKS.get(i).getTaskId();
 				if(id == taskId) {
-					Contains.TASKS.remove(id);
+					try {
+						Contains.TASKS.remove(id);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(this,"任务修改失败，taskId要从0开始！请修改task.json文件~\n修改之后，关闭程序，重新打开程序~");
+					}
 				}
 			}
 			save.setTaskId(taskId);
@@ -612,10 +616,14 @@ public class TaskFrame extends JDialog {
 		if (b) {
 			JobUtil.deleteJob(save.getTaskName());
 		}
-		JobUtil.bingTask(save);
-		Contains.DIALOG.showMessageDialog(this,"任务执行成功~");
-		SwingUtil.closeWindow(Contains.window);
-		SwingUtil.closeWindow(Contains.parentWindow);
+		boolean run = JobUtil.bingTask(save);
+		if (run) {
+			Contains.DIALOG.showMessageDialog(this,"任务执行成功~");
+			SwingUtil.closeWindow(Contains.window);
+			SwingUtil.closeWindow(Contains.parentWindow);
+		} else {
+			Contains.DIALOG.showMessageDialog(this,"任务执行失败，请删除并结束所有的任务，之后重新添加！");
+		}
 	}
 
     private ButtonGroup buttonGroup1;

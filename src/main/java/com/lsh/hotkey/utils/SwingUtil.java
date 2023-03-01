@@ -311,9 +311,16 @@ public class SwingUtil {
 		//	执行任务
 //		Scheduler scheduler= Contains.scheduler;
 		if (CollUtil.isNotEmpty(Contains.TASKS)) {
+			List<String> taskName = new ArrayList<>();
 			for (TaskEntry task : Contains.TASKS) {
 				//	一一绑定并执行
-				JobUtil.bingTask(task);
+				boolean b = JobUtil.bingTask(task);
+				if (!b) {
+					taskName.add(task.getTaskName());
+				}
+			}
+			if (CollUtil.isNotEmpty(taskName)) {
+				Contains.DIALOG.showMessageDialog(Contains.parentWindow,CollUtil.join(taskName,",") + " 任务执行失败，请删除并结束所有的任务，之后重新添加！");
 			}
 		}
 	}

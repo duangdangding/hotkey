@@ -60,7 +60,8 @@ public class JobUtil {
 	 *
 	 * @param taskEntry
 	 */
-	public static void bingTask(TaskEntry taskEntry) {
+	public static boolean bingTask(TaskEntry taskEntry) {
+		boolean result = true;
 		Integer execType = taskEntry.getExecType();
 		String taskName = taskEntry.getTaskName();
 		StringBuilder sb = new StringBuilder();
@@ -96,8 +97,12 @@ public class JobUtil {
 			// 绑定关系是1：N
 			Contains.scheduler.scheduleJob(jobDetail, trigger);
 			Contains.scheduler.start();
+//			Contains.DIALOG.showMessageDialog(Contains.parentWindow,"任务执行成功~");
 		} catch (Exception e) {
 			e.printStackTrace();
+			result = false;
 		}
+		return result;
 	}
+
 }

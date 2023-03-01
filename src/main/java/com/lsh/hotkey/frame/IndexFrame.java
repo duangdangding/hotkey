@@ -789,12 +789,16 @@ public class IndexFrame extends JFrame implements KeyListener {
 				if (JobUtil.isExistJobKey(tName)) {
 					message = "任务已经启动了哦~";
 				} else {
-					String tn = "";
+//					String tn = "";
 					for (int i = 0; i < Contains.TASKS.size(); i++) {
 						TaskEntry taskEntry1 = Contains.TASKS.get(i);
 						if (tName.equals(taskEntry1.getTaskName())) {
-							JobUtil.bingTask(taskEntry1);
-							tn += tName + "，";
+							boolean b = JobUtil.bingTask(taskEntry1);
+							if (!b) {
+//								tn += tName + "，";
+//							} else {
+								message = tName+"任务启动失败~";
+							}
 							break;
 						}
 					}
