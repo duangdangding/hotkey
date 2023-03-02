@@ -359,7 +359,7 @@ public class SwingUtil {
 	public static void readConfig() {
 //		List<Map<String,Object>> maps = JsonUtil.jsonToObject(Contains.JSONCONFIG, Map.class);
 		Contains.CONFIG = JsonUtil.readJsonFileToObject(Contains.JSONCONFIG);
-		if (null == Contains.CONFIG || null == Contains.CONFIG.get("runtime")) {
+		if (null == Contains.CONFIG.get("runtime")) {
 			Contains.CONFIG.put("runtime",1);
 			JsonUtil.objectToJson(Contains.CONFIG,Contains.HOTKEYROOT,Contains.CGJSONFILENAME);
 		} else {

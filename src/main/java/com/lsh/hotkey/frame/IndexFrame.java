@@ -85,6 +85,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private static final int MAX_PROGRESS = 100;
 
 	private static int currentProgress = MIN_PROGRESS;
+	private static double screenWidth = 1920;
 	private void initComponents() {
 		jTabbedPane1 = new JTabbedPane();
 		//jButton7 = new JButton();
@@ -95,7 +96,14 @@ public class IndexFrame extends JFrame implements KeyListener {
 				jButton7ActionPerformed(evt);
 			}
 		});*/
-
+//		获取屏幕分辨率
+		try {
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			screenWidth = screenSize.getWidth();
+		} catch (HeadlessException e) {
+			screenWidth = 1920;
+		}
+//		double height = screenSize.getHeight();
 		// 补全
 		completePanel();
 		// 小工具
@@ -231,6 +239,12 @@ public class IndexFrame extends JFrame implements KeyListener {
 						)
 		);
 
+		int w = 900;
+		int h = 517;
+		if (screenWidth > 2000) {
+			w = 1200;
+			h = 517;
+		}
 		GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
 		jPanel3.setLayout(jPanel3Layout);
 		jPanel3Layout.setHorizontalGroup(
@@ -240,7 +254,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addContainerGap())
 						.addGroup(jPanel3Layout.createSequentialGroup()
-								.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 858, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, w, GroupLayout.PREFERRED_SIZE)
 								.addGap(0, 0, Short.MAX_VALUE))
 		);
 		jPanel3Layout.setVerticalGroup(
@@ -248,7 +262,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 						.addGroup(GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
 								.addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
+								.addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, h, Short.MAX_VALUE))
 		);
 		jTabbedPane1.addTab("定时任务", jPanel3);
 	}
@@ -285,6 +299,13 @@ public class IndexFrame extends JFrame implements KeyListener {
 		jLabel2 = new JLabel();
 		jLabel1.setText("当前时间：");
 
+		int w = 190;
+		int h = 600;
+		if (screenWidth > 2000) {
+			w = 400;
+			h = 800;
+		}
+		//		最大的外壳
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
@@ -292,14 +313,14 @@ public class IndexFrame extends JFrame implements KeyListener {
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(jLabel1)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, w, GroupLayout.PREFERRED_SIZE)
 								.addGap(0, 0, Short.MAX_VALUE))
 						.addComponent(jTabbedPane1, GroupLayout.Alignment.TRAILING)
 		);
 		layout.setVerticalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, 587, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jTabbedPane1, GroupLayout.PREFERRED_SIZE, h, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										.addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -463,6 +484,12 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jButton9, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
 
+		int w = 900;
+		int h = 517;
+		if (screenWidth > 2000) {
+			w = 1200;
+			h = 517;
+		}
 		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(
@@ -472,7 +499,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 								.addComponent(jPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addContainerGap())
 						.addGroup(jPanel1Layout.createSequentialGroup()
-								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 858, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, w, GroupLayout.PREFERRED_SIZE)
 								.addGap(0, 0, Short.MAX_VALUE))
 		);
 		jPanel1Layout.setVerticalGroup(
@@ -480,7 +507,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 						.addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
 								.addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
+								.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, h, Short.MAX_VALUE))
 		);
 		jTabbedPane1.addTab("补全操作", jPanel1);
 	}
@@ -844,29 +871,27 @@ public class IndexFrame extends JFrame implements KeyListener {
 	}
 
 	public void open() {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				IndexFrame win = new IndexFrame();
-				String title = "自动补全系统 "+Contains.props.getProperty("version")+" 作者：卢少";
-				win.setTitle(title);
-				//win.setTitle("自动补全系统  作者：卢少 QQ:2538808545");
-				//win.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-				//String path = ClassUtils.getDefaultClassLoader().getResource("imgs/logn.png").getPath();
-				ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
-				win.setIconImage(icon.getImage());
-				win.setResizable(false);
-				//SwingUtil.setFrameTitle(this,title,"imgs/logn.png");
-				Integer runtime = (Integer) Contains.CONFIG.get("runtime");
-				if (runtime >= 2) {
-					miniTray(win);
-				} else {
-					win.setVisible(true);
-				}
+		EventQueue.invokeLater(() -> {
+			IndexFrame win = new IndexFrame();
+			String title = "自动补全系统 "+Contains.props.getProperty("version")+" 作者：卢少";
+			win.setTitle(title);
 
-				//居中
-				win.setLocationRelativeTo(null);
+			//win.setTitle("自动补全系统  作者：卢少 QQ:2538808545");
+			//win.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			//String path = ClassUtils.getDefaultClassLoader().getResource("imgs/logn.png").getPath();
+			ImageIcon icon=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
+			win.setIconImage(icon.getImage());
+			win.setResizable(false);
+			//SwingUtil.setFrameTitle(this,title,"imgs/logn.png");
+			Integer runtime = (Integer) Contains.CONFIG.get("runtime");
+			if (runtime >= 2) {
+				miniTray(win);
+			} else {
+				win.setVisible(true);
 			}
+
+			//居中
+			win.setLocationRelativeTo(null);
 		});
 //		获取焦点
 		this.setFocusable(true);
@@ -879,26 +904,22 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private static void miniTray(JFrame mf) {
 		ImageIcon trayImg=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
 		PopupMenu pop = new PopupMenu();  //增加托盘右击菜单
-		MenuItem show = new MenuItem("还原");
+		MenuItem show = new MenuItem("open");
 		MenuItem exit = new MenuItem("exit");
 
-		show.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) { // 按下还原键
-				//tray.remove(trayIcon);
-				mf.setVisible(true);
-				//mf.setExtendedState(JFrame.NORMAL);
-				//mf.toFront();
-			}//actionPerformed
+		//actionPerformed
+		show.addActionListener(e -> { // 按下还原键
+			//tray.remove(trayIcon);
+			mf.setVisible(true);
+			//mf.setExtendedState(JFrame.NORMAL);
+			//mf.toFront();
 		});//addActionListener
 
-		exit.addActionListener(new ActionListener() { // 按下退出键
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tray.remove(trayIcon);
-				System.exit(0);
-			}//actionPerformed
-
+		// 按下退出键
+//actionPerformed
+		exit.addActionListener(e -> {
+			tray.remove(trayIcon);
+			System.exit(0);
 		});//addActionListener
 
 		pop.add(show);

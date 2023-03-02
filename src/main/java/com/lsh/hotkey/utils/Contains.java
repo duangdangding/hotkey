@@ -1,6 +1,7 @@
 package com.lsh.hotkey.utils;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.lsh.hotkey.entry.FilePojo;
@@ -493,10 +494,35 @@ public class Contains {
 	public static int timeToSecond(String time) {
 		String[] times = time.split(":");
 		int second = 0;
-		second += Integer.valueOf(times[0]) * 3600;
-		second += Integer.valueOf(times[1]) * 60;
-		second += Integer.valueOf(times[2]);
+		second += Integer.parseInt(times[0]) * 3600;
+		second += Integer.parseInt(times[1]) * 60;
+		second += Integer.parseInt(times[2]);
 		return second;
+	}
+
+	public static String completeTrime(String text) {
+		if (StrUtil.isNotBlank(text)) {
+			text = text.trim();
+			if (NumberUtil.isInteger(text)) {
+				return zeroFill(2,text);
+			} else {
+				return text;
+			}
+
+		}
+		return "";
+	}
+
+	/**
+	 * 补零操作
+	 * @author lushao
+	 * 2023/3/2 10:57
+	 * @param some
+	 * @param num
+	 * @return String
+	 */
+	public static String zeroFill(int some,String num) {
+		return String.format("%0" + some + "d",num);
 	}
 
 	public static void main(String[] args) {

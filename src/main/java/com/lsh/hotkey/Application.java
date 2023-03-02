@@ -70,14 +70,15 @@ public class Application {
 		Contains.mainF = indexFrame;
 		indexFrame.open();
 		// JFrame全局热键ESC关闭当前打开的窗口
-		Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
-			@Override
-			public void eventDispatched(AWTEvent event) {
-				if (((KeyEvent) event).getID() == KeyEvent.KEY_PRESSED) {
+		Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
+			if (event.getID() == KeyEvent.KEY_PRESSED) {
 //放入自己的键盘监听事件
 //((KeyEvent) event).getKeyCode();// 获取按键的code
 //((KeyEvent) event).getKeyChar();// 获取按键的字符
-					if (((KeyEvent) event).getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if (((KeyEvent) event).getKeyCode() == KeyEvent.VK_ESCAPE) {
+					Integer runtime = (Integer) Contains.CONFIG.get("runtime");
+//						防止第一个消失
+					if (runtime > 2) {
 						SwingUtil.closeWindow(Contains.window);
 					}
 				}

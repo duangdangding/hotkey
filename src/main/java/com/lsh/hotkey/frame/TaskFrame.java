@@ -502,11 +502,17 @@ public class TaskFrame extends JDialog {
 	// 保存任务
 	private void jButton3ActionPerformed(ActionEvent evt) {
 		String weekend = jTextField2.getText();
+		weekend = Contains.completeTrime(weekend);
 		String month = jTextField3.getText();
+		month = Contains.completeTrime(month);
 		String day = jTextField4.getText();
+		day = Contains.completeTrime(day);
 		String hours = jTextField5.getText();
+		hours = Contains.completeTrime(hours);
 		String minute = jTextField6.getText();
+		minute = Contains.completeTrime(minute);
 		String second = jTextField7.getText();
+		second = Contains.completeTrime(second);
 		String taskName = jTextField1.getText();
 		String space = " ";
 		String cron = second + space + minute + space + hours + space + day + space + month + space + weekend;
