@@ -911,11 +911,11 @@ public class IndexFrame extends JFrame implements KeyListener {
 		MenuItem show = new MenuItem("打开窗口");
 		MenuItem exit = new MenuItem("退出程序");
 		if (screenWidth >= 2000) {
-			show.setFont(Contains.F_Y_0_16);
-			exit.setFont(Contains.F_Y_0_16);
+			show.setFont(Contains.YH_1_18_B);
+			exit.setFont(Contains.YH_1_18_B);
 		} else {
-			show.setFont(Contains.F_Y_0_14);
-			exit.setFont(Contains.F_Y_0_14);
+			show.setFont(Contains.YH_B_14);
+			exit.setFont(Contains.YH_B_14);
 		}
 
 		//actionPerformed
