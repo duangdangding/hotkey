@@ -50,6 +50,7 @@ public class Contains {
 	public static final Font F_YH_0_14 = new Font("Microsoft YaHei UI", 0, 14);
 	public static final Font F_Y_0_14 = new Font("微软雅黑", 0, 14);
 	public static final Font YH_B_14 = new Font("微软雅黑", Font.BOLD, 14);
+	public static final Font YH_B_12 = new Font("微软雅黑", Font.BOLD, 12);
 	public static final Font F_S_1_14 = new Font("宋体", 1, 14);
 	public static final Font F_S_0_16 = new Font("宋体", 0, 16);
 	public static final Font F_Y_0_16 = new Font("微软雅黑", 0, 16);

@@ -914,8 +914,8 @@ public class IndexFrame extends JFrame implements KeyListener {
 			show.setFont(Contains.YH_1_18_B);
 			exit.setFont(Contains.YH_1_18_B);
 		} else {
-			show.setFont(Contains.YH_B_14);
-			exit.setFont(Contains.YH_B_14);
+			show.setFont(Contains.YH_B_12);
+			exit.setFont(Contains.YH_B_12);
 		}
 
 		//actionPerformed
