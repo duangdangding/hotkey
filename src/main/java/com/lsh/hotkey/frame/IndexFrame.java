@@ -1,5 +1,8 @@
 package com.lsh.hotkey.frame;
 
+import cn.hutool.core.text.UnicodeUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
 import com.lsh.hotkey.entry.ExcelData;
 import com.lsh.hotkey.entry.Hotkey;
 import com.lsh.hotkey.entry.TaskEntry;
@@ -81,10 +84,10 @@ public class IndexFrame extends JFrame implements KeyListener {
 		});
 		timeAction.start();
 	}
-	private static final int MIN_PROGRESS = 0;
-	private static final int MAX_PROGRESS = 100;
+	// private static final int MIN_PROGRESS = 0;
+	// private static final int MAX_PROGRESS = 100;
 
-	private static int currentProgress = MIN_PROGRESS;
+	// private static int currentProgress = MIN_PROGRESS;
 	private static double screenWidth = 1920;
 	private void initComponents() {
 		jTabbedPane1 = new JTabbedPane();
@@ -241,7 +244,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 		int w = 900;
 		int h = 517;
-		if (screenWidth > 2000) {
+		if (screenWidth >= 2000) {
 			w = 1200;
 			h = 517;
 		}
@@ -301,7 +304,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 		int w = 190;
 		int h = 600;
-		if (screenWidth > 2000) {
+		if (screenWidth >= 2000) {
 			w = 400;
 			h = 800;
 		}
@@ -486,7 +489,7 @@ public class IndexFrame extends JFrame implements KeyListener {
 
 		int w = 900;
 		int h = 517;
-		if (screenWidth > 2000) {
+		if (screenWidth >= 2000) {
 			w = 1200;
 			h = 517;
 		}
@@ -904,8 +907,16 @@ public class IndexFrame extends JFrame implements KeyListener {
 	private static void miniTray(JFrame mf) {
 		ImageIcon trayImg=new ImageIcon(JsonUtil.toData("imgs/logn.png"),"");
 		PopupMenu pop = new PopupMenu();  //增加托盘右击菜单
-		MenuItem show = new MenuItem("open");
-		MenuItem exit = new MenuItem("exit");
+		// String a = CharsetUtil.convert("打开窗口", CharsetUtil.CHARSET_UTF_8, "gb2312");
+		MenuItem show = new MenuItem("打开窗口");
+		MenuItem exit = new MenuItem("退出程序");
+		if (screenWidth >= 2000) {
+			show.setFont(Contains.F_Y_0_16);
+			exit.setFont(Contains.F_Y_0_16);
+		} else {
+			show.setFont(Contains.F_Y_0_14);
+			exit.setFont(Contains.F_Y_0_14);
+		}
 
 		//actionPerformed
 		show.addActionListener(e -> { // 按下还原键
